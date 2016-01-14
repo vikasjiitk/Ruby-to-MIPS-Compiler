@@ -1,20 +1,22 @@
 import ply.lex as lex
 
 keywords = [
-'KEYWORD_alias','KEYWORD_and','KEYWORD_BEGIN','KEYWORD_begin','KEYWORD_break','KEYWORD_case','KEYWORD_class','KEYWORD_def','KEYWORD_defined?','KEYWORD_do',
+'KEYWORD_alia',
+'KEYWORD_alias','KEYWORD_and','KEYWORD_BEGIN','KEYWORD_begin','KEYWORD_break','KEYWORD_case','KEYWORD_class','KEYWORD_def','KEYWORD_definedQ','KEYWORD_do',
 'KEYWORD_else','KEYWORD_elsif','KEYWORD_END','KEYWORD_end','KEYWORD_ensure','KEYWORD_false','KEYWORD_for','KEYWORD_if','KEYWORD_in','KEYWORD_module','KEYWORD_next',
 'KEYWORD_nil','KEYWORD_not','KEYWORD_or','KEYWORD_redo','KEYWORD_rescue','KEYWORD_retry','KEYWORD_return','KEYWORD_self','KEYWORD_super','KEYWORD_then',
-'KEYWORD_true','KEYWORD_undef','KEYWORD_unless','KEYWORD_until','KEYWORD_when','KEYWORD_while','KEYWORD_yield','KEYWORD___ENCODING__','KEYWORD___END__','KEYWORD___FILE__','KEYWORD___LINE__'
+'KEYWORD_true','KEYWORD_undef','KEYWORD_unless','KEYWORD_until','KEYWORD_when','KEYWORD_while','KEYWORD_yield','KEYWORD___ENCODING__','KEYWORD___END__',
+'KEYWORD___FILE__','KEYWORD___LINE__'
 ]
 
 operators = [
-	# +,-,*,/,%,&,|,^ ,!,~,=,**,<<,>>,==,===, !=, <=>, >=, >, <,<=,%=,/=,-=, +=,*=,**=,..,...,not,and,or,?:, &&, ||
+	# +,-,*,/,%,&,|,^ ,!,~,=,**,<<,>>,==,===, !=, <=>, >=, >, <,<=,%=,/=,-=, +=,*=,**=,.,..,...,not,and,or,?:, &&, ||
     'PLUS', 'MINUS', 'MULTIPLY', 'DIV', 'MOD',
     'BITAND', 'BITOR', 'BITXOR', 'BITNOT', 'BITCOMP', 'EQUAL',
     'DOUBLESTAR' , 'SHIFTL', 'SHIFTR', 'DOUBLEEQUAL', 'TRIPLEEQUAL',
     'NOTEQUAL', 'IFF', 'GREATEREQUAL', 'GREATER', 'LESS',
     'LESSEQUAL', 'MODEQUAL', 'DIVEQUAL', 'MINUSEQUAL','PLUSEQUAL',
-    'MULTIPLYEQUAL','DOUBLESTAREQUAL', 'DOUBLEDOT','TRIPLEDOT',
+    'MULTIPLYEQUAL','DOUBLESTAREQUAL', 'DOT', 'DOUBLEDOT','TRIPLEDOT',
     'NOT','AND','OR','QUESTIONCOLON','LOGICALAND','LOGICALOR' 
 ]
 
@@ -28,8 +30,11 @@ identifiers = [
     'CONSTANTS','VARIABLES','SIGIL_AT','SIGIL_DOUBLE_AT','SIGIL_DOLLAR'
 ]
 
-tokens = keywords + operators + delimeters + identifiers
+constants = [
+	'INT_CONSTANTS','FLOAT_CONSTANTS', 'STRING_CONSTANTS', 'CHAR_CONSTANTS', 'BOOLEAN_CONSTANTS'
+]
 
+tokens = keywords + operators + delimiters + identifiers + constants
 
 # Operators
 t_PLUS=r'\+'
@@ -60,6 +65,7 @@ t_MINUSEQUAL=r'-='
 t_PLUSEQUAL=r'\+='
 t_MULTIPLYEQUAL=r'\*='
 t_DOUBLESTAREQUAL=r'\*\*='
+t_DOT=r'\.'
 t_DOUBLEDOT=r'\.\.'
 t_TRIPLEDOT=r'\.\.\.'
 t_NOT=r'not'
@@ -102,6 +108,14 @@ def t_SIGIL_DOLLAR(t):
     t.type = reserved_map.get(t.value,"SIGIL_DOLLAR")
     return t
 
+#constants
+
+t_INT_CONSTANTS = r'[0-9]+'
+t_FLOAT_CONSTANTS = r'[0-9]+\.[0-9]+'
+t_STRING_CONSTANTS = r'".*"'
+t_CHAR_CONSTANTS = r"'.'"
+t_BOOLEAN_CONSTANTS = r'TRUE|FALSE'
+
 #delimeters
 t_OPEN_BRACKET         = r'\['
 t_CLOSE_BRACKET         = r'\]'
@@ -120,6 +134,10 @@ def t_newline(t):
 # A string containing ignored characters (spaces and tabs)
 t_ignore  = ' \t'
 
+#comments
+
+t_ignore_COMMENT = r'\#.* | =begin(.|\n)*=end'
+
 # Error handling rule
 def t_error(t):
     print("Illegal character '%s'" % t.value[0])
@@ -129,7 +147,7 @@ def t_error(t):
 lexer = lex.lex()
 
 # Test it out
-data = 'alias + alj ='
+data = "var568++vari + 345 45.6 'a' \n {hello [sjhf]} \n =begin \n ilsj kdoi \n eniaoj =end shfusk DATE.PARSE('A')"
 
 # Give the lexer some input
 lexer.input(data)
