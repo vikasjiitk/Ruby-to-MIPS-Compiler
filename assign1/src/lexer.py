@@ -14,15 +14,22 @@ operators = [
     'DOUBLESTAR' , 'SHIFTL', 'SHIFTR', 'DOUBLEEQUAL', 'TRIPLEEQUAL',
     'NOTEQUAL', 'IFF', 'GREATEREQUAL', 'GREATER', 'LESS',
     'LESSEQUAL', 'MODEQUAL', 'DIVEQUAL', 'MINUSEQUAL','PLUSEQUAL',
-    'MULTIPLYEQUAL','DOUBLESTAREQUAL', 'DOUBLEDOT',TRIPLEDOT,
+    'MULTIPLYEQUAL','DOUBLESTAREQUAL', 'DOUBLEDOT','TRIPLEDOT',
     'NOT','AND','OR','QUESTIONCOLON','LOGICALAND','LOGICALOR' 
+]
+
+delimiters=[
+    # [,],{,},(,), , ,;,',"
+    'OPEN_BRACKET','CLOSE_BRACKET','BLOCK_BEGIN','BLOCK_END',
+    'OPEN_PAREN', 'CLOSE_PAREN','COMMA','DELIM','SQUOTES','DQUOTES'
+
 ]
 
 identifiers = [
     'IDENTIFIER'
 ]
 
-tokens = keywords + operators + identifiers
+tokens = keywords + operators + delimeters + identifiers
 
 
 # Operators
@@ -73,6 +80,16 @@ def t_IDENTIFIER(t):
     r'@?[A-Za-z_][\w_]*'
     t.type = reserved_map.get(t.value,"IDENTIFIER")
     return t
+
+#delimeters
+t_OPEN_BRACKET         = r'\['
+t_CLOSE_BRACKET         = r'\]'
+t_BLOCK_BEGIN           = r'\{'
+t_BLOCK_END           = r'\}'
+t_OPEN_PAREN           = r'\('
+t_CLOSE_PAREN           = r'\)'
+t_COMMA            = r','
+t_DELIM             = r';'
 
 #newline
 def t_newline(t):
