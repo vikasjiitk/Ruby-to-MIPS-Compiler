@@ -8,9 +8,14 @@ keywords = [
 ]
 
 operators = [
-	# +,-,*,/,%,&,|,^ ,!,~,=
-    'PLUS', 'MINUS', 'TIMES', 'DIV', 'MOD',
-    'BITAND', 'BITOR', 'BITXOR', 'BITNOT', 'BITCOMP', 'EQUAL'
+	# +,-,*,/,%,&,|,^ ,!,~,=,**,<<,>>,==,===, !=, <=>, >=, >, <,<=,%=,/=,-=, +=,*=,**=,..,...,not,and,or,?:, &&, ||
+    'PLUS', 'MINUS', 'MULTIPLY', 'DIV', 'MOD',
+    'BITAND', 'BITOR', 'BITXOR', 'BITNOT', 'BITCOMP', 'EQUAL',
+    'DOUBLESTAR' , 'SHIFTL', 'SHIFTR', 'DOUBLEEQUAL', 'TRIPLEEQUAL',
+    'NOTEQUAL', 'IFF', 'GREATEREQUAL', 'GREATER', 'LESS',
+    'LESSEQUAL', 'MODEQUAL', 'DIVEQUAL', 'MINUSEQUAL','PLUSEQUAL',
+    'MULTIPLYEQUAL','DOUBLESTAREQUAL', 'DOUBLEDOT',TRIPLEDOT,
+    'NOT','AND','OR','QUESTIONCOLON','LOGICALAND','LOGICALOR' 
 ]
 
 identifiers = [
@@ -19,27 +24,46 @@ identifiers = [
 
 tokens = keywords + operators + identifiers
 
-#keywords
-
-t_KEYWORD_alias = r'alias'
-t_KEYWORD_and = r'and'
-t_KEYWORD_BEGIN = r'BEGIN'
-t_KEYWORD_begin = r'begin'
-t_KEYWORD_break = r'break'
-t_KEYWORD_case = r'case'
 
 # Operators
-t_PLUS             = r'\+'
-t_MINUS            = r'-'
-t_TIMES            = r'\*'
-t_DIV              = r'/'
-t_MOD              = r'%'
-t_BITAND           = r'&'
-t_BITOR            = r'\|'
-t_BITXOR           = r'\^'
-t_BITCOMP          = r'~'
-t_BITNOT           = r'!'
-t_EQUAL            = r'='
+t_PLUS=r'\+'
+t_MINUS=r'-'
+t_MULTIPLY=r'\*'
+t_DIV=r'/'
+t_MOD=r'%'
+t_BITAND=r'&'
+t_BITOR=r'\|'
+t_BITXOR=r'\^'
+t_BITNOT=r'!'
+t_BITCOMP=r'~'
+t_EQUAL=r'='
+t_DOUBLESTAR=r'\*\*'
+t_SHIFTL=r'<<'
+t_SHIFTR=r'>>'
+t_DOUBLEEQUAL=r'=='
+t_TRIPLEEQUAL=r'==='
+t_NOTEQUAL=r'!='
+t_IFF=r'<=>'
+t_GREATEREQUAL=r'>='
+t_GREATER=r'>'
+t_LESS=r'<'
+t_LESSEQUAL=r'<='
+t_MODEQUAL=r'%='
+t_DIVEQUAL=r'/='
+t_MINUSEQUAL=r'-='
+t_PLUSEQUAL=r'\+='
+t_MULTIPLYEQUAL=r'\*='
+t_DOUBLESTAREQUAL=r'\*\*='
+t_DOUBLEDOT=r'\.\.'
+t_TRIPLEDOT=r'\.\.\.'
+t_NOT=r'not'
+t_AND=r'and'
+t_OR=r'or'
+t_QUESTIONCOLON=r'\?:'
+t_LOGICALAND=r'&&'
+t_LOGICALOR=r'\|\|'
+
+#keywords
 
 reserved_map = { }
 for r in keywords:
