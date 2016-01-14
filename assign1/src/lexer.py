@@ -22,11 +22,10 @@ delimiters=[
     # [,],{,},(,), , ,;,',"
     'OPEN_BRACKET','CLOSE_BRACKET','BLOCK_BEGIN','BLOCK_END',
     'OPEN_PAREN', 'CLOSE_PAREN','COMMA','DELIM','SQUOTES','DQUOTES'
-
 ]
 
 identifiers = [
-    'IDENTIFIER'
+    'CONSTANTS','VARIABLES','SIGIL_AT','SIGIL_DOUBLE_AT','SIGIL_DOLLAR'
 ]
 
 tokens = keywords + operators + delimeters + identifiers
@@ -76,9 +75,31 @@ reserved_map = { }
 for r in keywords:
     reserved_map[ r[8:] ] = r
 
-def t_IDENTIFIER(t):
-    r'@?[A-Za-z_][\w_]*'
-    t.type = reserved_map.get(t.value,"IDENTIFIER")
+#identifiers
+
+def t_CONSTANTS(t):
+    r'[A-Z][\w_]*'
+    t.type = reserved_map.get(t.value,"CONSTANTS")
+    return t
+
+def t_VARIABLES(t):
+    r'[A-Za-z_][\w_]*'
+    t.type = reserved_map.get(t.value,"VARIABLES")
+    return t
+
+def t_SIGIL_AT(t):
+    r'@[A-Za-z_][\w_]*'
+    t.type = reserved_map.get(t.value,"SIGIL_AT")
+    return t
+
+def t_SIGIL_DOUBLE_AT(t):
+    r'@@[A-Za-z_][\w_]*'
+    t.type = reserved_map.get(t.value,"SIGIL_DOUBLE_AT")
+    return t
+
+def t_SIGIL_DOLLAR(t):
+    r'$[A-Za-z_][\w_]*'
+    t.type = reserved_map.get(t.value,"SIGIL_DOLLAR")
     return t
 
 #delimeters
