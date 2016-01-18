@@ -1,8 +1,7 @@
 #!/usr/bin/python
 import ply.lex as lex
-
+import sys
 keywords = [
-'KEYWORD_alia',
 'KEYWORD_alias','KEYWORD_and','KEYWORD_BEGIN','KEYWORD_begin','KEYWORD_break','KEYWORD_case','KEYWORD_class','KEYWORD_def','KEYWORD_definedQ','KEYWORD_do',
 'KEYWORD_else','KEYWORD_elsif','KEYWORD_END','KEYWORD_end','KEYWORD_ensure','KEYWORD_false','KEYWORD_for','KEYWORD_if','KEYWORD_in','KEYWORD_module','KEYWORD_next',
 'KEYWORD_nil','KEYWORD_not','KEYWORD_or','KEYWORD_redo','KEYWORD_rescue','KEYWORD_retry','KEYWORD_return','KEYWORD_self','KEYWORD_super','KEYWORD_then',
@@ -13,7 +12,7 @@ keywords = [
 operators = [
 	# +,-,*,/,%,&,|,^ ,!,~,=,**,<<,>>,==,===, !=, <=>, >=, >, <,<=,%=,/=,-=, +=,*=,**=,.,..,...,not,and,or,?:, &&, ||
     'PLUS', 'MINUS', 'MULTIPLY', 'DIV', 'MOD',
-    'BITAND', 'BITOR', 'BITXOR', 'BITNOT', 'BITCOMP', 'EQUAL',
+    'BITAND', 'PIPE', 'BITXOR', 'BITNOT', 'BITCOMP', 'EQUAL',
     'DOUBLESTAR' , 'SHIFTL', 'SHIFTR', 'DOUBLEEQUAL', 'TRIPLEEQUAL',
     'NOTEQUAL', 'IFF', 'GREATEREQUAL', 'GREATER', 'LESS',
     'LESSEQUAL', 'MODEQUAL', 'DIVEQUAL', 'MINUSEQUAL','PLUSEQUAL',
@@ -34,8 +33,10 @@ identifiers = [
 constants = [
 	'INT_CONSTANTS','FLOAT_CONSTANTS', 'STRING_CONSTANTS', 'CHAR_CONSTANTS', 'BOOLEAN_CONSTANTS'
 ]
-
-tokens = keywords + operators + delimiters + identifiers + constants
+symbols = [ # ?, \, $ , :, ::
+	'QUESTION_MARK','BACK_SLASH','DOLLAR','COLON', 'DOUBLE_COLON'   
+]
+tokens = keywords + operators + delimiters + identifiers + constants +symbols
 
 # Operators
 t_PLUS=r'\+'
@@ -44,7 +45,7 @@ t_MULTIPLY=r'\*'
 t_DIV=r'/'
 t_MOD=r'%'
 t_BITAND=r'&'
-t_BITOR=r'\|'
+t_PIPE=r'\|'
 t_BITXOR=r'\^'
 t_BITNOT=r'!'
 t_BITCOMP=r'~'
@@ -75,6 +76,13 @@ t_OR=r'or'
 t_QUESTIONCOLON=r'\?:'
 t_LOGICALAND=r'&&'
 t_LOGICALOR=r'\|\|'
+
+#symbols
+t_QUESTION_MARK=r'\?'
+t_DOLLAR=r'\$'
+t_BACK_SLASH=r'\\'
+t_COLON=r':'
+t_DOUBLE_COLON = r'::'
 
 #keywords
 
@@ -113,7 +121,7 @@ def t_SIGIL_DOLLAR(t):
 
 t_INT_CONSTANTS = r'[0-9]+'
 t_FLOAT_CONSTANTS = r'[0-9]+\.[0-9]+'
-t_STRING_CONSTANTS = r'".*"'
+t_STRING_CONSTANTS = r'"([^\\\"]+|\\.)*"| \'([^\\\']+|\\.)*\''
 t_CHAR_CONSTANTS = r"'.'"
 t_BOOLEAN_CONSTANTS = r'TRUE|FALSE'
 
@@ -148,16 +156,38 @@ def t_error(t):
 lexer = lex.lex()
 
 # Test it out
-data = "var568++vari + 345 45.6 'a' \n {hello [sjhf]} \n =begin \n ilsj kdoi \n eniaoj =end shfusk DATE.PARSE('A')"
-
+filename = sys.argv[1]
+f = open(filename,'r')
+inputArray = f.readlines()
+f.close()
+data = ""
+for i in range(0,len(inputArray)):
+	data = data + inputArray[i] 
 # Give the lexer some input
 lexer.input(data)
-
 # Tokenize
+output = []
+i = -1
 while True:
+    found = 0
     tok = lexer.token()
     if not tok: 
         break      # No more input
-    print(tok)
+    for i in range(0,len(output)):	
+	if output[i][0] == tok.type:
+		output[i][1] = output[i][1] + 1
+		output[i].append(tok.value)
+		found = 1
+		break
+    if i==len(output)-1 and not(found):
+	output.append([tok.type,1,tok.value])
+    #print(tok)
+print "Token".ljust(25)+"Occurrences".ljust(15)+"Lexemes\n"
+for i in range(0,len(output)):
+	print output[i][0].ljust(25) + str(output[i][1]).ljust(15) + output[i][2]
+	if output[i][0] in (identifiers + constants):
+		for j in range(3,len(output[i])):
+			print "\t\t\t\t\t"+output[i][j]
+
 
 

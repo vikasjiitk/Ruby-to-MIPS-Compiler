@@ -33,8 +33,10 @@ identifiers = [
 constants = [
 	'INT_CONSTANTS','FLOAT_CONSTANTS', 'STRING_CONSTANTS', 'CHAR_CONSTANTS', 'BOOLEAN_CONSTANTS'
 ]
-
-tokens = keywords + operators + delimiters + identifiers + constants
+symbols = [ # ?, \, $ , :, ::
+	'QUESTION_MARK','BACK_SLASH','DOLLAR','COLON', 'DOUBLE_COLON'   
+]
+tokens = keywords + operators + delimiters + identifiers + constants +symbols
 
 # Operators
 t_PLUS=r'\+'
@@ -75,16 +77,18 @@ t_QUESTIONCOLON=r'\?:'
 t_LOGICALAND=r'&&'
 t_LOGICALOR=r'\|\|'
 
+#symbols
+t_QUESTION_MARK=r'\?'
+t_DOLLAR=r'\$'
+t_BACK_SLASH=r'\\'
+t_COLON=r':'
+t_DOUBLE_COLON = r'::'
+
 #keywords
 
 reserved_map = { }
 for r in keywords:
-    if r[8:]=="definedQ":
-	print "in if"
-	reserved_map[ 'defined?' ] = r
-    else:
-	print "in else"
-    	reserved_map[ r[8:] ] = r
+    reserved_map[ r[8:] ] = r
 
 #identifiers
 
@@ -117,7 +121,7 @@ def t_SIGIL_DOLLAR(t):
 
 t_INT_CONSTANTS = r'[0-9]+'
 t_FLOAT_CONSTANTS = r'[0-9]+\.[0-9]+'
-t_STRING_CONSTANTS = r'".*"'
+t_STRING_CONSTANTS = r'"([^\\\"]+|\\.)*"| \'([^\\\']+|\\.)*\''
 t_CHAR_CONSTANTS = r"'.'"
 t_BOOLEAN_CONSTANTS = r'TRUE|FALSE'
 
@@ -177,13 +181,13 @@ while True:
 		break
     if i==len(output)-1 and not(found):
 	output.append([tok.type,1,tok.value])
-    print(tok)
+    #print(tok)
 print "Token".ljust(25)+"Occurrences".ljust(15)+"Lexemes\n"
 for i in range(0,len(output)):
 	print output[i][0].ljust(25) + str(output[i][1]).ljust(15) + output[i][2]
-	for j in range(3,len(output[i])):
-		print "\t\t\t\t\t"+output[i][j]
+	if output[i][0] in (identifiers + constants):
+		for j in range(3,len(output[i])):
+			print "\t\t\t\t\t"+output[i][j]
 
-#print output
 
 
