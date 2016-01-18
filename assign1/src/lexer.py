@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import ply.lex as lex
-
+import sys
 keywords = [
 'KEYWORD_alia',
 'KEYWORD_alias','KEYWORD_and','KEYWORD_BEGIN','KEYWORD_begin','KEYWORD_break','KEYWORD_case','KEYWORD_class','KEYWORD_def','KEYWORD_definedQ','KEYWORD_do',
@@ -148,11 +148,15 @@ def t_error(t):
 lexer = lex.lex()
 
 # Test it out
-data = "var568++vari + 345 45.6 'a' \n {hello [sjhf]} \n =begin \n ilsj kdoi \n eniaoj =end shfusk DATE.PARSE('A')"
-
+filename = sys.argv[1]
+f = open(filename,'r')
+inputArray = f.readlines()
+f.close()
+data = ""
+for i in range(0,len(inputArray)):
+	data = data + inputArray[i] 
 # Give the lexer some input
 lexer.input(data)
-
 # Tokenize
 while True:
     tok = lexer.token()
