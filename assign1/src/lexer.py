@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import ply.lex as lex
 
 keywords = [
