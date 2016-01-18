@@ -2,7 +2,6 @@
 import ply.lex as lex
 import sys
 keywords = [
-'KEYWORD_alia',
 'KEYWORD_alias','KEYWORD_and','KEYWORD_BEGIN','KEYWORD_begin','KEYWORD_break','KEYWORD_case','KEYWORD_class','KEYWORD_def','KEYWORD_definedQ','KEYWORD_do',
 'KEYWORD_else','KEYWORD_elsif','KEYWORD_END','KEYWORD_end','KEYWORD_ensure','KEYWORD_false','KEYWORD_for','KEYWORD_if','KEYWORD_in','KEYWORD_module','KEYWORD_next',
 'KEYWORD_nil','KEYWORD_not','KEYWORD_or','KEYWORD_redo','KEYWORD_rescue','KEYWORD_retry','KEYWORD_return','KEYWORD_self','KEYWORD_super','KEYWORD_then',
@@ -13,7 +12,7 @@ keywords = [
 operators = [
 	# +,-,*,/,%,&,|,^ ,!,~,=,**,<<,>>,==,===, !=, <=>, >=, >, <,<=,%=,/=,-=, +=,*=,**=,.,..,...,not,and,or,?:, &&, ||
     'PLUS', 'MINUS', 'MULTIPLY', 'DIV', 'MOD',
-    'BITAND', 'BITOR', 'BITXOR', 'BITNOT', 'BITCOMP', 'EQUAL',
+    'BITAND', 'PIPE', 'BITXOR', 'BITNOT', 'BITCOMP', 'EQUAL',
     'DOUBLESTAR' , 'SHIFTL', 'SHIFTR', 'DOUBLEEQUAL', 'TRIPLEEQUAL',
     'NOTEQUAL', 'IFF', 'GREATEREQUAL', 'GREATER', 'LESS',
     'LESSEQUAL', 'MODEQUAL', 'DIVEQUAL', 'MINUSEQUAL','PLUSEQUAL',
@@ -44,7 +43,7 @@ t_MULTIPLY=r'\*'
 t_DIV=r'/'
 t_MOD=r'%'
 t_BITAND=r'&'
-t_BITOR=r'\|'
+t_PIPE=r'\|'
 t_BITXOR=r'\^'
 t_BITNOT=r'!'
 t_BITCOMP=r'~'
@@ -80,7 +79,12 @@ t_LOGICALOR=r'\|\|'
 
 reserved_map = { }
 for r in keywords:
-    reserved_map[ r[8:] ] = r
+    if r[8:]=="definedQ":
+	print "in if"
+	reserved_map[ 'defined?' ] = r
+    else:
+	print "in else"
+    	reserved_map[ r[8:] ] = r
 
 #identifiers
 
@@ -158,10 +162,28 @@ for i in range(0,len(inputArray)):
 # Give the lexer some input
 lexer.input(data)
 # Tokenize
+output = []
+i = -1
 while True:
+    found = 0
     tok = lexer.token()
     if not tok: 
         break      # No more input
+    for i in range(0,len(output)):	
+	if output[i][0] == tok.type:
+		output[i][1] = output[i][1] + 1
+		output[i].append(tok.value)
+		found = 1
+		break
+    if i==len(output)-1 and not(found):
+	output.append([tok.type,1,tok.value])
     print(tok)
+print "Token".ljust(25)+"Occurrences".ljust(15)+"Lexemes\n"
+for i in range(0,len(output)):
+	print output[i][0].ljust(25) + str(output[i][1]).ljust(15) + output[i][2]
+	for j in range(3,len(output[i])):
+		print "\t\t\t\t\t"+output[i][j]
+
+#print output
 
 
