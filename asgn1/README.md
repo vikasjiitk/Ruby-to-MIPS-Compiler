@@ -1,11 +1,6 @@
 Compiler Assignment 1 - Lexing
 ====== 
 January 18, 2016  
-Group Members:  
-	* Aayush Dhir  
-	* Chilukuri Krishna Bharath Reddy  
-	* Janish Jindal  
-	* Vikas Jain
 
 Description
 -----------
