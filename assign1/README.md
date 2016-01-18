@@ -2,10 +2,10 @@ Compiler Assignment 1 - Lexing
 ====== 
 January 18, 2016  
 Group Members:  
-* Aayush Dhir
-* Chilukuri Krishna Bharath Reddy
-* Janish Jindal
-* Vikas Jain
+	* Aayush Dhir  
+	* Chilukuri Krishna Bharath Reddy  
+	* Janish Jindal  
+	* Vikas Jain
 
 Description
 -----------
@@ -17,8 +17,9 @@ Input files in test/ folder. Run the following commands for execution.
 ```
 cd asgn1  
 make  
-bin/lexer test  
+bin/lexer test/test1.rb  
 ```
+After execution, run the command
 ```
 make clean
 ```
