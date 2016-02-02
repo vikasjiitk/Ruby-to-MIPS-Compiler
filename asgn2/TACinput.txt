@@ -1,0 +1,19 @@
+1, =, a, 2
+2, +, a, a, b
+3, -, a, a, b
+4, *, a, a, b
+5, /, a, a, b
+6, %, a, a, b
+7, *=, a
+8, ifgoto, leq, a, 50, 2
+9, ifgoto, geq, and, leq, a, b, 50, 20, 2
+10, ifgoto, geq, or, leq, a, b, 50, 20, 2
+11, elseifgoto, geq, and, neq, a, 50, b, 20, 2
+12, while, geq, call, a, 50, foo
+13, whilegoto, geq, a, 50, 3
+14, foringoto, a, b, 9
+15, label, foo
+16, print, a
+17, ret
+18, end
+
