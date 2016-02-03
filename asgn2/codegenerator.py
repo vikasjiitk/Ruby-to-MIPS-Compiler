@@ -1,4 +1,4 @@
-NumRegister = 7
+NumRegister = 8
 RegDescriptor = ['' for x in range(NumRegister)]
 # print RegDescriptor
 variables = []
@@ -34,7 +34,7 @@ def getreg(instrNo, symTableNo):
             for Regno in range(NumRegister):
                 if farthestVar == RegDescriptor[Regno]:
                     break
-            print 'Mov t%d %s'%Regno,%farthestVar
+            print 'move %s t%d' % (farthestVar, Regno)                          # moving contents of register to memory
             AddDescriptor[farthestVar] = ['memory']
             return Regno
 
