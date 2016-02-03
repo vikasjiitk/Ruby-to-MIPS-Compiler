@@ -90,18 +90,18 @@ for blockNum in range(len(leaders)-1):
 	initial = leaders[blockNum]	
 	final = leaders[blockNum+1] - 1
 	blockLength = final - initial + 1
-	symtables = [dict() for x in range(blockLength)]
+	symtables = [dict() for x in range(blockLength+1)]
 	for blockLine in range(initial,final+1):
 		if (Instr3AC[blockLine].input1.isdigit() == False and Instr3AC[blockLine].input1!= ""):
 			if Instr3AC[blockLine].input1 not in symtables[0]:
-				for k in range(blockLength):
+				for k in range(blockLength+1):
 					symtables[k][Instr3AC[blockLine].input1] = [Dead, 0]
 		if (Instr3AC[blockLine].input2.isdigit() == False and Instr3AC[blockLine].input2!= ""):
 			if Instr3AC[blockLine].input2 not in symtables[0]:
-				for k in range(blockLength):
+				for k in range(blockLength +1):
 					symtables[k][Instr3AC[blockLine].input2] = [Dead, 0]
 		if Instr3AC[blockLine].output not in symtables[0] and Instr3AC[blockLine].output!="":
-				for k in range(blockLength):
+				for k in range(blockLength+1):
 					symtables[k][Instr3AC[blockLine].output] = [Dead, 0]
 	# print 'SYMBOL TABLE: '
 	# print symtables

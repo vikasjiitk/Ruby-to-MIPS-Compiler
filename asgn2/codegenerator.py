@@ -115,10 +115,10 @@ def code_gen(initial,final):
                         if (y == RegDescriptor[Regno]):
                             break
                     Y = Regno
-                    print 'move t%d t%d',%(L,Y)
+                    print 'move $t%d, $t%d',%(L,Y)
                 else:
                     Y = y
-                    print 'move t%d %s',%(L,Y)
+                    print 'lw $t%d, %s($zero)',%(L,Y)
             z = Instr3AC[i].input2
             op = giveOperator(Instr3AC[i].operator)
             if(op == 0):
@@ -128,9 +128,10 @@ def code_gen(initial,final):
                     if (z == RegDescriptor[Regno]):
                         break
                 Z = Regno
-                print '%s t%d t%d',%(op,L,Z)
+                print '%s $t%d $t%d',%(op,L,Z)
             else:
                 Z = z
+                print 'lw $t%d, '
                 print '%s t%d %s',%(op,L,Z)
             RegDescriptor[L] = x
             AddDescriptor[x].append('register')
@@ -147,3 +148,11 @@ def code_gen(initial,final):
                     if(RegDescriptor[Regno]==z):
                         RegDescriptor[Regno] = ''
 
+        elif Instr3AC[i].instrType in ['Assignment']:
+        	x = Instr3AC[i].output
+            y = Instr3AC[i].input1
+            L = getreg(i,i-initial+1)
+            if(y.isdigit()==False):
+
+
+       
