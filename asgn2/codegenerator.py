@@ -12,6 +12,17 @@ AddDescriptor = {}
 for i in variables:
     AddDescriptor[i] = ['memory']
 
+def giveOperator(op):
+    if op == '+':
+        return 'add'
+    elif op == '-':
+        return 'sub'
+    elif op == '*':
+        return 'mul'
+    elif op == '/':
+        return 'div'
+    else:
+        return 0
 def getreg(instrNo, symTableNo):
     if Instr3AC[i].instrType in ['Arithmetic']:
         y = Instr3AC[i].input1
@@ -44,4 +55,44 @@ def getreg(instrNo, symTableNo):
 def code_gen(initial,final):
     for i in range(initial,final+1):
         if Instr3AC[i].instrType in ['Arithmetic']:
+            x = Instr3AC[i].output
+            y = Instr3AC[i].input1
             L = getreg(i,i-initial+1)
+
+            if (RegDescriptor[L] != y):
+                if ('register' in AddDescriptor[y]):
+                    for Regno in range(NumRegister):
+                        if (y == RegDescriptor[Regno]):
+                            break
+                    Y = Regno
+                    print 'move t%d t%d',%(L,Y)
+                else:
+                    Y = y
+                    print 'move t%d %s',%(L,Y)
+            z = Instr3AC[i].input2
+            op = giveOperator(Instr3AC[i].operator)
+            if(op == 0):
+                raise Exception("operator not correct")
+            if ('register' in AddDescriptor[z]):
+                for Regno in range(NumRegister):
+                    if (z == RegDescriptor[Regno]):
+                        break
+                Z = Regno
+                print '%s t%d t%d',%(op,L,Z)
+            else:
+                Z = z
+                print '%s t%d %s',%(op,L,Z)
+            RegDescriptor[L] = x
+            AddDescriptor[x].append('register')
+            for Regno in range(NumRegister):
+                if(Regno != L) and RegDescriptor[Regno] == x:
+                    RegDescriptor[Regno] = ''
+            symTableNo = i-initial+1
+            if (symtables[symTableNo][y][2] == 0):
+                for Regno in range(NumRegister):
+                    if(RegDescriptor[Regno]==y):
+                        RegDescriptor[Regno] = ''
+            if (symtables[symTableNo][z][2] == 0):
+                for Regno in range(NumRegister):
+                    if(RegDescriptor[Regno]==z):
+                        RegDescriptor[Regno] = ''
