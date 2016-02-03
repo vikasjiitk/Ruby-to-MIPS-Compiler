@@ -5,6 +5,7 @@ Instr3AC = []
 i=0
 Dead = 0
 Live = 1 
+labelIter = 1
 class threeAddCode:
 	instrType = ""
 	input1 = ""
@@ -15,6 +16,7 @@ class threeAddCode:
 	lineNo = 0
 	leader = False
 	flabel = ""
+	labelName = ""
 
 def Equal(i,words):
 	Instr3AC[i].instrType = "Assignment"
@@ -36,6 +38,8 @@ def Ifgoto(i,words):
 	else:
 		Instr3AC[i].input1 = words[2]
 	Instr3AC[i].target = words[-1]
+	Instr3AC[words[-1]].labelName = "L"+str(labelIter)
+	labelIter = labelIter + 1 
 def Function(i,words):
 	Instr3AC[i].instrType = "FunctionCall"
 	Instr3AC[i].flabel = words[2]
