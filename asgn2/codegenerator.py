@@ -20,7 +20,7 @@ def giveOperator(op):
         return 0
 
 def getreg(Instr, var):
-    
+
 
 def code_gen(initial, final):
     for Instr in range(initial,final+1):
@@ -141,56 +141,6 @@ def code_gen(initial, final):
 #                 RegDescriptor[farthestVar] = ''
 #                 return Regno
 
-<<<<<<< HEAD
-def code_gen(initial, final):
-    for Instr in range(initial,final+1):
-        if Instr3AC[Instr].operator == '+':
-            reg1 = getreg(Instr, Instr3AC[Instr].input1)
-            reg2 = getreg(Instr, Instr3AC[Instr].input2)
-            reg3 = getreg(Instr, Instr3AC[Instr].output)
-            MIPScode.append('add '+reg3+','+reg1+','+reg2)
-
-        if Instr3AC[Instr].operator == '-':
-            reg1 = getreg(Instr, Instr3AC[Instr].input1)
-            reg2 = getreg(Instr, Instr3AC[Instr].input2)
-            reg3 = getreg(Instr, Instr3AC[Instr].output)
-            MIPScode.append('sub '+reg3+','+reg1+','+reg2)
-
-        if Instr3AC[Instr].operator == '*:
-            reg1 = getreg(Instr, Instr3AC[Instr].input1)
-            reg2 = getreg(Instr, Instr3AC[Instr].input2)
-            reg3 = getreg(Instr, Instr3AC[Instr].output)
-            MIPScode.append('mult '+reg1+','+reg2)
-            MIPScode.append('mflo '+reg3)
-
-        if Instr3AC[Instr].operator == '/:
-            reg1 = getreg(Instr, Instr3AC[Instr].input1)
-            reg2 = getreg(Instr, Instr3AC[Instr].input2)
-            reg3 = getreg(Instr, Instr3AC[Instr].output)
-            MIPScode.append('div '+reg1+','+reg2)
-            MIPScode.append('mflo '+reg3)
-
-        if Instr3AC[Instr].operator == '%:
-            reg1 = getreg(Instr, Instr3AC[Instr].input1)
-            reg2 = getreg(Instr, Instr3AC[Instr].input2)
-            reg3 = getreg(Instr, Instr3AC[Instr].output)
-            MIPScode.append('div '+reg1+','+reg2)
-            MIPScode.append('mfhi '+reg3)
-
-        if Instr3AC[Instr].operator == '=':
-            if (Instr3AC[Instr].input1.isdigit() == True):
-                reg1 = getreg(Instr, Instr3AC[Instr].output)
-                MIPScode.append('addi '+reg1+',$0,'+Instr3AC[Instr].input1)
-            else:
-                reg1 = getreg(Instr, Instr3AC[Instr].input1)
-                if(symtables[Instr-initial+1][Instr3AC[Instr].input1][0] == DEAD):
-                    RegDescriptor[Instr3AC[Instr].output] = reg1
-                else:
-                    reg2 = getreg(Instr, Instr3AC[Instr].output)
-                    MIPScode.append('move '+reg2+','+reg1)
-
-=======
->>>>>>> vikas
 #CODE GENERATION ALGORITHM
 # def code_gen(initial,final):
 #     for i in range(initial,final+1):
