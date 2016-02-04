@@ -1,7 +1,9 @@
 f = open('input.txt','r')
 MIPScode = []
 Instr3AC = []
-i=0
+NumRegister = 16
+RegDescriptor = {}
+AddDescriptor = {}
 Dead = 0
 Live = 1
 class threeAddCode:
@@ -50,36 +52,37 @@ def Print(i,words):
 	Instr3AC[i].input1 = words[2]
 
 leaders = [0]
+Instr=0
 for line in f:
 	line = line[:-1]
 	words = line.split(',')
 	Instr3AC.append(threeAddCode())
-	Instr3AC[i].lineNo = int(words[0])
-	Instr3AC[i].operator = words[1]
+	Instr3AC[Instr].lineNo = int(words[0])
+	Instr3AC[Instr].operator = words[1]
 	print words
 	if words[1] == '=':
-		Equal(i,words)
+		Equal(Instr,words)
 	elif words[1] in ['+','-','/','*','%']:
-		Arithmetic(i,words)
+		Arithmetic(Instr,words)
 	elif words[1] == 'ifgoto':
 		leaders.append(Instr3AC[i].lineNo + 1)
 		leaders.append(int(words[-1]))
-		Ifgoto(i,words)
+		Ifgoto(Instr,words)
 	elif words[1] == 'call':
 		leaders.append(Instr3AC[i].lineNo + 1)
-		Function(i, words)
+		Function(Instr, words)
 	elif words[1] == 'label':
 		leaders.append(Instr3AC[i].lineNo)
-		Label(i,words)
+		Label(Instr,words)
 	elif words[1] == 'ret':
-		Return(i,words)
+		Return(Instr,words)
 	elif words[1] == 'print':
-		Print(i,words)
-	i = i+1
+		Print(Instr,words)
+	Instr = Instr+1
 leaders.append(i)
 # print leaders
 leaders = sorted(set(leaders))
-NumInstr = i
+NumInstr = Instr
 # Building blockLength number of symbol tables (one for each program point)
 
 variables = []
