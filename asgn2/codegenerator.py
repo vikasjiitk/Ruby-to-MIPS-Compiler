@@ -108,18 +108,20 @@ def code_gen(initial, final):
     global MIPScode
     global Instr3AC
     for Instr in range(initial,final+1):
+        if Instr3AC[Instr].instrType != 'label':
+            MIPScode.append('L'+str(Instr3AC[Instr].lineNo)+': ')
         symTableNo = Instr - initial +1
         if Instr3AC[Instr].instrType == 'ifgoto':
             reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
             if Instr3AC[Instr].operator in ["ble","blt","bge","bgt","beq","bne"]:
                 reg2 = getreg(Instr, Instr3AC[Instr].input2, symTableNo)
-                MIPScode.append('L'+str(Instr3AC[Instr].lineNo)+': '+Instr3AC[Instr].operator + ' '+ reg1+','+reg2 + ',' +'L' + str(Instr3AC[Instr].target))
+                MIPScode.append(Instr3AC[Instr].operator + ' '+ reg1+','+reg2 + ',' +'L' + str(Instr3AC[Instr].target))
             else :
-                MIPScode.append('L'+str(Instr3AC[Instr].lineNo)+': '+'bgtz ' + reg1 + ','+'L' + str(Instr3AC[Instr].lineNo))
+                MIPScode.append('bgtz ' + reg1 + ','+'L' + str(Instr3AC[Instr].lineNo))
             freeReg(Instr, symTableNo)
 
         elif Instr3AC[Instr].instrType == 'FunctionCall':
-            MIPScode.append('L'+str(Instr3AC[Instr].lineNo)+': '+'jal '+ Instr3AC[Instr].flabel)
+            MIPScode.append('jal '+ Instr3AC[Instr].flabel)
             if Instr3AC[Instr].output != "":
                 reg1 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
                 MIPScode.append('move '+ reg1 + ',$v1')
@@ -132,13 +134,13 @@ def code_gen(initial, final):
         elif Instr3AC[Instr].instrType == 'return':
             if Instr3AC[Instr].input1 != "":
                 reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
-                MIPScode.append('L'+str(Instr3AC[Instr].lineNo)+': '+'move $v1, '+ reg1)
+                MIPScode.append('move $v1, '+ reg1)
                 MIPScode.append('jr $ra')
             else:
-                MIPScode.append('L'+str(Instr3AC[Instr].lineNo)+': '+'jr $ra')
+                MIPScode.append('jr $ra')
             freeReg(Instr, symTableNo)
         elif Instr3AC[Instr].instrType == 'print':
-            MIPScode.append('L'+str(Instr3AC[Instr].lineNo)+': '+'li $v0, 1')
+            MIPScode.append('li $v0, 1')
 
             reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
             MIPScode.append('move $a0, '+ reg1)
@@ -147,21 +149,21 @@ def code_gen(initial, final):
             reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
             reg2 = getreg(Instr, Instr3AC[Instr].input2, symTableNo)
             reg3 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
-            MIPScode.append('L'+str(Instr3AC[Instr].lineNo)+': '+'add '+reg3+','+reg1+','+reg2)
+            MIPScode.append('add '+reg3+','+reg1+','+reg2)
             freeReg(Instr, symTableNo)
 
         elif Instr3AC[Instr].operator == '-':
             reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
             reg2 = getreg(Instr, Instr3AC[Instr].input2, symTableNo)
             reg3 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
-            MIPScode.append('L'+str(Instr3AC[Instr].lineNo)+': '+'sub '+reg3+','+reg1+','+reg2)
+            MIPScode.append('sub '+reg3+','+reg1+','+reg2)
             freeReg(Instr, symTableNo)
 
         elif Instr3AC[Instr].operator == '*':
             reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
             reg2 = getreg(Instr, Instr3AC[Instr].input2, symTableNo)
             reg3 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
-            MIPScode.append('L'+str(Instr3AC[Instr].lineNo)+': '+'mult '+reg1+','+reg2)
+            MIPScode.append('mult '+reg1+','+reg2)
             MIPScode.append('mflo '+reg3)
             freeReg(Instr, symTableNo)
 
@@ -169,7 +171,7 @@ def code_gen(initial, final):
             reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
             reg2 = getreg(Instr, Instr3AC[Instr].input2, symTableNo)
             reg3 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
-            MIPScode.append('L'+str(Instr3AC[Instr].lineNo)+': '+'div '+reg1+','+reg2)
+            MIPScode.append('div '+reg1+','+reg2)
             MIPScode.append('mflo '+reg3)
             freeReg(Instr, symTableNo)
 
@@ -177,16 +179,16 @@ def code_gen(initial, final):
             reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
             reg2 = getreg(Instr, Instr3AC[Instr].input2, symTableNo)
             reg3 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
-            MIPScode.append('L'+str(Instr3AC[Instr].lineNo)+': '+'div '+reg1+','+reg2)
+            MIPScode.append('div '+reg1+','+reg2)
             MIPScode.append('mfhi '+reg3)
             freeReg(Instr, symTableNo)
 
         elif Instr3AC[Instr].operator == '=':
             if (Instr3AC[Instr].input1.isdigit() == True):
                 reg1 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
-                MIPScode.append('L'+str(Instr3AC[Instr].lineNo)+': '+'addi '+reg1+',$0,'+Instr3AC[Instr].input1)
+                MIPScode.append('addi '+reg1+',$0,'+Instr3AC[Instr].input1)
             else:
                 reg1 = getreg(Instr, Instr3AC[Instr].input1)
                 reg3 = getreg(Instr, Instr3AC[Instr].ouput)
-                MIPScode.append('L'+str(Instr3AC[Instr].lineNo)+': '+'move '+reg3+','+reg1)
+                MIPScode.append('move '+reg3+','+reg1)
             freeReg(Instr, symTableNo)
