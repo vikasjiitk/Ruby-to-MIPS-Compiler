@@ -1,11 +1,25 @@
 def initializeReg:
     RegAvail = ['$t0','$t1','$t2','$t3','$t4','$t5','$t6','$t7','$s0','$s1','$s2','$s3','$s4','$s5','$s6','$s7']
+    RegConstant =[]
     for i in variables:
         AddDescriptor[i] = ['memory']
 
 def dumpReg:
     for reg in RegDescriptor:
         MIPScode.append('sw '+reg+','+RegDescriptor[reg])
+
+def freeReg(Instr, symTableNo):
+    RegAvail.append(RegConstant)
+    RegConstant =[]
+    InstrVAR = [Instr3AC[Instr].input1,Instr3AC[Instr].input2, Instr3AC[Instr].output]
+    for var in InstrVAR:
+        if var in RegDescriptor:
+            if symtables[symTableNo][var][0] == DEAD:
+                reg = RegDescriptor[var]
+                del RegDescriptor[var]
+                MIPScode.append('sw '+reg+','+var)
+                AddDescriptor[var] = ['memory']
+                RegAvail.append(reg)
 
 def giveOperator(op):
     if op == '+':
@@ -30,20 +44,28 @@ def getreg(Instr, var, symTableNo):
             AddDescriptor[var].append('register')
         else:
             MIPScode.append('addi '+reg+',$0,'+var)
+            RegConstant.append(reg)
         return reg
     else:
         InstrVAR = [Instr3AC[Instr].input1,Instr3AC[Instr].input2, Instr3AC[Instr].output]
         farthestNextUse = 0
-        for VAR in symtables[symTableNo] and VAR not in InstrVAR:
-            if (symtables[symTableNo][VAR][1] > farthestNextUse):
-                farthestVar = VAR
-                farthestNextUse = symtables[symTableNo][VAR][1]
-        MIPScode.append('sw '+RegDescriptor[farthestVar]+','+farthestVar)
-        AddDescriptor[farthestVar] = ['memory']
+        for VAR in symtables[symTableNo]:
+            if VAR not in InstrVAR:
+                if (symtables[symTableNo][VAR][1] > farthestNextUse):
+                    farthestVar = VAR
+                    farthestNextUse = symtables[symTableNo][VAR][1]
         reg = RegDescriptor[farthestVar]
-        MIPScode.append('lw '+reg+','+var)
-        RegDescriptor[var] = reg
-        AddDescriptor[var].append('register')
+        MIPScode.append('sw '+reg+','+farthestVar)
+        AddDescriptor[farthestVar] = ['memory']
+        del RegDescriptor[farthestVar]
+        if(var.isdigit() == False)   # var passed is not a constant value
+            MIPScode.append('lw '+reg+','+var)
+            RegDescriptor[var] = reg
+            AddDescriptor[var].append('register')
+        else:
+            MIPScode.append('addi '+reg+',$0,'+var)
+            RegConstant.append(reg)
+        return reg
 
 def code_gen(initial, final):
     for Instr in range(initial,final+1):
@@ -53,12 +75,14 @@ def code_gen(initial, final):
             reg2 = getreg(Instr, Instr3AC[Instr].input2, symTableNo)
             reg3 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
             MIPScode.append('add '+reg3+','+reg1+','+reg2)
+            freeReg(Instr, symTableNo)
 
         elif Instr3AC[Instr].operator == '-':
             reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
             reg2 = getreg(Instr, Instr3AC[Instr].input2, symTableNo)
             reg3 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
             MIPScode.append('sub '+reg3+','+reg1+','+reg2)
+            freeReg(Instr, symTableNo)
 
         elif Instr3AC[Instr].operator == '*':
             reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
@@ -66,6 +90,7 @@ def code_gen(initial, final):
             reg3 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
             MIPScode.append('mult '+reg1+','+reg2)
             MIPScode.append('mflo '+reg3)
+            freeReg(Instr, symTableNo)
 
         elif Instr3AC[Instr].operator == '/':
             reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
@@ -73,6 +98,7 @@ def code_gen(initial, final):
             reg3 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
             MIPScode.append('div '+reg1+','+reg2)
             MIPScode.append('mflo '+reg3)
+            freeReg(Instr, symTableNo)
 
         elif Instr3AC[Instr].operator == '%':
             reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
@@ -80,6 +106,7 @@ def code_gen(initial, final):
             reg3 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
             MIPScode.append('div '+reg1+','+reg2)
             MIPScode.append('mfhi '+reg3)
+            freeReg(Instr, symTableNo)
 
         elif Instr3AC[Instr].operator == '=':
             if (Instr3AC[Instr].input1.isdigit() == True):
@@ -87,8 +114,10 @@ def code_gen(initial, final):
                 MIPScode.append('addi '+reg1+',$0,'+Instr3AC[Instr].input1)
             else:
                 reg1 = getreg(Instr, Instr3AC[Instr].input1)
-                if(symtables[symTableNo][Instr3AC[Instr].input1][0] == DEAD):
-                    RegDescriptor[Instr3AC[Instr].output] = reg1
+                reg3 = getreg(Instr, Instr3AC[Instr].ouput)
+                MIPScode.append('move '+reg3+','+reg1)
+            freeReg(Instr, symTableNo)
+
 # def getreg(instrNo, symTableNo):
 #     if Instr3AC[i].instrType in ['Arithmetic']:
 #         y = Instr3AC[i].input1

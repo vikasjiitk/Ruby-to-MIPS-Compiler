@@ -4,6 +4,8 @@
 MIPScode = []
 Instr3AC = []
 NumRegister = 16
+RegAvail = []
+RegConstant = []
 RegDescriptor = {}
 AddDescriptor = {}
 Dead = 0
@@ -72,7 +74,7 @@ def getSymTables(initialInstr, finalInstr, blockLength):
 	return symtables
 
 def fillSymTables(symtables,initialInstr,finalInstr,blockLength):
-	scan = blockLength-1							
+	scan = blockLength-1
 	for blockLine in range(finalInstr, initialInstr -1 , -1):
 		if blockLine!=finalInstr:
 			symtables[scan]=symtables[scan+1].copy()								#copying the previous filled dictionary for further changes
@@ -150,7 +152,7 @@ for blockNum in range(len(leaders)-1):
 	final = leaders[blockNum+1] - 1
 	blockLength = final - initial + 1
 	# Building blockLength number of symbol tables (one for each program point)
-	symtables = getSymTables(initial, final, blockLength)	
+	symtables = getSymTables(initial, final, blockLength)
 	## Backward scanning and filling symbol table for each program point
 	symtables = fillSymTables(symtables,initial,final,blockLength)
 
