@@ -144,6 +144,9 @@ def code_gen(initial, final):
                 reg1 = getreg(Instr, Instr3AC[Instr].input1)
                 if(symtables[Instr-initial+1][Instr3AC[Instr].input1][0] == DEAD):
                     RegDescriptor[Instr3AC[Instr].output] = reg1
+                else:
+                    reg2 = getreg(Instr, Instr3AC[Instr].output)
+                    MIPScode.append('move '+reg2+','+reg1)
 
 #CODE GENERATION ALGORITHM
 # def code_gen(initial,final):
