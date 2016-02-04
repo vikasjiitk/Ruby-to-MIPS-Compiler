@@ -44,6 +44,7 @@ def freeReg(Instr, symTableNo):
     for var in InstrVAR:
         if var in RegDescriptor:
             if symtables[symTableNo][var][0] == Dead:
+                # print symtables[symTableNo-2]
                 reg = RegDescriptor[var]
                 del RegDescriptor[var]
                 MIPScode.append('sw '+reg+','+var)

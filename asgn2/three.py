@@ -1,3 +1,4 @@
+import sys
 import codegenerator as cg
 
 class threeAddCode:
@@ -87,9 +88,9 @@ def fillsymtables(symtables,initialInstr,finalInstr,blockLength):
         if (cg.Instr3AC[blockLine].output!= ""):
             symtables[scan][cg.Instr3AC[blockLine].output] = [cg.Dead, 0]
         scan = scan-1
-        #print 'symbol table before ' + str(blockLine)
-        #print cg.symtables[blockLine-initial]
-        return symtables
+        # print 'symbol table before ' + str(blockLine)
+        # print symtables[blockLine-initial]
+    return symtables
 
 def getVariables(NumInstr):
     # global cg.Instr3AC
@@ -121,14 +122,14 @@ def getInstrSet(f):
         elif words[1] in ['+','-','/','*','%']:
             Arithmetic(cg.Instr,words)
         elif words[1] == 'ifgoto':
-            cg.leaders.append(cg.Instr3AC[Instr].lineNo + 1)
+            cg.leaders.append(cg.Instr3AC[cg.Instr].lineNo + 1)
             cg.leaders.append(int(words[-1]))
             Ifgoto(cg.Instr,words)
         elif words[1] == 'call':
-            cg.leaders.append(cg.Instr3AC[Instr].lineNo + 1)
+            cg.leaders.append(cg.Instr3AC[cg.Instr].lineNo + 1)
             Function(cg.Instr, words)
         elif words[1] == 'label':
-            cg.leaders.append(cg.Instr3AC[Instr].lineNo)
+            cg.leaders.append(cg.Instr3AC[cg.Instr].lineNo)
             Label(cg.Instr,words)
         elif words[1] == 'ret':
             Return(cg.Instr,words)
@@ -144,9 +145,9 @@ def fillDataSection(variables):
     cg.MIPSDatacode.append('.data')
     for var in cg.variables:
         cg.MIPSDatacode.append(var+': .word 0')
-    cg.MIPSDatacode.append('.text')
-
-f = open('test.txt','r')
+    cg.MIPSDatacode.append('.text\nmain: ')
+filename = sys.argv[1]
+f = open(filename,'r')
 # getInstrSet fills cg.Instr3AC[] structure and also finds cg.leaders in the 3AC instruction set
 NumInstr = getInstrSet(f)
 cg.variables = getVariables(NumInstr)
@@ -159,8 +160,10 @@ for blockNum in range(len(cg.leaders)-1):
     blockLength = final - initial + 1
     # Building blockLength number of symbol tables (one for each program point)
     cg.symtables = getsymtables(initial, final, blockLength)
+    # print cg.symtables
     ## Backward scanning and filling symbol table for each program point
     cg.symtables = fillsymtables(cg.symtables,initial,final,blockLength)
+    # print cg.symtables
     cg.initializeReg()
     cg.code_gen(initial,final)
     cg.dumpReg()
