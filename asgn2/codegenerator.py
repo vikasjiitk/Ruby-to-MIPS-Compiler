@@ -70,7 +70,35 @@ def getreg(Instr, var, symTableNo):
 def code_gen(initial, final):
     for Instr in range(initial,final+1):
         symTableNo = Instr - initial + 1
-        if Instr3AC[Instr].operator == '+':
+        if Instr3AC[Instr].instrType == 'ifgoto':
+            reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)            
+            if Instr3AC[Instr].operator in ["ble","blt","bge","bgt","beq","bne"]:
+                reg2 = getreg(Instr, Instr3AC[Instr].input2, symTableNo)
+                MIPScode.append('L'+Instr3AC[Instr].operator + reg1+','+reg2 + ',' +'L' + str(Instr3AC[Instr].lineNo))
+            else :
+                MIPScode.append('bgtz ' + reg1 + ','+'L' + str(Instr3AC[Instr].lineNo))
+            freeReg(Instr, symTableNo) 
+
+        elif Instr3AC[Instr].instrType == 'FunctionCall':
+            MIPScode.append('jal '+ Instr3AC[Instr].flabel) 
+            if Instr3AC[Instr].output != "":                
+                reg1 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
+                MIPScode.append('move '+ reg1 + ',$v1')         
+            freeReg(Instr, symTableNo)
+
+        elif Instr3AC[Instr].instrType == 'label':
+            MIPScode.append(Instr3AC[Instr].flabel + ": ")
+            freeReg(Instr, symTableNo)
+
+        elif Instr3AC[Instr].instrType == 'return':
+            
+            if Instr3AC[Instr].input1 != "":
+                reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
+                MIPScode.append('move $v1, '+ reg1)
+            MIPScode.append('jr $ra')
+            freeReg(Instr, symTableNo)
+
+        elif Instr3AC[Instr].operator == '+':
             reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
             reg2 = getreg(Instr, Instr3AC[Instr].input2, symTableNo)
             reg3 = getreg(Instr, Instr3AC[Instr].output, symTableNo)

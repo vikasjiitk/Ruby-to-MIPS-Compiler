@@ -47,6 +47,8 @@ def Ifgoto(i,words):
 def Function(i,words):
 	Instr3AC[i].instrType = "FunctionCall"
 	Instr3AC[i].flabel = words[2]
+	if len(words) == 4:
+		Instr3AC[i].output = words[3]
 def Return(i,words):
 	Instr3AC[i].instrType = "return"
 	if len(words) == 3:
@@ -121,7 +123,7 @@ def getInstrSet(f):
 			Ifgoto(Instr,words)
 		elif words[1] == 'call':
 			leaders.append(Instr3AC[Instr].lineNo + 1)
-			Function(Instr, words)
+			Function(Instr, words)			
 		elif words[1] == 'label':
 			leaders.append(Instr3AC[Instr].lineNo)
 			Label(Instr,words)
