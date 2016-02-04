@@ -6,11 +6,13 @@ RegAvail = []
 RegConstant = []
 RegDescriptor = {}
 AddDescriptor = {}
+symtables = []
 Dead = 0
 Live = 1
 leaders = [0]
 Instr=0
 Infinite = 10000000000
+variables =[]
 def initializeReg():
     global RegAvail
     global RegConstant
@@ -26,7 +28,7 @@ def dumpReg():
     global MIPScode
     global RegDescriptor
     for var in RegDescriptor:
-        MIPScode.append('sw '+RegDescriptor[reg]+','+var)
+        MIPScode.append('sw '+RegDescriptor[var]+','+var)
 
 def freeReg(Instr, symTableNo):
     global MIPScode
@@ -68,12 +70,12 @@ def getreg(Instr, var, symTableNo):
     global RegAvail
     if (var in RegDescriptor):
         return RegDescriptor[var]
-    if RegAvail: # there is a register in RegAvail       
-    
+    if RegAvail: # there is a register in RegAvail
+
         reg = RegAvail.pop()
         if(var.isdigit() == False):   # var passed is not a constant value
             MIPScode.append('lw '+reg+','+str(var))
-            RegDescriptor[var] = reg            
+            RegDescriptor[var] = reg
             AddDescriptor[var].append('register')
         else:
             MIPScode.append('addi '+reg+',$0,'+var)
@@ -87,7 +89,7 @@ def getreg(Instr, var, symTableNo):
                 if (symtables[symTableNo][VAR][1] > farthestNextUse):
                     farthestVar = VAR
                     farthestNextUse = symtables[symTableNo][VAR][1]
-        
+
         reg = RegDescriptor[farthestVar]
         MIPScode.append('sw '+reg+','+farthestVar)
         AddDescriptor[farthestVar] = ['memory']
@@ -107,26 +109,26 @@ def code_gen(initial, final):
     for Instr in range(initial,final+1):
         symTableNo = Instr - initial +1
         if Instr3AC[Instr].instrType == 'ifgoto':
-            reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)            
+            reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
             if Instr3AC[Instr].operator in ["ble","blt","bge","bgt","beq","bne"]:
                 reg2 = getreg(Instr, Instr3AC[Instr].input2, symTableNo)
                 MIPScode.append('L'+str(Instr3AC[Instr].lineNo)+': '+Instr3AC[Instr].operator + ' '+ reg1+','+reg2 + ',' +'L' + str(Instr3AC[Instr].lineNo))
             else :
                 MIPScode.append('L'+str(Instr3AC[Instr].lineNo)+': '+'bgtz ' + reg1 + ','+'L' + str(Instr3AC[Instr].lineNo))
-            freeReg(Instr, symTableNo) 
+            freeReg(Instr, symTableNo)
 
         elif Instr3AC[Instr].instrType == 'FunctionCall':
-            MIPScode.append('L'+str(Instr3AC[Instr].lineNo)+': '+'jal '+ Instr3AC[Instr].flabel) 
-            if Instr3AC[Instr].output != "":                
+            MIPScode.append('L'+str(Instr3AC[Instr].lineNo)+': '+'jal '+ Instr3AC[Instr].flabel)
+            if Instr3AC[Instr].output != "":
                 reg1 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
-                MIPScode.append('move '+ reg1 + ',$v1')         
+                MIPScode.append('move '+ reg1 + ',$v1')
             freeReg(Instr, symTableNo)
 
         elif Instr3AC[Instr].instrType == 'label':
             MIPScode.append(Instr3AC[Instr].flabel + ": ")
             freeReg(Instr, symTableNo)
 
-        elif Instr3AC[Instr].instrType == 'return':            
+        elif Instr3AC[Instr].instrType == 'return':
             if Instr3AC[Instr].input1 != "":
                 reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
                 MIPScode.append('L'+str(Instr3AC[Instr].lineNo)+': '+'move $v1, '+ reg1)
