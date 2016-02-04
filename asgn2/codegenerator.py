@@ -20,7 +20,7 @@ def giveOperator(op):
         return 0
 
 def getreg(Instr, var):
-
+    
 
 def code_gen(initial, final):
     for Instr in range(initial,final+1):
