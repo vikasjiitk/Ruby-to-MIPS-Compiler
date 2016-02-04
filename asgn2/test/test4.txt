@@ -1,0 +1,4 @@
+0,call,foo,a
+1,label,foo
+2,ret,2
+3,print,a

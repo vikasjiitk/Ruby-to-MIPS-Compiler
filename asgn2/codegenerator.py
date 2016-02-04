@@ -112,6 +112,7 @@ def code_gen(initial, final):
             MIPScode.append('L'+str(Instr3AC[Instr].lineNo)+': ')
         symTableNo = Instr - initial +1
         if Instr3AC[Instr].instrType == 'ifgoto':
+            dumpReg()
             reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
             if Instr3AC[Instr].operator in ["ble","blt","bge","bgt","beq","bne"]:
                 reg2 = getreg(Instr, Instr3AC[Instr].input2, symTableNo)
