@@ -19,51 +19,75 @@ def giveOperator(op):
     else:
         return 0
 
-def getreg(Instr, var):
-
+def getreg(Instr, var, symTableNo):
+    if (var in RegDescriptor):
+        return RegDescriptor[var]
+    if RegAvail: # there is a register in RegAvail
+        reg = RegAvail.pop()
+        if(var.isdigit() == False)   # var passed is not a constant value
+            MIPScode.append('lw '+reg+','+var)
+            RegDescriptor[var] = reg
+            AddDescriptor[var].append('register')
+        else:
+            MIPScode.append('addi '+reg+',$0,'+var)
+        return reg
+    else:
+        InstrVAR = [Instr3AC[Instr].input1,Instr3AC[Instr].input2, Instr3AC[Instr].output]
+        farthestNextUse = 0
+        for VAR in symtables[symTableNo] and VAR not in InstrVAR:
+            if (symtables[symTableNo][VAR][1] > farthestNextUse):
+                farthestVar = VAR
+                farthestNextUse = symtables[symTableNo][VAR][1]
+        MIPScode.append('sw '+RegDescriptor[farthestVar]+','+farthestVar)
+        AddDescriptor[farthestVar] = ['memory']
+        reg = RegDescriptor[farthestVar]
+        MIPScode.append('lw '+reg+','+var)
+        RegDescriptor[var] = reg
+        AddDescriptor[var].append('register')
 
 def code_gen(initial, final):
     for Instr in range(initial,final+1):
+        symTableNo = Instr - initial + 1
         if Instr3AC[Instr].operator == '+':
-            reg1 = getreg(Instr, Instr3AC[Instr].input1)
-            reg2 = getreg(Instr, Instr3AC[Instr].input2)
-            reg3 = getreg(Instr, Instr3AC[Instr].output)
+            reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
+            reg2 = getreg(Instr, Instr3AC[Instr].input2, symTableNo)
+            reg3 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
             MIPScode.append('add '+reg3+','+reg1+','+reg2)
 
-        if Instr3AC[Instr].operator == '-':
-            reg1 = getreg(Instr, Instr3AC[Instr].input1)
-            reg2 = getreg(Instr, Instr3AC[Instr].input2)
-            reg3 = getreg(Instr, Instr3AC[Instr].output)
+        elif Instr3AC[Instr].operator == '-':
+            reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
+            reg2 = getreg(Instr, Instr3AC[Instr].input2, symTableNo)
+            reg3 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
             MIPScode.append('sub '+reg3+','+reg1+','+reg2)
 
-        if Instr3AC[Instr].operator == '*':
-            reg1 = getreg(Instr, Instr3AC[Instr].input1)
-            reg2 = getreg(Instr, Instr3AC[Instr].input2)
-            reg3 = getreg(Instr, Instr3AC[Instr].output)
+        elif Instr3AC[Instr].operator == '*':
+            reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
+            reg2 = getreg(Instr, Instr3AC[Instr].input2, symTableNo)
+            reg3 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
             MIPScode.append('mult '+reg1+','+reg2)
             MIPScode.append('mflo '+reg3)
 
-        if Instr3AC[Instr].operator == '/':
-            reg1 = getreg(Instr, Instr3AC[Instr].input1)
-            reg2 = getreg(Instr, Instr3AC[Instr].input2)
-            reg3 = getreg(Instr, Instr3AC[Instr].output)
+        elif Instr3AC[Instr].operator == '/':
+            reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
+            reg2 = getreg(Instr, Instr3AC[Instr].input2, symTableNo)
+            reg3 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
             MIPScode.append('div '+reg1+','+reg2)
             MIPScode.append('mflo '+reg3)
 
-        if Instr3AC[Instr].operator == '%':
-            reg1 = getreg(Instr, Instr3AC[Instr].input1)
-            reg2 = getreg(Instr, Instr3AC[Instr].input2)
-            reg3 = getreg(Instr, Instr3AC[Instr].output)
+        elif Instr3AC[Instr].operator == '%':
+            reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
+            reg2 = getreg(Instr, Instr3AC[Instr].input2, symTableNo)
+            reg3 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
             MIPScode.append('div '+reg1+','+reg2)
             MIPScode.append('mfhi '+reg3)
 
-        if Instr3AC[Instr].operator == '=':
+        elif Instr3AC[Instr].operator == '=':
             if (Instr3AC[Instr].input1.isdigit() == True):
-                reg1 = getreg(Instr, Instr3AC[Instr].output)
+                reg1 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
                 MIPScode.append('addi '+reg1+',$0,'+Instr3AC[Instr].input1)
             else:
                 reg1 = getreg(Instr, Instr3AC[Instr].input1)
-                if(symtables[Instr-initial+1][Instr3AC[Instr].input1][0] == DEAD):
+                if(symtables[symTableNo][Instr3AC[Instr].input1][0] == DEAD):
                     RegDescriptor[Instr3AC[Instr].output] = reg1
 # def getreg(instrNo, symTableNo):
 #     if Instr3AC[i].instrType in ['Arithmetic']:
