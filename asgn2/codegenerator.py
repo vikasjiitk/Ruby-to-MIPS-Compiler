@@ -113,7 +113,7 @@ def code_gen(initial, final):
             reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
             if Instr3AC[Instr].operator in ["ble","blt","bge","bgt","beq","bne"]:
                 reg2 = getreg(Instr, Instr3AC[Instr].input2, symTableNo)
-                MIPScode.append('L'+str(Instr3AC[Instr].lineNo)+': '+Instr3AC[Instr].operator + ' '+ reg1+','+reg2 + ',' +'L' + str(Instr3AC[Instr].lineNo))
+                MIPScode.append('L'+str(Instr3AC[Instr].lineNo)+': '+Instr3AC[Instr].operator + ' '+ reg1+','+reg2 + ',' +'L' + str(Instr3AC[Instr].target))
             else :
                 MIPScode.append('L'+str(Instr3AC[Instr].lineNo)+': '+'bgtz ' + reg1 + ','+'L' + str(Instr3AC[Instr].lineNo))
             freeReg(Instr, symTableNo)
