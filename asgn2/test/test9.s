@@ -7,7 +7,6 @@ g: .word 0
 f: .word 0
 i: .word 0
 h: .word 0
-j: .word 0
 belikejanish: .word 0
 .text
 main: 
@@ -80,8 +79,6 @@ move $t0,$v1
 sw $t0,i
 L19: 
 jal foo1
-move $t2,$v1
-sw $t2,j
 L20: 
 li $v0, 10
 syscall

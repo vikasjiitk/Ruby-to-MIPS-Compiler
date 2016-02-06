@@ -17,7 +17,7 @@
 16,+,h,f,g
 17,+,a,a,b
 18,call,foo,i
-19,call,foo1,j
+19,call,foo1
 20,ret
 21,label,foo
 22,print,a

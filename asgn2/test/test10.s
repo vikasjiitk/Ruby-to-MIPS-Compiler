@@ -7,8 +7,8 @@ f: .word 0
 i: .word 0
 h: .word 0
 k: .word 0
-j: .word 0
 belikejanish: .word 0
+t: .word 0
 .text
 main: 
 L1: 
@@ -56,7 +56,7 @@ mult $t1,$t2
 mflo $t0
 sw $t1,a
 sw $t2,c
-sw $t0,j
+sw $t0,t
 L12: 
 lw $t0,belikejanish
 lw $t2,d
