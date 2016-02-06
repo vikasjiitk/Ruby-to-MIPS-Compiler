@@ -18,10 +18,10 @@
 17,+,a,a,b
 18,call,foo,i
 19,call,foo1,j
-20,label,foo
-21,print,a
-22,ret
-23,label,foo1
-24,print,b
-25,ret
+20,ret
+21,label,foo
+22,print,a
+23,ret
+24,label,foo1
+25,print,b
 26,ret

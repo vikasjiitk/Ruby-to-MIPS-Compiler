@@ -82,24 +82,24 @@ L19:
 jal foo1
 move $t2,$v1
 sw $t2,j
+L20: 
+li $v0, 10
+syscall
 foo: 
-L21: 
+L22: 
 li $v0, 1
 lw $t2,a
 move $a0, $t2
 syscall
-L22: 
-li $v0, 10
-syscall
+L23: 
+jr $ra
 sw $t2,a
 foo1: 
-L24: 
+L25: 
 li $v0, 1
 lw $t2,belikejanish
 move $a0, $t2
 syscall
-L25: 
-jr $ra
 L26: 
 jr $ra
 sw $t2,belikejanish
