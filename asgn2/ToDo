@@ -1,8 +1,7 @@
 numbers will also require a register - done
 Function call -done
-Main exit
+Main exit - done
 three address code
 Testing
-variables name cannot be 'b' in MIPS
+variables name cannot be 'b' in MIPS - done poorly by belikejanish
 provide some (minimal) library support to allow for writing of useful programs.
-hellp
