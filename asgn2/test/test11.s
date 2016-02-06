@@ -12,15 +12,16 @@ L2:
 li $v0,5
 syscall
 move $t1, $v0
-L3: 
-add $t0,$t2,$t1
-sw $t2,a1
 sw $t1,b1
+L3: 
+lw $t1,c1
+add $t1,$t1,$t2
+sw $t2,a1
 L4: 
 li $v0, 1
-move $a0, $t0
+move $a0, $t1
 syscall
-sw $t0,c1
+sw $t1,c1
 L5: 
 li $v0, 10
 syscall

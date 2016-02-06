@@ -9,16 +9,16 @@ addi $t2,$0,2
 sw $t2,a1
 L2: 
 addi $t2,$0,1
-L3: 
-lw $t1,a1
-add $t1,$t1,$t2
 sw $t2,b1
+L3: 
+lw $t2,a1
+add $t2,$t2,$t2
 L4: 
-sw $t1,a1
-lw $t1,a1
-addi $t2,$0,5
-ble $t1,$t2,L2
-sw $t1,a1
+sw $t2,a1
+lw $t2,a1
+addi $t1,$0,5
+ble $t2,$t1,L2
+sw $t2,a1
 L5: 
 jal foo
 move $t2,$v1

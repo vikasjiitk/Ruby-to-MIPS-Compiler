@@ -20,64 +20,54 @@ addi $t0,$0,1
 L4: 
 sw $t0,c1
 addi $t0,$0,1
-L5: 
 sw $t0,d1
+L5: 
 addi $t0,$0,1
-sw $t0,e1
 L6: 
+sw $t0,e1
 addi $t0,$0,1
 L7: 
 sw $t0,f1
 addi $t0,$0,1
-sw $t0,g1
 L8: 
-addi $t0,$0,1
-sw $t0,h1
-L9: 
-add $t1,$t2,$t1
-L10: 
-lw $t0,c1
-add $t0,$t2,$t0
-L11: 
-sw $t1,b1
-lw $t1,d1
-sw $t2,a1
-add $t2,$t0,$t1
-sw $t0,c1
-sw $t1,d1
-L12: 
-lw $t1,f1
-add $t0,$t1,$t2
-sw $t2,e1
-L13: 
-lw $t2,a1
-sw $t1,f1
-add $t1,$t0,$t2
-sw $t1,h1
-L14: 
-mult $t2,$t2
-mflo $t2
-L15: 
-lw $t1,b1
-sub $t2,$t2,$t1
-L16: 
-sw $t2,a1
-lw $t2,f1
-sw $t1,b1
-add $t1,$t2,$t0
-sw $t2,f1
 sw $t0,g1
-sw $t1,h1
-L17: 
+addi $t0,$0,1
+L9: 
+add $t1,$t1,$t2
+sw $t1,b1
+L10: 
+lw $t1,c1
+add $t1,$t1,$t2
+L11: 
+sw $t2,a1
+lw $t2,e1
+add $t2,$t2,$t1
+sw $t2,e1
+sw $t1,c1
+L12: 
+lw $t1,g1
+lw $t2,f1
+add $t1,$t1,$t2
+L13: 
+add $t0,$t0,$t1
+sw $t1,g1
+L14: 
 lw $t1,a1
-lw $t0,b1
-add $t1,$t1,$t0
+mult $t1,$t1
+mflo $t1
+L15: 
+sub $t1,$t1,$t1
+L16: 
+add $t0,$t0,$t2
+sw $t0,h1
+sw $t2,f1
+L17: 
+add $t1,$t1,$t1
 sw $t1,a1
-sw $t0,b1
 L18: 
 jal foo
-move $t0,$v1
-sw $t0,i1
+move $t1,$v1
+sw $t1,i1
 L19: 
 jal foo1
 move $t2,$v1

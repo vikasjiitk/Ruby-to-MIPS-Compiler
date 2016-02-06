@@ -20,9 +20,14 @@ def Equal(i,words):
 
 def Arithmetic(i,words):
     cg.Instr3AC[i].instrType = "Arithmetic"
-    cg.Instr3AC[i].output = words[2]
-    cg.Instr3AC[i].input1 = words[3]
-    cg.Instr3AC[i].input2 = words[4]
+    if words[2] in ['+','-','/','*','%']:
+        cg.Instr3AC[i].output = words[2]
+        cg.Instr3AC[i].input1 = words[3]
+        cg.Instr3AC[i].input2 = words[4]
+    else:
+        cg.Instr3AC[i].operator = words[1][0]
+        cg.Instr3AC[i].output = cg.Instr3AC[i].input1 = words[2]
+        cg.Instr3AC[i].input2 = words[3]       
 
 def Ifgoto(i,words):
     cg.Instr3AC[i].instrType = "ifgoto"
@@ -118,7 +123,7 @@ def getInstrSet(f):
         #print words
         if words[1] == '=':
             Equal(cg.Instr,words)
-        elif words[1] in ['+','-','/','*','%']:
+        elif words[1] in ['+','-','/','*','%','+=', '-=', '*=', '/=', '%=']:
             Arithmetic(cg.Instr,words)
         elif words[1] == 'ifgoto':
             cg.leaders.append(cg.Instr3AC[cg.Instr].lineNo + 1)
@@ -136,6 +141,7 @@ def getInstrSet(f):
             Print(cg.Instr,words)
         elif words[1] == 'scan':
             Scan(cg.Instr,words)
+
         if(cg.Instr3AC[cg.Instr].input1.isdigit() == False and cg.Instr3AC[cg.Instr].input1.isdigit() != "" ):
             cg.Instr3AC[cg.Instr].input1 += '1'
         if(cg.Instr3AC[cg.Instr].input2.isdigit() == False and cg.Instr3AC[cg.Instr].input2.isdigit() != "" ):

@@ -1,7 +1,7 @@
 numbers will also require a register - done
 Function call -done
 Main exit - done
-three address code (scan + objects)
+three address code (scan + objects) - scan done
 Testing
 Operators
 Reserved names in MIPS - done by appending '1'

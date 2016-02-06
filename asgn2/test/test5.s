@@ -26,9 +26,7 @@ syscall
 foo: 
 L7: 
 lw $t2,a1
-lw $t1,b1
-add $t2,$t2,$t1
-sw $t1,b1
+add $t2,$t2,$t2
 L8: 
 move $v1, $t2
 jr $ra

@@ -9,3 +9,4 @@ python three.py test/test8.txt > test/test8.s
 python three.py test/test9.txt > test/test9.s
 python three.py test/test10.txt > test/test10.s
 python three.py test/test11.txt > test/test11.s
+python three.py test/test12.txt > test/test12.s
