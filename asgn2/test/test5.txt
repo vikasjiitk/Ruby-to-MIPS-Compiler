@@ -2,8 +2,8 @@
 1,=,a,2
 2,=,b,1
 3,call,foo,c
-4,label,foo
-5,+,a,a,b
-6,ret,a
-7,print,c
-8,ret
+4,print,c
+5,ret
+6,label,foo
+7,+,a,a,b
+8,ret,a
