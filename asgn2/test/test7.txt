@@ -1,0 +1,14 @@
+0,=,a,2
+1,=,b,1
+2,+,a,a,b
+3,ifgoto,ble,a,5,2
+4,-,a,a,b
+5,ifgoto,bge,a,1,4
+6,call,foo,c
+7,call,foo1,d
+8,label,foo
+9,print,a
+10,ret
+11,label,foo1
+12,print,b
+13,ret
