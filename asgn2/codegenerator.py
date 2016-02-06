@@ -27,8 +27,16 @@ def initializeReg():
 def dumpReg():
     global MIPScode
     global RegDescriptor
+    VARS =[]
     for var in RegDescriptor:
-        MIPScode.append('sw '+RegDescriptor[var]+','+var)
+        reg = RegDescriptor[var]
+        MIPScode.append('sw '+reg+','+var)
+        AddDescriptor[var]=['memory']
+        VARS.append(var)
+        RegAvail.append(reg)
+    for var in VARS:
+        del RegDescriptor[var]
+
 
 def freeReg(Instr, symTableNo):
     global MIPScode
@@ -122,6 +130,7 @@ def code_gen(initial, final):
             freeReg(Instr, symTableNo)
 
         elif Instr3AC[Instr].instrType == 'FunctionCall':
+            dumpReg()
             MIPScode.append('jal '+ Instr3AC[Instr].flabel)
             if Instr3AC[Instr].output != "":
                 reg1 = getreg(Instr, Instr3AC[Instr].output, symTableNo)

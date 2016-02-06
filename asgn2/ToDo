@@ -1,5 +1,7 @@
-numbers will also require a register
-Function call
+numbers will also require a register - done
+Function call -done
+Main exit
 three address code
 Testing
 variables name cannot be 'b' in MIPS
+provide some (minimal) library support to allow for writing of useful programs.
