@@ -141,7 +141,7 @@ def code_gen(initial, final):
 
         elif Instr3AC[Instr].instrType == 'label':
             MIPScode.append(Instr3AC[Instr].flabel + ": ")
-            if label == "main":
+            if Instr3AC[Instr].flabel == "main":
                 exit = True            
             freeReg(Instr, symTableNo)
 
@@ -150,7 +150,7 @@ def code_gen(initial, final):
         		MIPScode.append('li $v0, 10')
         		MIPScode.append('syscall')
         		exit = False
-        	elif:
+        	else:
 	            if Instr3AC[Instr].input1 != "":
 	                reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
 	                MIPScode.append('move $v1, '+ reg1)

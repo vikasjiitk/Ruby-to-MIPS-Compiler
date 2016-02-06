@@ -13,13 +13,13 @@ lw $s7,d
 addi $s7,$0,1
 sw $s7,d
 L2: 
-jal b
+jal foo
 lw $s7,c
 move $s7,$v1
 sw $s7,c
 li $v0,10
 syscall
-b: 
+foo: 
 L4: 
 lw $s7,a
 lw $s6,d
