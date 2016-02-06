@@ -76,13 +76,14 @@ def fillsymtables(symtables,initialInstr,finalInstr,blockLength):
     scan = blockLength-1
     for blockLine in range(finalInstr, initialInstr -1 , -1):
         if blockLine!=finalInstr:
-            symtables[scan]=cg.symtables[scan+1].copy()                                #copying the previous filled dictionary for further changes
+            symtables[scan]=cg.symtables[scan+1].copy()      #copying the previous filled dictionary for further changes
+        if (cg.Instr3AC[blockLine].output!= ""):
+            symtables[scan][cg.Instr3AC[blockLine].output] = [cg.Dead, 0]
         if (cg.Instr3AC[blockLine].input1.isdigit() == False and cg.Instr3AC[blockLine].input1!= ""):
             symtables[scan][cg.Instr3AC[blockLine].input1] = [cg.Live, blockLine]
         if (cg.Instr3AC[blockLine].input2.isdigit() == False and cg.Instr3AC[blockLine].input2!= ""):
             symtables[scan][cg.Instr3AC[blockLine].input2] = [cg.Live, blockLine]
-        if (cg.Instr3AC[blockLine].output!= ""):
-            symtables[scan][cg.Instr3AC[blockLine].output] = [cg.Dead, 0]
+
         scan = scan-1
 
     return symtables
