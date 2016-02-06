@@ -1,2 +1,4 @@
-0,=,a,2
-1,print,a
+0,label,main
+1,=,a,2
+2,print,a
+3,ret

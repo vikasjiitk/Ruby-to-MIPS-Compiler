@@ -9,30 +9,26 @@ addi $t2,$0,2
 sw $t2,a
 L2: 
 addi $t2,$0,1
-L3: 
-lw $t1,a
-add $t1,$t1,$t2
 sw $t2,belikejanish
-L4: 
-sw $t1,a
-lw $t1,a
-addi $t2,$0,5
-ble $t1,$t2,L2
-sw $t1,a
-L5: 
+L3: 
 jal foo
 move $t2,$v1
 sw $t2,c
+foo: 
+L5: 
+lw $t2,a
+lw $t1,belikejanish
+add $t2,$t2,$t1
+sw $t1,belikejanish
 L6: 
 li $v0, 10
 syscall
-foo: 
-L8: 
+L7: 
 li $v0, 1
-lw $t2,a
-move $a0, $t2
+lw $t1,c
+move $a0, $t1
 syscall
-L9: 
-move $v1, $t2
+L8: 
 jr $ra
 sw $t2,a
+sw $t1,c
