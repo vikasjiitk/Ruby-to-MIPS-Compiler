@@ -13,6 +13,7 @@ leaders = [0]
 Instr=0
 Infinite = 10000000000
 variables =[]
+exit = False
 def initializeReg():
     global RegAvail
     global RegConstant
@@ -115,6 +116,7 @@ def getreg(Instr, var, symTableNo):
 def code_gen(initial, final):
     global MIPScode
     global Instr3AC
+    global exit
     for Instr in range(initial,final+1):
         if Instr3AC[Instr].instrType != 'label':
             MIPScode.append('L'+str(Instr3AC[Instr].lineNo)+': ')
@@ -139,16 +141,23 @@ def code_gen(initial, final):
 
         elif Instr3AC[Instr].instrType == 'label':
             MIPScode.append(Instr3AC[Instr].flabel + ": ")
+            if label == "main":
+                exit = True            
             freeReg(Instr, symTableNo)
 
         elif Instr3AC[Instr].instrType == 'return':
-            if Instr3AC[Instr].input1 != "":
-                reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
-                MIPScode.append('move $v1, '+ reg1)
-                MIPScode.append('jr $ra')
-            else:
-                MIPScode.append('jr $ra')
-            freeReg(Instr, symTableNo)
+        	if exit == True:
+        		MIPScode.append('li $v0, 10')
+        		MIPScode.append('syscall')
+        		exit = False
+        	elif:
+	            if Instr3AC[Instr].input1 != "":
+	                reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
+	                MIPScode.append('move $v1, '+ reg1)
+	                MIPScode.append('jr $ra')
+	            else:
+	                MIPScode.append('jr $ra')
+	            freeReg(Instr, symTableNo)
         elif Instr3AC[Instr].instrType == 'print':
             MIPScode.append('li $v0, 1')
 
