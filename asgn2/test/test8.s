@@ -28,10 +28,10 @@ li $v0, 1
 lw $t2,c1
 move $a0, $t2
 syscall
+sw $t2,c1
 L7: 
 li $v0, 10
 syscall
-sw $t2,c1
 foo: 
 L9: 
 li $v0, 1

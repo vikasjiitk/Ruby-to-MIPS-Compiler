@@ -8,7 +8,7 @@ L2:
 li $v0, 1
 move $a0, $t2
 syscall
+sw $t2,a1
 L3: 
 li $v0, 10
 syscall
-sw $t2,a1

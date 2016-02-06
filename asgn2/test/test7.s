@@ -48,19 +48,19 @@ li $v0, 1
 lw $t2,a1
 move $a0, $t2
 syscall
-L12: 
-addi $t1,$0,1
-move $v1, $t1
-jr $ra
 sw $t2,a1
+L12: 
+addi $t2,$0,1
+move $v1, $t2
+jr $ra
 foo1: 
 L14: 
 li $v0, 1
 lw $t2,b1
 move $a0, $t2
 syscall
-L15: 
-addi $t1,$0,1
-move $v1, $t1
-jr $ra
 sw $t2,b1
+L15: 
+addi $t2,$0,1
+move $v1, $t2
+jr $ra

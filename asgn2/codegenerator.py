@@ -162,12 +162,21 @@ def code_gen(initial, final):
 	            else:
 	                MIPScode.append('jr $ra')
 	            freeReg(Instr, symTableNo)
+
         elif Instr3AC[Instr].instrType == 'print':
             MIPScode.append('li $v0, 1')
-
             reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
             MIPScode.append('move $a0, '+ reg1)
             MIPScode.append('syscall')
+            freeReg(Instr, symTableNo)
+
+        elif Instr3AC[Instr].instrType == 'scan':
+            reg1 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
+            MIPScode.append('li $v0,5')
+            MIPScode.append('syscall')
+            MIPScode.append('move '+reg1+', '+'$v0')
+            freeReg(Instr, symTableNo)
+            
         elif Instr3AC[Instr].operator == '+':
             reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
             reg2 = getreg(Instr, Instr3AC[Instr].input2, symTableNo)
@@ -214,4 +223,6 @@ def code_gen(initial, final):
                 reg1 = getreg(Instr, Instr3AC[Instr].input1,symTableNo)
                 reg3 = getreg(Instr, Instr3AC[Instr].output,symTableNo)
                 MIPScode.append('move '+reg3+','+reg1)
+
+
             freeReg(Instr, symTableNo)

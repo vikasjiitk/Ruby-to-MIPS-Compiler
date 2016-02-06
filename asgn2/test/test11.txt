@@ -1,0 +1,6 @@
+0,label,main
+1,scan,a
+2,scan,b
+3,+,c,a,b
+4,print,c
+5,ret

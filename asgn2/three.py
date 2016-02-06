@@ -19,14 +19,12 @@ def Equal(i,words):
     cg.Instr3AC[i].input1 = words[3]
 
 def Arithmetic(i,words):
-
     cg.Instr3AC[i].instrType = "Arithmetic"
     cg.Instr3AC[i].output = words[2]
     cg.Instr3AC[i].input1 = words[3]
     cg.Instr3AC[i].input2 = words[4]
 
 def Ifgoto(i,words):
-
     cg.Instr3AC[i].instrType = "ifgoto"
     if words[2] in ["ble","blt","bge","bgt","beq","bne"]:
         cg.Instr3AC[i].operator = words[2]
@@ -35,27 +33,31 @@ def Ifgoto(i,words):
     else:
         cg.Instr3AC[i].input1 = words[2]
     cg.Instr3AC[i].target = words[-1]
-def Function(i,words):
 
+def Function(i,words):
     cg.Instr3AC[i].instrType = "FunctionCall"
     cg.Instr3AC[i].flabel = words[2]
     if len(words) == 4:
         cg.Instr3AC[i].output = words[3]
-def Return(i,words):
 
+def Return(i,words):
     cg.Instr3AC[i].instrType = "return"
     if len(words) == 3:
         cg.Instr3AC[i].input1 = words[2]
-def Label(i,words):
 
+def Label(i,words):
     cg.Instr3AC[i].instrType = "label"
     cg.Instr3AC[i].flabel = words[2]
-def Print(i,words):
 
+def Print(i,words):
     cg.Instr3AC[i].instrType  = "print"
     cg.Instr3AC[i].input1 = words[2]
-def getsymtables(initialInstr, finalInstr, blockLength):
 
+def Scan(i,words):
+    cg.Instr3AC[i].instrType = "scan"
+    cg.Instr3AC[i].output = words[2]
+
+def getsymtables(initialInstr, finalInstr, blockLength):
     cg.symtables = [dict() for x in range(blockLength+1)]
     for blockLine in range(initialInstr,finalInstr+1):
         if (cg.Instr3AC[blockLine].input1.isdigit() == False and cg.Instr3AC[blockLine].input1!= ""):
@@ -132,6 +134,8 @@ def getInstrSet(f):
             Return(cg.Instr,words)
         elif words[1] == 'print':
             Print(cg.Instr,words)
+        elif words[1] == 'scan':
+            Scan(cg.Instr,words)
         if(cg.Instr3AC[cg.Instr].input1.isdigit() == False and cg.Instr3AC[cg.Instr].input1.isdigit() != "" ):
             cg.Instr3AC[cg.Instr].input1 += '1'
         if(cg.Instr3AC[cg.Instr].input2.isdigit() == False and cg.Instr3AC[cg.Instr].input2.isdigit() != "" ):

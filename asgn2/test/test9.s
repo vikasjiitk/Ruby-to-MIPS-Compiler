@@ -3,6 +3,7 @@ f1: .word 0
 g1: .word 0
 i1: .word 0
 h1: .word 0
+j1: .word 0
 a1: .word 0
 b1: .word 0
 c1: .word 0
@@ -79,8 +80,8 @@ move $t0,$v1
 sw $t0,i1
 L19: 
 jal foo1
-addi $t2,$0,1
 move $t2,$v1
+sw $t2,j1
 L20: 
 li $v0, 10
 syscall
@@ -90,19 +91,19 @@ li $v0, 1
 lw $t2,a1
 move $a0, $t2
 syscall
-L23: 
-addi $t1,$0,1
-move $v1, $t1
-jr $ra
 sw $t2,a1
+L23: 
+addi $t2,$0,1
+move $v1, $t2
+jr $ra
 foo1: 
 L25: 
 li $v0, 1
 lw $t2,b1
 move $a0, $t2
 syscall
-L26: 
-addi $t1,$0,1
-move $v1, $t1
-jr $ra
 sw $t2,b1
+L26: 
+addi $t2,$0,1
+move $v1, $t2
+jr $ra
