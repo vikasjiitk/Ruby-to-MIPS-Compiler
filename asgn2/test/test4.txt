@@ -1,4 +1,4 @@
-0,label,mail
+0,label,main
 1,call,foo,a
 2,label,foo
 3,ret,2
