@@ -17,16 +17,16 @@ def Equal(i,words):
     cg.Instr3AC[i].instrType = "Assignment"
     cg.Instr3AC[i].output = words[2]
     cg.Instr3AC[i].input1 = words[3]
-#   return cg.Instr3AC.output,cg.Instr3AC.input1
+
 def Arithmetic(i,words):
-    # global cg.Instr3AC
+
     cg.Instr3AC[i].instrType = "Arithmetic"
     cg.Instr3AC[i].output = words[2]
     cg.Instr3AC[i].input1 = words[3]
     cg.Instr3AC[i].input2 = words[4]
-#   return cg.Instr3AC.output,cg.Instr3AC.input1, cg.Instr3AC.input2
+
 def Ifgoto(i,words):
-    # global cg.Instr3AC
+
     cg.Instr3AC[i].instrType = "ifgoto"
     if words[2] in ["ble","blt","bge","bgt","beq","bne"]:
         cg.Instr3AC[i].operator = words[2]
@@ -36,28 +36,26 @@ def Ifgoto(i,words):
         cg.Instr3AC[i].input1 = words[2]
     cg.Instr3AC[i].target = words[-1]
 def Function(i,words):
-    # global cg.Instr3AC
+
     cg.Instr3AC[i].instrType = "FunctionCall"
     cg.Instr3AC[i].flabel = words[2]
     if len(words) == 4:
         cg.Instr3AC[i].output = words[3]
 def Return(i,words):
-    # global cg.Instr3AC
+
     cg.Instr3AC[i].instrType = "return"
     if len(words) == 3:
         cg.Instr3AC[i].input1 = words[2]
 def Label(i,words):
-    # global cg.Instr3AC
+
     cg.Instr3AC[i].instrType = "label"
     cg.Instr3AC[i].flabel = words[2]
 def Print(i,words):
-    # global cg.Instr3AC
+
     cg.Instr3AC[i].instrType  = "print"
     cg.Instr3AC[i].input1 = words[2]
 def getsymtables(initialInstr, finalInstr, blockLength):
-    # global cg.Instr3AC
-    # global cg.Dead
-    # global cg.Infinite
+
     cg.symtables = [dict() for x in range(blockLength+1)]
     for blockLine in range(initialInstr,finalInstr+1):
         if (cg.Instr3AC[blockLine].input1.isdigit() == False and cg.Instr3AC[blockLine].input1!= ""):
@@ -74,9 +72,7 @@ def getsymtables(initialInstr, finalInstr, blockLength):
     return cg.symtables
 
 def fillsymtables(symtables,initialInstr,finalInstr,blockLength):
-    # global cg.Instr3AC
-    # global cg.Dead
-    # global cg.Live
+
     scan = blockLength-1
     for blockLine in range(finalInstr, initialInstr -1 , -1):
         if blockLine!=finalInstr:
@@ -88,12 +84,11 @@ def fillsymtables(symtables,initialInstr,finalInstr,blockLength):
         if (cg.Instr3AC[blockLine].output!= ""):
             symtables[scan][cg.Instr3AC[blockLine].output] = [cg.Dead, 0]
         scan = scan-1
-        # print 'symbol table before ' + str(blockLine)
-        # print symtables[blockLine-initial]
+
     return symtables
 
 def getVariables(NumInstr):
-    # global cg.Instr3AC
+
     cg.variables = []
     for i in range(NumInstr):
         if (cg.Instr3AC[i].input1.isdigit() == False and cg.Instr3AC[i].input1!= ""):
@@ -106,13 +101,14 @@ def getVariables(NumInstr):
     return cg.variables
 
 def getInstrSet(f):
-    # global cg.Instr3AC
-    # global Instr
-    # global cg.leaders
+
     for line in f:
         if line[-1] == '\n':
             line = line[:-1]
         words = line.split(',')
+        for i in range(len(words)):
+            if(words[i] == 'b'):
+                words[i] = 'belikejanish'
         cg.Instr3AC.append(threeAddCode())
         cg.Instr3AC[cg.Instr].lineNo = int(words[0])
         cg.Instr3AC[cg.Instr].operator = words[1]

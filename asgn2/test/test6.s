@@ -1,7 +1,7 @@
 .data
 a: .word 0
 c: .word 0
-d: .word 0
+belikejanish: .word 0
 .text
 main: 
 L1: 
@@ -9,12 +9,12 @@ lw $s7,a
 addi $s7,$0,2
 sw $s7,a
 L2: 
-lw $s7,d
+lw $s7,belikejanish
 addi $s7,$0,1
 L3: 
 lw $s6,a
 add $s6,$s6,$s7
-sw $s7,d
+sw $s7,belikejanish
 L4: 
 sw $s6,a
 lw $s6,a
