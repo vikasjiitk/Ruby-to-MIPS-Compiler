@@ -4,7 +4,6 @@ c: .word 0
 d: .word 0
 .text
 main: 
-main: 
 L1: 
 lw $s7,a
 addi $s7,$0,2
@@ -27,13 +26,16 @@ jal foo
 lw $s7,c
 move $s7,$v1
 sw $s7,c
+L6: 
+li $v0, 10
+syscall
 foo: 
-L7: 
+L8: 
 li $v0, 1
 lw $s7,a
 move $a0, $s7
 syscall
-L8: 
-li $v0, 10
-syscall
+L9: 
+move $v1, $s7
+jr $ra
 sw $s7,a

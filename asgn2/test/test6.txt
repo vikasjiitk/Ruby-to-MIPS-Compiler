@@ -4,6 +4,7 @@
 3,+,a,a,d
 4,ifgoto,ble,a,5,2
 5,call,foo,c
-6,label,foo
-7,print,a
-8,ret,a
+6,ret
+7,label,foo
+8,print,a
+9,ret,a

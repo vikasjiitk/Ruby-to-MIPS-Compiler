@@ -145,7 +145,7 @@ def fillDataSection(variables):
     cg.MIPSDatacode.append('.data')
     for var in cg.variables:
         cg.MIPSDatacode.append(var+': .word 0')
-    cg.MIPSDatacode.append('.text\nmain: ')
+    cg.MIPSDatacode.append('.text')
 filename = sys.argv[1]
 f = open(filename,'r')
 # getInstrSet fills cg.Instr3AC[] structure and also finds cg.leaders in the 3AC instruction set

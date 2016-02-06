@@ -142,7 +142,7 @@ def code_gen(initial, final):
         elif Instr3AC[Instr].instrType == 'label':
             MIPScode.append(Instr3AC[Instr].flabel + ": ")
             if Instr3AC[Instr].flabel == "main":
-                exit = True            
+                exit = True
             freeReg(Instr, symTableNo)
 
         elif Instr3AC[Instr].instrType == 'return':
@@ -207,7 +207,7 @@ def code_gen(initial, final):
                 reg1 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
                 MIPScode.append('addi '+reg1+',$0,'+Instr3AC[Instr].input1)
             else:
-                reg1 = getreg(Instr, Instr3AC[Instr].input1)
-                reg3 = getreg(Instr, Instr3AC[Instr].ouput)
+                reg1 = getreg(Instr, Instr3AC[Instr].input1,symTableNo)
+                reg3 = getreg(Instr, Instr3AC[Instr].output,symTableNo)
                 MIPScode.append('move '+reg3+','+reg1)
             freeReg(Instr, symTableNo)
