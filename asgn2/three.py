@@ -107,9 +107,9 @@ def getInstrSet(f):
         if line[-1] == '\n':
             line = line[:-1]
         words = line.split(',')
-        for i in range(len(words)):
-            if(words[i] == 'b'):
-                words[i] = 'belikejanish'
+        # for i in range(len(words)):
+        #     if(words[i] == 'b'):
+        #         words[i] = 'belikejanish'
         cg.Instr3AC.append(threeAddCode())
         cg.Instr3AC[cg.Instr].lineNo = int(words[0])
         cg.Instr3AC[cg.Instr].operator = words[1]
@@ -132,6 +132,12 @@ def getInstrSet(f):
             Return(cg.Instr,words)
         elif words[1] == 'print':
             Print(cg.Instr,words)
+        if(cg.Instr3AC[cg.Instr].input1.isdigit() == False and cg.Instr3AC[cg.Instr].input1.isdigit() != "" ):
+            cg.Instr3AC[cg.Instr].input1 += '1'
+        if(cg.Instr3AC[cg.Instr].input2.isdigit() == False and cg.Instr3AC[cg.Instr].input2.isdigit() != "" ):
+            cg.Instr3AC[cg.Instr].input2 += '1'
+        if(cg.Instr3AC[cg.Instr].output.isdigit() == False and cg.Instr3AC[cg.Instr].output.isdigit() != "" ):
+            cg.Instr3AC[cg.Instr].output += '1'
         cg.Instr = cg.Instr+1
     cg.leaders.append(cg.Instr)
     cg.leaders = sorted(set(cg.leaders))

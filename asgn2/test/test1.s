@@ -1,5 +1,5 @@
 .data
-a: .word 0
+a1: .word 0
 .text
 main: 
 L1: 
@@ -11,4 +11,4 @@ syscall
 L3: 
 li $v0, 10
 syscall
-sw $t2,a
+sw $t2,a1

@@ -1,20 +1,20 @@
 .data
-a: .word 0
+a1: .word 0
 .text
 main: 
 L1: 
 jal foo
 move $t2,$v1
-sw $t2,a
+sw $t2,a1
 L2: 
 li $v0, 1
-lw $t2,a
+lw $t2,a1
 move $a0, $t2
 syscall
 L3: 
 li $v0, 10
 syscall
-sw $t2,a
+sw $t2,a1
 foo: 
 L5: 
 addi $t2,$0,2

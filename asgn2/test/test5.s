@@ -1,35 +1,35 @@
 .data
-a: .word 0
-c: .word 0
-belikejanish: .word 0
+a1: .word 0
+c1: .word 0
+b1: .word 0
 .text
 main: 
 L1: 
 addi $t2,$0,2
-sw $t2,a
+sw $t2,a1
 L2: 
 addi $t2,$0,1
-sw $t2,belikejanish
+sw $t2,b1
 L3: 
 jal foo
 move $t2,$v1
-sw $t2,c
+sw $t2,c1
 L4: 
 li $v0, 1
-lw $t2,c
+lw $t2,c1
 move $a0, $t2
 syscall
 L5: 
 li $v0, 10
 syscall
-sw $t2,c
+sw $t2,c1
 foo: 
 L7: 
-lw $t2,a
-lw $t1,belikejanish
+lw $t2,a1
+lw $t1,b1
 add $t2,$t2,$t1
-sw $t1,belikejanish
+sw $t1,b1
 L8: 
 move $v1, $t2
 jr $ra
-sw $t2,a
+sw $t2,a1
