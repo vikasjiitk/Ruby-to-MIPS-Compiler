@@ -1,6 +1,6 @@
 0,label,main
 1,call,foo,a
-2,label,foo
-3,ret,2
-4,print,a
-5,ret
+2,print,a
+3,ret
+4,label,foo
+5,ret,2
