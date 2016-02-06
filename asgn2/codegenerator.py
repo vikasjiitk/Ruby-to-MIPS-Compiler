@@ -1,7 +1,8 @@
 MIPScode = []
 MIPSDatacode = []
 Instr3AC = []
-NumRegister = 16
+# NumRegister = 16
+NumRegister = 3
 RegAvail = []
 RegConstant = []
 RegDescriptor = {}
@@ -19,7 +20,8 @@ def initializeReg():
     global RegConstant
     global AddDescriptor
     global RegDescriptor
-    RegAvail = ['$t0','$t1','$t2','$t3','$t4','$t5','$t6','$t7','$s0','$s1','$s2','$s3','$s4','$s5','$s6','$s7']
+    RegAvail = ['$t0','$t1','$t2']
+    # RegAvail = ['$t0','$t1','$t2','$t3','$t4','$t5','$t6','$t7','$s0','$s1','$s2','$s3','$s4','$s5','$s6','$s7']
     RegConstant =[]
     RegDescriptor = {}
     for i in variables:
@@ -84,7 +86,8 @@ def getreg(Instr, var, symTableNo):
 
         reg = RegAvail.pop()
         if(var.isdigit() == False):   # var passed is not a constant value
-            MIPScode.append('lw '+reg+','+str(var))
+            if(not(Instr3AC[Instr].output == var and Instr3AC[Instr].input1 != var and Instr3AC[Instr].input2 != var)):
+                MIPScode.append('lw '+reg+','+str(var))
             RegDescriptor[var] = reg
             AddDescriptor[var].append('register')
         else:
@@ -95,7 +98,7 @@ def getreg(Instr, var, symTableNo):
         InstrVAR = [Instr3AC[Instr].input1,Instr3AC[Instr].input2, Instr3AC[Instr].output]
         farthestNextUse = 0
         for VAR in symtables[symTableNo]:
-            if VAR not in InstrVAR:
+            if (VAR not in InstrVAR and VAR in RegDescriptor):
                 if (symtables[symTableNo][VAR][1] > farthestNextUse):
                     farthestVar = VAR
                     farthestNextUse = symtables[symTableNo][VAR][1]
@@ -105,7 +108,8 @@ def getreg(Instr, var, symTableNo):
         AddDescriptor[farthestVar] = ['memory']
         del RegDescriptor[farthestVar]
         if(var.isdigit() == False):   # var passed is not a constant value
-            MIPScode.append('lw '+reg+','+var)
+            if(not(Instr3AC[Instr].output == var and Instr3AC[Instr].input1 != var and Instr3AC[Instr].input2 != var)):
+                MIPScode.append('lw '+reg+','+var)
             RegDescriptor[var] = reg
             AddDescriptor[var].append('register')
         else:
