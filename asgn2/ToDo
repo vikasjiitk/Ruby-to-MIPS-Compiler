@@ -1,8 +1,0 @@
-numbers will also require a register - done
-Function call -done
-Main exit - done
-three address code (scan + objects) - scan done
-Testing - ongoing
-Operators  operators += done logical remaining
-Reserved names in MIPS - done by appending '1'
-provide some (minimal) library support to allow for writing of useful programs.

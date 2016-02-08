@@ -260,7 +260,7 @@ def code_gen(initial, final):
             MIPScode.append('srav '+reg3+','+reg1+','+reg2)
             freeReg(Instr, symTableNo)
 
-        elif Instr3AC[Instr].operator == '~':
+        elif Instr3AC[Instr].operator == '~|':
             reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
             reg2 = getreg(Instr, Instr3AC[Instr].input2, symTableNo)
             reg3 = getreg(Instr, Instr3AC[Instr].output, symTableNo)

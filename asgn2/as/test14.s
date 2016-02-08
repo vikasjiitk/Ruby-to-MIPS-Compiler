@@ -1,5 +1,6 @@
 .data
 f1: .word 0
+-41: .word 0
 a1: .word 0
 b1: .word 0
 c1: .word 0
@@ -8,23 +9,19 @@ d1: .word 0
 .text
 main: 
 L1: 
-addi $t2,$0,4
+lw $t2,-41
+move $t1,$t2
+sw $t2,-41
 L2: 
-addi $t1,$0,5
+addi $t2,$0,5
 L3: 
-xor $t0,$t2,$t1
+xor $t0,$t1,$t2
 L4: 
 sw $t0,c1
-addi $t0,$0,1
-sw $t2,a1
-addi $t2,$0,1
-sw $t1,b1
-addi $t1,$0,1
-nor $t1,$t0,$t2
+nor $t0,$t1,$t2
 L5: 
-lw $t1,a1
-lw $t2,b1
-sslv $t0,$t1,$t2
+sw $t0,d1
+sllv $t0,$t1,$t2
 L6: 
 sw $t0,e1
 srav $t0,$t1,$t2
