@@ -1,0 +1,8 @@
+0,label,main
+1,=,a,4
+2,+=,a,5
+3,=,b,a
+4,*=,a,b
+5,print,b
+6,print,a
+7,ret
