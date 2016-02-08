@@ -28,6 +28,12 @@ def Arithmetic(i,words):
         cg.Instr3AC[i].output = cg.Instr3AC[i].input1 = words[2]
         cg.Instr3AC[i].input2 = words[3]
 
+def Logical(i, words):
+    cg.Instr3AC[i].instrType = "logical"
+    cg.Instr3AC[i].output = words[2]
+    cg.Instr3AC[i].input1 = words[3]
+    cg.Instr3AC[i].input2 = words[4]
+
 def Ifgoto(i,words):
     cg.Instr3AC[i].instrType = "ifgoto"
     if words[2] in ["ble","blt","bge","bgt","beq","bne"]:
@@ -91,6 +97,8 @@ def getInstrSet(f):
             Equal(cg.Instr,words)
         elif words[1] in ['+','-','/','*','%','+=', '-=', '*=', '/=', '%=']:
             Arithmetic(cg.Instr,words)
+        elif words[1] in ['^','|','&','<<','>>','~|']:
+            Logical(cg.Instr,words)
         elif words[1] == 'ifgoto':
             cg.leaders.append(cg.Instr3AC[cg.Instr].lineNo + 1)
             cg.leaders.append(int(words[-1]))
