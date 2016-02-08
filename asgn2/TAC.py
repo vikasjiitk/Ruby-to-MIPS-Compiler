@@ -97,7 +97,7 @@ def getInstrSet(f):
             Equal(cg.Instr,words)
         elif words[1] in ['+','-','/','*','%','+=', '-=', '*=', '/=', '%=']:
             Arithmetic(cg.Instr,words)
-        elif words[1] in ['^','|','&','<<','>>','~|']:
+        elif words[1] in ['^','|','&','<<','>>','~|','>>>']:
             Logical(cg.Instr,words)
         elif words[1] == 'ifgoto':
             cg.leaders.append(cg.Instr3AC[cg.Instr].lineNo + 1)
