@@ -1,4 +1,3 @@
-import sys
 import codegenerator as cg
 
 class threeAddCode:
@@ -27,7 +26,7 @@ def Arithmetic(i,words):
     else:
         cg.Instr3AC[i].operator = words[1][0]
         cg.Instr3AC[i].output = cg.Instr3AC[i].input1 = words[2]
-        cg.Instr3AC[i].input2 = words[3]       
+        cg.Instr3AC[i].input2 = words[3]
 
 def Ifgoto(i,words):
     cg.Instr3AC[i].instrType = "ifgoto"
@@ -61,39 +60,6 @@ def Print(i,words):
 def Scan(i,words):
     cg.Instr3AC[i].instrType = "scan"
     cg.Instr3AC[i].output = words[2]
-
-def getsymtables(initialInstr, finalInstr, blockLength):
-    cg.symtables = [dict() for x in range(blockLength+1)]
-    for blockLine in range(initialInstr,finalInstr+1):
-        if (cg.Instr3AC[blockLine].input1.isdigit() == False and cg.Instr3AC[blockLine].input1!= ""):
-            if cg.Instr3AC[blockLine].input1 not in cg.symtables[0]:
-                for k in range(blockLength+1):
-                    cg.symtables[k][cg.Instr3AC[blockLine].input1] = [cg.Dead, cg.Infinite]
-        if (cg.Instr3AC[blockLine].input2.isdigit() == False and cg.Instr3AC[blockLine].input2!= ""):
-            if cg.Instr3AC[blockLine].input2 not in cg.symtables[0]:
-                for k in range(blockLength+1):
-                    cg.symtables[k][cg.Instr3AC[blockLine].input2] = [cg.Dead, cg.Infinite]
-        if cg.Instr3AC[blockLine].output not in cg.symtables[0] and cg.Instr3AC[blockLine].output!="":
-                for k in range(blockLength+1):
-                    cg.symtables[k][cg.Instr3AC[blockLine].output] = [cg.Dead, cg.Infinite]
-    return cg.symtables
-
-def fillsymtables(symtables,initialInstr,finalInstr,blockLength):
-
-    scan = blockLength-1
-    for blockLine in range(finalInstr, initialInstr -1 , -1):
-        if blockLine!=finalInstr:
-            symtables[scan]=cg.symtables[scan+1].copy()      #copying the previous filled dictionary for further changes
-        if (cg.Instr3AC[blockLine].output!= ""):
-            symtables[scan][cg.Instr3AC[blockLine].output] = [cg.Dead, 0]
-        if (cg.Instr3AC[blockLine].input1.isdigit() == False and cg.Instr3AC[blockLine].input1!= ""):
-            symtables[scan][cg.Instr3AC[blockLine].input1] = [cg.Live, blockLine]
-        if (cg.Instr3AC[blockLine].input2.isdigit() == False and cg.Instr3AC[blockLine].input2!= ""):
-            symtables[scan][cg.Instr3AC[blockLine].input2] = [cg.Live, blockLine]
-
-        scan = scan-1
-
-    return symtables
 
 def getVariables(NumInstr):
 
@@ -152,35 +118,3 @@ def getInstrSet(f):
     cg.leaders.append(cg.Instr)
     cg.leaders = sorted(set(cg.leaders))
     return cg.Instr
-
-def fillDataSection(variables):
-    # global cg.MIPSDatacode
-    cg.MIPSDatacode.append('.data')
-    for var in cg.variables:
-        cg.MIPSDatacode.append(var+': .word 0')
-    cg.MIPSDatacode.append('.text')
-filename = sys.argv[1]
-f = open(filename,'r')
-# getInstrSet fills cg.Instr3AC[] structure and also finds cg.leaders in the 3AC instruction set
-NumInstr = getInstrSet(f)
-cg.variables = getVariables(NumInstr)
-
-fillDataSection(cg.variables)
-
-for blockNum in range(len(cg.leaders)-1):
-    initial = cg.leaders[blockNum]
-    final = cg.leaders[blockNum+1] - 1
-    blockLength = final - initial + 1
-    # Building blockLength number of symbol tables (one for each program point)
-    cg.symtables = getsymtables(initial, final, blockLength)
-    # print cg.symtables
-    ## Backward scanning and filling symbol table for each program point
-    cg.symtables = fillsymtables(cg.symtables,initial,final,blockLength)
-    # print cg.symtables
-    cg.initializeReg()
-    cg.code_gen(initial,final)
-    cg.dumpReg()
-for i in range(0,len(cg.MIPSDatacode)):
-    print cg.MIPSDatacode[i]
-for i in range(0,len(cg.MIPScode)):
-    print cg.MIPScode[i]
