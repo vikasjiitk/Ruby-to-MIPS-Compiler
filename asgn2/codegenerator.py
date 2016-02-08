@@ -132,7 +132,7 @@ def code_gen(initial, final):
                 reg2 = getreg(Instr, Instr3AC[Instr].input2, symTableNo)
                 MIPScode.append(Instr3AC[Instr].operator + ' '+ reg1+','+reg2 + ',' +'L' + str(Instr3AC[Instr].target))
             else :
-                MIPScode.append('bgtz ' + reg1 + ','+'L' + str(Instr3AC[Instr].lineNo))
+                MIPScode.append('bgtz ' + reg1 + ','+'L' + str(Instr3AC[Instr].target))
             freeReg(Instr, symTableNo)
 
         elif Instr3AC[Instr].instrType == 'FunctionCall':
@@ -176,7 +176,7 @@ def code_gen(initial, final):
             MIPScode.append('syscall')
             MIPScode.append('move '+reg1+', '+'$v0')
             freeReg(Instr, symTableNo)
-            
+
         elif Instr3AC[Instr].operator == '+':
             reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
             reg2 = getreg(Instr, Instr3AC[Instr].input2, symTableNo)
