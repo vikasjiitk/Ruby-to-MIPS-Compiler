@@ -12,47 +12,43 @@ d1: .word 0
 .text
 main: 
 L1: 
-addi $t2,$0,2
+addi $s7,$0,2
 L2: 
-addi $t1,$0,3
+addi $s6,$0,3
 L3: 
-addi $t0,$0,3
-sw $t0,c1
+addi $s5,$0,3
 L4: 
-addi $t0,$0,4
-sw $t0,d1
+addi $s4,$0,4
 L5: 
-move $t0,$t2
+move $s3,$s7
 L6: 
-mult $t0,$t0
-mflo $t0
+mult $s3,$s6
+mflo $s3
+sw $s3,e1
 L7: 
-add $t0,$t0,$t2
-sw $t0,e1
+add $s3,$s7,$s6
+sw $s3,e1
 L8: 
-lw $t0,f1
-add $t0,$t0,$t2
-sw $t0,f1
+add $s3,$s7,$s4
+sw $s3,f1
 L9: 
-lw $t0,h1
-add $t0,$t0,$t2
-sw $t0,h1
+add $s3,$s7,$s5
+sw $s3,h1
 L10: 
-lw $t0,i1
-add $t0,$t0,$t1
-sw $t0,i1
+add $s3,$s6,$s4
+sw $s3,i1
 L11: 
-lw $t0,t1
-mult $t0,$t2
-mflo $t0
-sw $t0,t1
-sw $t2,a1
+mult $s7,$s5
+mflo $s3
+sw $s7,a1
+sw $s5,c1
+sw $s3,t1
 L12: 
-lw $t2,k1
-div $t2,$t1
-mflo $t2
-sw $t2,k1
-sw $t1,b1
+div $s6,$s4
+mflo $s3
+sw $s6,b1
+sw $s4,d1
+sw $s3,k1
 L13: 
 li $v0, 10
 syscall

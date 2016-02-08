@@ -7,21 +7,20 @@ main:
 L1: 
 li $v0,5
 syscall
-move $t2, $v0
+move $s7, $v0
 L2: 
 li $v0,5
 syscall
-move $t1, $v0
-sw $t1,b1
+move $s6, $v0
 L3: 
-lw $t1,c1
-add $t1,$t1,$t2
-sw $t2,a1
+add $s5,$s7,$s6
+sw $s7,a1
+sw $s6,b1
 L4: 
 li $v0, 1
-move $a0, $t1
+move $a0, $s5
 syscall
-sw $t1,c1
+sw $s5,c1
 L5: 
 li $v0, 10
 syscall

@@ -5,34 +5,34 @@ b1: .word 0
 .text
 main: 
 L1: 
-addi $t2,$0,2
-sw $t2,a1
+addi $s7,$0,2
+sw $s7,a1
 L2: 
-addi $t2,$0,1
-sw $t2,b1
+addi $s7,$0,1
 L3: 
-lw $t2,a1
-add $t2,$t2,$t2
+lw $s6,a1
+add $s6,$s6,$s7
+sw $s7,b1
 L4: 
-sw $t2,a1
-lw $t2,a1
-addi $t1,$0,5
-ble $t2,$t1,L2
-sw $t2,a1
+sw $s6,a1
+lw $s6,a1
+addi $s7,$0,5
+ble $s6,$s7,L2
+sw $s6,a1
 L5: 
 jal foo
-move $t2,$v1
-sw $t2,c1
+move $s7,$v1
+sw $s7,c1
 L6: 
 li $v0, 10
 syscall
 foo: 
 L8: 
 li $v0, 1
-lw $t2,a1
-move $a0, $t2
+lw $s7,a1
+move $a0, $s7
 syscall
 L9: 
-move $v1, $t2
+move $v1, $s7
 jr $ra
-sw $t2,a1
+sw $s7,a1

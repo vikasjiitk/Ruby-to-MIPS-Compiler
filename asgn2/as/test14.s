@@ -9,47 +9,41 @@ d1: .word 0
 .text
 main: 
 L1: 
-lw $t2,-41
-move $t1,$t2
-sw $t2,-41
+lw $s7,-41
+move $s6,$s7
+sw $s7,-41
 L2: 
-addi $t2,$0,5
+addi $s7,$0,5
 L3: 
-xor $t0,$t1,$t2
+xor $s5,$s6,$s7
 L4: 
-sw $t0,c1
-nor $t0,$t1,$t2
+nor $s4,$s6,$s7
 L5: 
-sw $t0,d1
-sllv $t0,$t1,$t2
+sllv $s3,$s6,$s7
 L6: 
-sw $t0,e1
-srav $t0,$t1,$t2
-sw $t1,a1
-sw $t2,b1
+srav $s2,$s6,$s7
+sw $s6,a1
+sw $s7,b1
 L7: 
 li $v0, 1
-lw $t2,c1
-move $a0, $t2
+move $a0, $s5
 syscall
-sw $t2,c1
+sw $s5,c1
 L8: 
 li $v0, 1
-lw $t2,d1
-move $a0, $t2
+move $a0, $s4
 syscall
-sw $t2,d1
+sw $s4,d1
 L9: 
 li $v0, 1
-lw $t2,e1
-move $a0, $t2
+move $a0, $s3
 syscall
-sw $t2,e1
+sw $s3,e1
 L10: 
 li $v0, 1
-move $a0, $t0
+move $a0, $s2
 syscall
-sw $t0,f1
+sw $s2,f1
 L11: 
 li $v0, 10
 syscall

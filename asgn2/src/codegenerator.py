@@ -1,8 +1,8 @@
 MIPScode = []
 MIPSDatacode = []
 Instr3AC = []
-# NumRegister = 16
-NumRegister = 3
+NumRegister = 16
+# NumRegister = 3
 RegAvail = []
 RegConstant = []
 RegDescriptor = {}
@@ -20,8 +20,8 @@ def initializeReg():
     global RegConstant
     global AddDescriptor
     global RegDescriptor
-    RegAvail = ['$t0','$t1','$t2']
-    # RegAvail = ['$t0','$t1','$t2','$t3','$t4','$t5','$t6','$t7','$s0','$s1','$s2','$s3','$s4','$s5','$s6','$s7']
+    # RegAvail = ['$t0','$t1','$t2']
+    RegAvail = ['$t0','$t1','$t2','$t3','$t4','$t5','$t6','$t7','$s0','$s1','$s2','$s3','$s4','$s5','$s6','$s7']
     RegConstant =[]
     RegDescriptor = {}
     for i in variables:

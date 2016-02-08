@@ -22,7 +22,7 @@ import symtables as st
 #
 # def Arithmetic(i,words):
 #     cg.Instr3AC[i].instrType = "Arithmetic"
-#     if words[2] in ['+','-','/','*','%']:
+#     if words[1] in ['+','-','/','*','%']:
 #         cg.Instr3AC[i].output = words[2]
 #         cg.Instr3AC[i].input1 = words[3]
 #         cg.Instr3AC[i].input2 = words[4]
@@ -63,7 +63,7 @@ import symtables as st
 # def Scan(i,words):
 #     cg.Instr3AC[i].instrType = "scan"
 #     cg.Instr3AC[i].output = words[2]
-
+#
 # def getsymtables(initialInstr, finalInstr, blockLength):
 #     cg.symtables = [dict() for x in range(blockLength+1)]
 #     for blockLine in range(initialInstr,finalInstr+1):
@@ -96,7 +96,7 @@ import symtables as st
 #         scan = scan-1
 #
 #     return symtables
-
+#
 # def getVariables(NumInstr):
 #
 #     cg.variables = []
@@ -143,13 +143,17 @@ import symtables as st
 #             Print(cg.Instr,words)
 #         elif words[1] == 'scan':
 #             Scan(cg.Instr,words)
-#
-#         if(cg.Instr3AC[cg.Instr].input1.isdigit() == False and cg.Instr3AC[cg.Instr].input1.isdigit() != "" ):
+#         print '%%%%%%%%%%%%%%%%'
+#         if(cg.Instr3AC[cg.Instr].input1.isdigit() == False and cg.Instr3AC[cg.Instr].input1 != "" ):
+#             print cg.Instr3AC[cg.Instr].input1
 #             cg.Instr3AC[cg.Instr].input1 += '1'
-#         if(cg.Instr3AC[cg.Instr].input2.isdigit() == False and cg.Instr3AC[cg.Instr].input2.isdigit() != "" ):
+#         if(cg.Instr3AC[cg.Instr].input2.isdigit() == False and cg.Instr3AC[cg.Instr].input2 != "" ):
+#             print cg.Instr3AC[cg.Instr].input2
 #             cg.Instr3AC[cg.Instr].input2 += '1'
-#         if(cg.Instr3AC[cg.Instr].output.isdigit() == False and cg.Instr3AC[cg.Instr].output.isdigit() != "" ):
+#         if(cg.Instr3AC[cg.Instr].output.isdigit() == False and cg.Instr3AC[cg.Instr].output != "" ):
+#             print cg.Instr3AC[cg.Instr].output
 #             cg.Instr3AC[cg.Instr].output += '1'
+#         print '%%%%%%%%%%%%%%%%%%'
 #         cg.Instr = cg.Instr+1
 #     cg.leaders.append(cg.Instr)
 #     cg.leaders = sorted(set(cg.leaders))

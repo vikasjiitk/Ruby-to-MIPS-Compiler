@@ -6,27 +6,25 @@ d1: .word 0
 .text
 main: 
 L1: 
-addi $t2,$0,4
+addi $s7,$0,4
 L2: 
-addi $t1,$0,5
+addi $s6,$0,5
 L3: 
-or $t0,$t2,$t1
+or $s5,$s7,$s6
 L4: 
-sw $t0,c1
-and $t0,$t2,$t1
-sw $t2,a1
-sw $t1,b1
+and $s4,$s7,$s6
+sw $s7,a1
+sw $s6,b1
 L5: 
 li $v0, 1
-lw $t1,c1
-move $a0, $t1
+move $a0, $s5
 syscall
-sw $t1,c1
+sw $s5,c1
 L6: 
 li $v0, 1
-move $a0, $t0
+move $a0, $s4
 syscall
-sw $t0,d1
+sw $s4,d1
 L7: 
 li $v0, 10
 syscall

@@ -3,12 +3,12 @@ a1: .word 0
 .text
 main: 
 L1: 
-addi $t2,$0,2
+addi $s7,$0,2
 L2: 
 li $v0, 1
-move $a0, $t2
+move $a0, $s7
 syscall
-sw $t2,a1
+sw $s7,a1
 L3: 
 li $v0, 10
 syscall

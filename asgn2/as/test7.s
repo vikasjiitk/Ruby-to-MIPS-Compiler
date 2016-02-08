@@ -6,59 +6,61 @@ d1: .word 0
 .text
 main: 
 L1: 
-addi $t2,$0,2
-sw $t2,a1
+addi $s7,$0,2
+sw $s7,a1
 L2: 
-addi $t2,$0,1
-sw $t2,b1
+addi $s7,$0,1
 L3: 
-lw $t2,a1
-add $t2,$t2,$t2
+lw $s6,a1
+add $s6,$s6,$s7
+sw $s7,b1
 L4: 
-sw $t2,a1
-lw $t2,a1
-addi $t1,$0,5
-ble $t2,$t1,L2
-sw $t2,a1
+sw $s6,a1
+lw $s6,a1
+addi $s7,$0,5
+ble $s6,$s7,L2
+sw $s6,a1
 L5: 
-lw $t2,a1
-sub $t2,$t2,$t2
+lw $s7,a1
+lw $s6,b1
+sub $s7,$s7,$s6
+sw $s6,b1
 L6: 
-sw $t2,a1
-lw $t2,a1
-addi $t1,$0,1
-bge $t2,$t1,L5
-sw $t2,a1
+sw $s7,a1
+lw $s7,a1
+addi $s6,$0,1
+bge $s7,$s6,L5
+sw $s7,a1
 L7: 
 jal foo
-move $t2,$v1
-sw $t2,c1
+move $s7,$v1
+sw $s7,c1
 L8: 
 jal foo1
-move $t2,$v1
-sw $t2,d1
+move $s7,$v1
+sw $s7,d1
 L9: 
 li $v0, 10
 syscall
 foo: 
 L11: 
 li $v0, 1
-lw $t2,a1
-move $a0, $t2
+lw $s7,a1
+move $a0, $s7
 syscall
-sw $t2,a1
+sw $s7,a1
 L12: 
-addi $t2,$0,1
-move $v1, $t2
+addi $s7,$0,1
+move $v1, $s7
 jr $ra
 foo1: 
 L14: 
 li $v0, 1
-lw $t2,b1
-move $a0, $t2
+lw $s7,b1
+move $a0, $s7
 syscall
-sw $t2,b1
+sw $s7,b1
 L15: 
-addi $t2,$0,1
-move $v1, $t2
+addi $s7,$0,1
+move $v1, $s7
 jr $ra
