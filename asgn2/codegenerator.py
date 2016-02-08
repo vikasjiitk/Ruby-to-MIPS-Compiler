@@ -223,6 +223,50 @@ def code_gen(initial, final):
                 reg1 = getreg(Instr, Instr3AC[Instr].input1,symTableNo)
                 reg3 = getreg(Instr, Instr3AC[Instr].output,symTableNo)
                 MIPScode.append('move '+reg3+','+reg1)
-
-
             freeReg(Instr, symTableNo)
+
+        elif Instr3AC[Instr].operator == '|':
+            reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
+            reg2 = getreg(Instr, Instr3AC[Instr].input2, symTableNo)
+            reg3 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
+            MIPScode.append('or '+reg3+','+reg1+','+reg2)
+            freeReg(Instr, symTableNo)
+
+        elif Instr3AC[Instr].operator == '&':
+            reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
+            reg2 = getreg(Instr, Instr3AC[Instr].input2, symTableNo)
+            reg3 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
+            MIPScode.append('and '+reg3+','+reg1+','+reg2)
+            freeReg(Instr, symTableNo)
+
+        elif Instr3AC[Instr].operator == '^':
+            reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
+            reg2 = getreg(Instr, Instr3AC[Instr].input2, symTableNo)
+            reg3 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
+            MIPScode.append('xor '+reg3+','+reg1+','+reg2)
+            freeReg(Instr, symTableNo)    
+
+        elif Instr3AC[Instr].operator == '<<':
+            reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
+            reg2 = getreg(Instr, Instr3AC[Instr].input2, symTableNo)
+            reg3 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
+            MIPScode.append('sslv '+reg3+','+reg1+','+reg2)
+            freeReg(Instr, symTableNo)    
+
+        elif Instr3AC[Instr].operator == '>>':
+            reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
+            reg2 = getreg(Instr, Instr3AC[Instr].input2, symTableNo)
+            reg3 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
+            MIPScode.append('srav '+reg3+','+reg1+','+reg2)
+            freeReg(Instr, symTableNo)     
+
+        elif Instr3AC[Instr].operator == '~':
+            reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
+            reg2 = getreg(Instr, Instr3AC[Instr].input2, symTableNo)
+            reg3 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
+            MIPScode.append('nor '+reg3+','+reg1+','+reg2)
+            freeReg(Instr, symTableNo)     
+    
+
+
+
