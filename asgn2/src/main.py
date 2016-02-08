@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import sys
 import codegenerator as cg
 import TAC as tac

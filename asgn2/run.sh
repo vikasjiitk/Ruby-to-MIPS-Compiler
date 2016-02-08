@@ -1,3 +1,4 @@
+mkdir ../as
 python main.py ../test/test1.ir > ../as/test1.s
 python main.py ../test/test2.ir > ../as/test2.s
 python main.py ../test/test3.ir > ../as/test3.s
