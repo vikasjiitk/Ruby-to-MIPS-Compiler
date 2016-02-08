@@ -1,6 +1,5 @@
 .data
 f1: .word 0
--41: .word 0
 a1: .word 0
 b1: .word 0
 c1: .word 0
@@ -9,21 +8,19 @@ d1: .word 0
 .text
 main: 
 L1: 
-lw $s7,-41
-move $s6,$s7
-sw $s7,-41
+addi $s7,$0,-4
 L2: 
-addi $s7,$0,5
+addi $s6,$0,5
 L3: 
-xor $s5,$s6,$s7
+xor $s5,$s7,$s6
 L4: 
-nor $s4,$s6,$s7
+nor $s4,$s7,$s6
 L5: 
-sllv $s3,$s6,$s7
+sllv $s3,$s7,$s6
 L6: 
-srlv $s2,$s6,$s7
-sw $s6,a1
-sw $s7,b1
+srlv $s2,$s7,$s6
+sw $s7,a1
+sw $s6,b1
 L7: 
 li $v0, 1
 move $a0, $s5

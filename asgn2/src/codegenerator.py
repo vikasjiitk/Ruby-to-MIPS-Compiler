@@ -15,6 +15,15 @@ Instr=0
 Infinite = 10000000000
 variables =[]
 exit = False
+
+def is_int(s):
+    try:
+        int(s)
+        return True
+    except ValueError:
+        return False
+
+
 def initializeReg():
     global RegAvail
     global RegConstant
@@ -85,7 +94,7 @@ def getreg(Instr, var, symTableNo):
     if RegAvail: # there is a register in RegAvail
 
         reg = RegAvail.pop()
-        if(var.isdigit() == False):   # var passed is not a constant value
+        if(is_int(var) == False):   # var passed is not a constant value
             if(not(Instr3AC[Instr].output == var and Instr3AC[Instr].input1 != var and Instr3AC[Instr].input2 != var)):
                 MIPScode.append('lw '+reg+','+str(var))
             RegDescriptor[var] = reg
@@ -107,7 +116,7 @@ def getreg(Instr, var, symTableNo):
         MIPScode.append('sw '+reg+','+farthestVar)
         AddDescriptor[farthestVar] = ['memory']
         del RegDescriptor[farthestVar]
-        if(var.isdigit() == False):   # var passed is not a constant value
+        if(is_int(var) == False):   # var passed is not a constant value
             if(not(Instr3AC[Instr].output == var and Instr3AC[Instr].input1 != var and Instr3AC[Instr].input2 != var)):
                 MIPScode.append('lw '+reg+','+var)
             RegDescriptor[var] = reg
@@ -216,7 +225,7 @@ def code_gen(initial, final):
             freeReg(Instr, symTableNo)
 
         elif Instr3AC[Instr].operator == '=':
-            if (Instr3AC[Instr].input1.isdigit() == True):
+            if (is_int(Instr3AC[Instr].input1) == True):
                 reg1 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
                 MIPScode.append('addi '+reg1+',$0,'+Instr3AC[Instr].input1)
             else:

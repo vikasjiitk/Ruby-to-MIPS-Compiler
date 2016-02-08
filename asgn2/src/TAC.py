@@ -71,11 +71,11 @@ def getVariables(NumInstr):
 
     cg.variables = []
     for i in range(NumInstr):
-        if (cg.Instr3AC[i].input1.isdigit() == False and cg.Instr3AC[i].input1!= ""):
+        if (cg.is_int(cg.Instr3AC[i].input1) == False and cg.Instr3AC[i].input1!= ""):
             cg.variables.append(cg.Instr3AC[i].input1)
-        if (cg.Instr3AC[i].input2.isdigit() == False and cg.Instr3AC[i].input2!= ""):
+        if (cg.is_int(cg.Instr3AC[i].input2) == False and cg.Instr3AC[i].input2!= ""):
             cg.variables.append(cg.Instr3AC[i].input2)
-        if (cg.Instr3AC[i].output.isdigit() == False and cg.Instr3AC[i].output!= ""):
+        if (cg.is_int(cg.Instr3AC[i].output) == False and cg.Instr3AC[i].output!= ""):
             cg.variables.append(cg.Instr3AC[i].output)
     cg.variables = set(cg.variables)
     return cg.variables
@@ -116,11 +116,11 @@ def getInstrSet(f):
         elif words[1] == 'scan':
             Scan(cg.Instr,words)
 
-        if(cg.Instr3AC[cg.Instr].input1.isdigit() == False and cg.Instr3AC[cg.Instr].input1.isdigit() != "" ):
+        if(cg.is_int(cg.Instr3AC[cg.Instr].input1) == False and cg.is_int(cg.Instr3AC[cg.Instr].input1) != "" ):
             cg.Instr3AC[cg.Instr].input1 += '1'
-        if(cg.Instr3AC[cg.Instr].input2.isdigit() == False and cg.Instr3AC[cg.Instr].input2.isdigit() != "" ):
+        if(cg.is_int(cg.Instr3AC[cg.Instr].input2) == False and cg.is_int(cg.Instr3AC[cg.Instr].input2) != "" ):
             cg.Instr3AC[cg.Instr].input2 += '1'
-        if(cg.Instr3AC[cg.Instr].output.isdigit() == False and cg.Instr3AC[cg.Instr].output.isdigit() != "" ):
+        if(cg.is_int(cg.Instr3AC[cg.Instr].output) == False and cg.is_int(cg.Instr3AC[cg.Instr].output) != "" ):
             cg.Instr3AC[cg.Instr].output += '1'
         cg.Instr = cg.Instr+1
     cg.leaders.append(cg.Instr)
