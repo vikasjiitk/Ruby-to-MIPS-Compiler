@@ -1,0 +1,12 @@
+0,label,main
+1,=,a,4
+2,=,b,5
+3,^,c,a,b
+4,~,|,d,a,b
+5,<<,e,a,b
+6,>>,f,a,b
+7,print,c
+8,print,d
+9,print,e
+10,print,f
+11,ret
