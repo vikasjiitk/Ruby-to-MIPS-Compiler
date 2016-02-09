@@ -1,4 +1,5 @@
 all:
+	mkdir bin
 	cp src/main.py bin/main.py
 	cp src/codegenerator.pyc bin/codegenerator.pyc
 	cp src/symtables.pyc bin/symtables.pyc
