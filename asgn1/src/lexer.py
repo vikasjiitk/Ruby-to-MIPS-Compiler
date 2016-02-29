@@ -10,14 +10,15 @@ keywords = [
 ]
 
 operators = [
-	# +,-,*,/,%,&,|,^ ,!,~,=,**,<<,>>,==,===, !=, <=>, >=, >, <,<=,%=,/=,-=, +=,*=,**=,.,..,...,not,and,or,?:, &&, ||
+	# +,-,*,/,%,&,|,^ ,!,~,=,**,<<,>>,==,===, !=, <=>, >=, >, <,<=,%=,/=,-=, +=,*=,**=,.,..,...,not,and,or,?:, &&, ||,&=,|=,^=,<<=,>>=,&&=,||=
     'PLUS', 'MINUS', 'MULTIPLY', 'DIV', 'MOD',
     'BITAND', 'PIPE', 'BITXOR', 'BITNOT', 'BITCOMP', 'EQUAL',
     'DOUBLESTAR' , 'SHIFTL', 'SHIFTR', 'DOUBLEEQUAL', 'TRIPLEEQUAL',
     'NOTEQUAL', 'IFF', 'GREATEREQUAL', 'GREATER', 'LESS',
     'LESSEQUAL', 'MODEQUAL', 'DIVEQUAL', 'MINUSEQUAL','PLUSEQUAL',
     'MULTIPLYEQUAL','DOUBLESTAREQUAL', 'DOT', 'DOUBLEDOT','TRIPLEDOT',
-    'NOT','AND','OR','QUESTIONCOLON','LOGICALAND','LOGICALOR' 
+    'NOT','AND','OR','QUESTIONCOLON','LOGICALAND','LOGICALOR'
+    'BITANDEQUAL', 'PIPEEQUAL', 'BITXOREQUAL', 'SHIFTLEQUAL', 'SHIFTREQUAL', 'LOGICALANDEQUAL', 'LOGICALOREQUAL'
 ]
 
 delimiters=[
@@ -76,7 +77,13 @@ t_OR=r'or'
 t_QUESTIONCOLON=r'\?:'
 t_LOGICALAND=r'&&'
 t_LOGICALOR=r'\|\|'
-
+t_BITANDEQUAL=r'&='
+t_PIPEEQUAL=r'\|='
+t_BITXOREQUAL=r'\^='
+t_SHIFTLEQUAL=r'<<='
+t_SHIFTREQUAL=r'>>='
+t_LOGICALANDEQUAL=r'&&='
+t_LOGICALOREQUAL=r'\|\|='
 #symbols
 t_QUESTION_MARK=r'\?'
 t_DOLLAR=r'\$'
