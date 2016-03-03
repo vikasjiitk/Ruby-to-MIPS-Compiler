@@ -1,0 +1,4087 @@
+Created by PLY version 3.7 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    KEYWORD_redo
+    KEYWORD_unless
+    BLOCK_END
+    KEYWORD___ENCODING__
+    BITANDEQUAL
+    OPEN_BRACKET
+    KEYWORD_next
+    SQUOTES
+    KEYWORD_END
+    KEYWORD_self
+    KEYWORD_when
+    KEYWORD_break
+    MINUSEQUAL
+    KEYWORD_nil
+    OR
+    SIGIL_AT
+    DIVEQUAL
+    KEYWORD_or
+    KEYWORD_retry
+    KEYWORD_return
+    KEYWORD_undef
+    SIGIL_DOLLAR
+    DOUBLE_COLON
+    DOUBLESTAREQUAL
+    KEYWORD_false
+    KEYWORD_definedQ
+    SHIFTLEQUAL
+    AND
+    NOT
+    KEYWORD_not
+    KEYWORD_yield
+    KEYWORD_until
+    KEYWORD_in
+    DOT
+    KEYWORD_ensure
+    MODEQUAL
+    QUESTIONCOLON
+    KEYWORD_true
+    LOGICALOREQUAL
+    KEYWORD___END__
+    PLUSEQUAL
+    KEYWORD_super
+    KEYWORD_alias
+    MULTIPLYEQUAL
+    SHIFTREQUAL
+    KEYWORD___LINE__
+    KEYWORD_BEGIN
+    CLOSE_BRACKET
+    BLOCK_BEGIN
+    KEYWORD_begin
+    KEYWORD_class
+    DQUOTES
+    KEYWORD_def
+    COMMA
+    PIPEEQUAL
+    KEYWORD_and
+    LOGICALANDEQUAL
+    KEYWORD___FILE__
+    SIGIL_DOUBLE_AT
+    KEYWORD_rescue
+    KEYWORD_module
+    DOLLAR
+    BACK_SLASH
+    KEYWORD_case
+    KEYWORD_for
+    BITXOREQUAL
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> top_compstmt
+Rule 2     top_compstmt -> top_stmts opt_terms
+Rule 3     top_stmts -> none
+Rule 4     top_stmts -> top_stmt
+Rule 5     top_stmts -> top_stmts terms top_stmt
+Rule 6     top_stmt -> stmt
+Rule 7     top_stmt -> KEYWORD_if expr3 opt_then top_compstmt elsif_tail opt_else_stmt KEYWORD_end
+Rule 8     top_stmt -> KEYWORD_while expr3 opt_do top_compstmt KEYWORD_end
+Rule 9     stmt -> expr
+Rule 10    opt_else_stmt -> KEYWORD_else top_compstmt
+Rule 11    opt_else_stmt -> none
+Rule 12    elsif_tail -> none
+Rule 13    elsif_tail -> KEYWORD_elsif expr3 opt_then top_compstmt elsif_tail
+Rule 14    opt_then -> KEYWORD_then
+Rule 15    opt_then -> none
+Rule 16    opt_do -> KEYWORD_do
+Rule 17    opt_do -> none
+Rule 18    expr -> mlhs EQUAL mrhs
+Rule 19    mlhs -> VARIABLES
+Rule 20    mlhs -> CONSTANTS
+Rule 21    mrhs -> expr1
+Rule 22    primary -> INT_CONSTANTS
+Rule 23    primary -> FLOAT_CONSTANTS
+Rule 24    primary -> STRING_CONSTANTS
+Rule 25    primary -> CHAR_CONSTANTS
+Rule 26    primary -> BOOLEAN_CONSTANTS
+Rule 27    primary -> CONSTANTS
+Rule 28    primary -> VARIABLES
+Rule 29    expr1 -> expr3 QUESTION_MARK expr2 COLON expr2
+Rule 30    expr1 -> expr2
+Rule 31    expr2 -> expr7 DOUBLEDOT expr7
+Rule 32    expr2 -> expr7 TRIPLEDOT expr7
+Rule 33    expr2 -> expr3
+Rule 34    expr3 -> expr3 LOGICALOR expr4
+Rule 35    expr3 -> expr4
+Rule 36    expr4 -> expr4 LOGICALAND expr5
+Rule 37    expr4 -> expr5
+Rule 38    expr5 -> expr6 IFF expr6
+Rule 39    expr5 -> expr6 DOUBLEEQUAL expr6
+Rule 40    expr5 -> expr6 TRIPLEEQUAL expr6
+Rule 41    expr5 -> expr6 NOTEQUAL expr6
+Rule 42    expr5 -> expr6
+Rule 43    expr6 -> expr7 LESSEQUAL expr7
+Rule 44    expr6 -> expr7 LESS expr7
+Rule 45    expr6 -> expr7 GREATER expr7
+Rule 46    expr6 -> expr7 GREATEREQUAL expr7
+Rule 47    expr6 -> expr7
+Rule 48    expr7 -> expr7 BITXOR expr8
+Rule 49    expr7 -> expr7 PIPE expr8
+Rule 50    expr7 -> expr8
+Rule 51    expr8 -> expr8 BITAND expr9
+Rule 52    expr8 -> expr9
+Rule 53    expr9 -> expr9 SHIFTL expr10
+Rule 54    expr9 -> expr9 SHIFTR expr10
+Rule 55    expr9 -> expr10
+Rule 56    expr10 -> expr10 PLUS expr11
+Rule 57    expr10 -> expr10 MINUS expr11
+Rule 58    expr10 -> expr11
+Rule 59    expr11 -> expr11 MULTIPLY expr12
+Rule 60    expr11 -> expr11 DIV expr12
+Rule 61    expr11 -> expr11 MOD expr12
+Rule 62    expr11 -> expr12
+Rule 63    expr12 -> expr13 DOUBLESTAR expr12
+Rule 64    expr12 -> expr13
+Rule 65    expr13 -> OPEN_PAREN expr1 CLOSE_PAREN
+Rule 66    expr13 -> uexpr INT_CONSTANTS
+Rule 67    expr13 -> uexpr FLOAT_CONSTANTS
+Rule 68    expr13 -> CONSTANTS
+Rule 69    expr13 -> VARIABLES
+Rule 70    uexpr -> none
+Rule 71    uexpr -> PLUS
+Rule 72    uexpr -> MINUS
+Rule 73    uexpr -> BITNOT
+Rule 74    uexpr -> BITCOMP
+Rule 75    opt_terms -> none
+Rule 76    opt_terms -> terms
+Rule 77    terms -> term
+Rule 78    terms -> terms term
+Rule 79    term -> DELIM
+Rule 80    term -> newline
+Rule 81    none -> <empty>
+
+Terminals, with rules where they appear
+
+AND                  : 
+BACK_SLASH           : 
+BITAND               : 51
+BITANDEQUAL          : 
+BITCOMP              : 74
+BITNOT               : 73
+BITXOR               : 48
+BITXOREQUAL          : 
+BLOCK_BEGIN          : 
+BLOCK_END            : 
+BOOLEAN_CONSTANTS    : 26
+CHAR_CONSTANTS       : 25
+CLOSE_BRACKET        : 
+CLOSE_PAREN          : 65
+COLON                : 29
+COMMA                : 
+CONSTANTS            : 20 27 68
+DELIM                : 79
+DIV                  : 60
+DIVEQUAL             : 
+DOLLAR               : 
+DOT                  : 
+DOUBLEDOT            : 31
+DOUBLEEQUAL          : 39
+DOUBLESTAR           : 63
+DOUBLESTAREQUAL      : 
+DOUBLE_COLON         : 
+DQUOTES              : 
+EQUAL                : 18
+FLOAT_CONSTANTS      : 23 67
+GREATER              : 45
+GREATEREQUAL         : 46
+IFF                  : 38
+INT_CONSTANTS        : 22 66
+KEYWORD_BEGIN        : 
+KEYWORD_END          : 
+KEYWORD___ENCODING__ : 
+KEYWORD___END__      : 
+KEYWORD___FILE__     : 
+KEYWORD___LINE__     : 
+KEYWORD_alias        : 
+KEYWORD_and          : 
+KEYWORD_begin        : 
+KEYWORD_break        : 
+KEYWORD_case         : 
+KEYWORD_class        : 
+KEYWORD_def          : 
+KEYWORD_definedQ     : 
+KEYWORD_do           : 16
+KEYWORD_else         : 10
+KEYWORD_elsif        : 13
+KEYWORD_end          : 7 8
+KEYWORD_ensure       : 
+KEYWORD_false        : 
+KEYWORD_for          : 
+KEYWORD_if           : 7
+KEYWORD_in           : 
+KEYWORD_module       : 
+KEYWORD_next         : 
+KEYWORD_nil          : 
+KEYWORD_not          : 
+KEYWORD_or           : 
+KEYWORD_redo         : 
+KEYWORD_rescue       : 
+KEYWORD_retry        : 
+KEYWORD_return       : 
+KEYWORD_self         : 
+KEYWORD_super        : 
+KEYWORD_then         : 14
+KEYWORD_true         : 
+KEYWORD_undef        : 
+KEYWORD_unless       : 
+KEYWORD_until        : 
+KEYWORD_when         : 
+KEYWORD_while        : 8
+KEYWORD_yield        : 
+LESS                 : 44
+LESSEQUAL            : 43
+LOGICALAND           : 36
+LOGICALANDEQUAL      : 
+LOGICALOR            : 34
+LOGICALOREQUAL       : 
+MINUS                : 57 72
+MINUSEQUAL           : 
+MOD                  : 61
+MODEQUAL             : 
+MULTIPLY             : 59
+MULTIPLYEQUAL        : 
+NOT                  : 
+NOTEQUAL             : 41
+OPEN_BRACKET         : 
+OPEN_PAREN           : 65
+OR                   : 
+PIPE                 : 49
+PIPEEQUAL            : 
+PLUS                 : 56 71
+PLUSEQUAL            : 
+QUESTIONCOLON        : 
+QUESTION_MARK        : 29
+SHIFTL               : 53
+SHIFTLEQUAL          : 
+SHIFTR               : 54
+SHIFTREQUAL          : 
+SIGIL_AT             : 
+SIGIL_DOLLAR         : 
+SIGIL_DOUBLE_AT      : 
+SQUOTES              : 
+STRING_CONSTANTS     : 24
+TRIPLEDOT            : 32
+TRIPLEEQUAL          : 40
+VARIABLES            : 19 28 69
+error                : 
+newline              : 80
+
+Nonterminals, with rules where they appear
+
+elsif_tail           : 7 13
+expr                 : 9
+expr1                : 21 65
+expr10               : 53 54 55 56 57
+expr11               : 56 57 58 59 60 61
+expr12               : 59 60 61 62 63
+expr13               : 63 64
+expr2                : 29 29 30
+expr3                : 7 8 13 29 33 34
+expr4                : 34 35 36
+expr5                : 36 37
+expr6                : 38 38 39 39 40 40 41 41 42
+expr7                : 31 31 32 32 43 43 44 44 45 45 46 46 47 48 49
+expr8                : 48 49 50 51
+expr9                : 51 52 53 54
+mlhs                 : 18
+mrhs                 : 18
+none                 : 3 11 12 15 17 70 75
+opt_do               : 8
+opt_else_stmt        : 7
+opt_terms            : 2
+opt_then             : 7 13
+primary              : 
+program              : 0
+stmt                 : 6
+term                 : 77 78
+terms                : 5 76 78
+top_compstmt         : 1 7 8 10 13
+top_stmt             : 4 5
+top_stmts            : 2 5
+uexpr                : 66 67
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . top_compstmt
+    (2) top_compstmt -> . top_stmts opt_terms
+    (3) top_stmts -> . none
+    (4) top_stmts -> . top_stmt
+    (5) top_stmts -> . top_stmts terms top_stmt
+    (81) none -> .
+    (6) top_stmt -> . stmt
+    (7) top_stmt -> . KEYWORD_if expr3 opt_then top_compstmt elsif_tail opt_else_stmt KEYWORD_end
+    (8) top_stmt -> . KEYWORD_while expr3 opt_do top_compstmt KEYWORD_end
+    (9) stmt -> . expr
+    (18) expr -> . mlhs EQUAL mrhs
+    (19) mlhs -> . VARIABLES
+    (20) mlhs -> . CONSTANTS
+
+    DELIM           reduce using rule 81 (none -> .)
+    newline         reduce using rule 81 (none -> .)
+    $end            reduce using rule 81 (none -> .)
+    KEYWORD_if      shift and go to state 3
+    KEYWORD_while   shift and go to state 4
+    VARIABLES       shift and go to state 5
+    CONSTANTS       shift and go to state 12
+
+    none                           shift and go to state 9
+    expr                           shift and go to state 10
+    top_compstmt                   shift and go to state 7
+    mlhs                           shift and go to state 1
+    stmt                           shift and go to state 8
+    program                        shift and go to state 6
+    top_stmts                      shift and go to state 2
+    top_stmt                       shift and go to state 11
+
+state 1
+
+    (18) expr -> mlhs . EQUAL mrhs
+
+    EQUAL           shift and go to state 13
+
+
+state 2
+
+    (2) top_compstmt -> top_stmts . opt_terms
+    (5) top_stmts -> top_stmts . terms top_stmt
+    (75) opt_terms -> . none
+    (76) opt_terms -> . terms
+    (77) terms -> . term
+    (78) terms -> . terms term
+    (81) none -> .
+    (79) term -> . DELIM
+    (80) term -> . newline
+
+    $end            reduce using rule 81 (none -> .)
+    KEYWORD_elsif   reduce using rule 81 (none -> .)
+    KEYWORD_else    reduce using rule 81 (none -> .)
+    KEYWORD_end     reduce using rule 81 (none -> .)
+    DELIM           shift and go to state 17
+    newline         shift and go to state 16
+
+    term                           shift and go to state 14
+    terms                          shift and go to state 15
+    none                           shift and go to state 18
+    opt_terms                      shift and go to state 19
+
+state 3
+
+    (7) top_stmt -> KEYWORD_if . expr3 opt_then top_compstmt elsif_tail opt_else_stmt KEYWORD_end
+    (34) expr3 -> . expr3 LOGICALOR expr4
+    (35) expr3 -> . expr4
+    (36) expr4 -> . expr4 LOGICALAND expr5
+    (37) expr4 -> . expr5
+    (38) expr5 -> . expr6 IFF expr6
+    (39) expr5 -> . expr6 DOUBLEEQUAL expr6
+    (40) expr5 -> . expr6 TRIPLEEQUAL expr6
+    (41) expr5 -> . expr6 NOTEQUAL expr6
+    (42) expr5 -> . expr6
+    (43) expr6 -> . expr7 LESSEQUAL expr7
+    (44) expr6 -> . expr7 LESS expr7
+    (45) expr6 -> . expr7 GREATER expr7
+    (46) expr6 -> . expr7 GREATEREQUAL expr7
+    (47) expr6 -> . expr7
+    (48) expr7 -> . expr7 BITXOR expr8
+    (49) expr7 -> . expr7 PIPE expr8
+    (50) expr7 -> . expr8
+    (51) expr8 -> . expr8 BITAND expr9
+    (52) expr8 -> . expr9
+    (53) expr9 -> . expr9 SHIFTL expr10
+    (54) expr9 -> . expr9 SHIFTR expr10
+    (55) expr9 -> . expr10
+    (56) expr10 -> . expr10 PLUS expr11
+    (57) expr10 -> . expr10 MINUS expr11
+    (58) expr10 -> . expr11
+    (59) expr11 -> . expr11 MULTIPLY expr12
+    (60) expr11 -> . expr11 DIV expr12
+    (61) expr11 -> . expr11 MOD expr12
+    (62) expr11 -> . expr12
+    (63) expr12 -> . expr13 DOUBLESTAR expr12
+    (64) expr12 -> . expr13
+    (65) expr13 -> . OPEN_PAREN expr1 CLOSE_PAREN
+    (66) expr13 -> . uexpr INT_CONSTANTS
+    (67) expr13 -> . uexpr FLOAT_CONSTANTS
+    (68) expr13 -> . CONSTANTS
+    (69) expr13 -> . VARIABLES
+    (70) uexpr -> . none
+    (71) uexpr -> . PLUS
+    (72) uexpr -> . MINUS
+    (73) uexpr -> . BITNOT
+    (74) uexpr -> . BITCOMP
+    (81) none -> .
+
+    OPEN_PAREN      shift and go to state 27
+    CONSTANTS       shift and go to state 38
+    VARIABLES       shift and go to state 24
+    PLUS            shift and go to state 32
+    MINUS           shift and go to state 23
+    BITNOT          shift and go to state 37
+    BITCOMP         shift and go to state 25
+    INT_CONSTANTS   reduce using rule 81 (none -> .)
+    FLOAT_CONSTANTS reduce using rule 81 (none -> .)
+
+    expr11                         shift and go to state 39
+    uexpr                          shift and go to state 35
+    expr10                         shift and go to state 21
+    none                           shift and go to state 36
+    expr3                          shift and go to state 26
+    expr6                          shift and go to state 28
+    expr5                          shift and go to state 31
+    expr4                          shift and go to state 30
+    expr7                          shift and go to state 29
+    expr8                          shift and go to state 33
+    expr9                          shift and go to state 34
+    expr13                         shift and go to state 22
+    expr12                         shift and go to state 20
+
+state 4
+
+    (8) top_stmt -> KEYWORD_while . expr3 opt_do top_compstmt KEYWORD_end
+    (34) expr3 -> . expr3 LOGICALOR expr4
+    (35) expr3 -> . expr4
+    (36) expr4 -> . expr4 LOGICALAND expr5
+    (37) expr4 -> . expr5
+    (38) expr5 -> . expr6 IFF expr6
+    (39) expr5 -> . expr6 DOUBLEEQUAL expr6
+    (40) expr5 -> . expr6 TRIPLEEQUAL expr6
+    (41) expr5 -> . expr6 NOTEQUAL expr6
+    (42) expr5 -> . expr6
+    (43) expr6 -> . expr7 LESSEQUAL expr7
+    (44) expr6 -> . expr7 LESS expr7
+    (45) expr6 -> . expr7 GREATER expr7
+    (46) expr6 -> . expr7 GREATEREQUAL expr7
+    (47) expr6 -> . expr7
+    (48) expr7 -> . expr7 BITXOR expr8
+    (49) expr7 -> . expr7 PIPE expr8
+    (50) expr7 -> . expr8
+    (51) expr8 -> . expr8 BITAND expr9
+    (52) expr8 -> . expr9
+    (53) expr9 -> . expr9 SHIFTL expr10
+    (54) expr9 -> . expr9 SHIFTR expr10
+    (55) expr9 -> . expr10
+    (56) expr10 -> . expr10 PLUS expr11
+    (57) expr10 -> . expr10 MINUS expr11
+    (58) expr10 -> . expr11
+    (59) expr11 -> . expr11 MULTIPLY expr12
+    (60) expr11 -> . expr11 DIV expr12
+    (61) expr11 -> . expr11 MOD expr12
+    (62) expr11 -> . expr12
+    (63) expr12 -> . expr13 DOUBLESTAR expr12
+    (64) expr12 -> . expr13
+    (65) expr13 -> . OPEN_PAREN expr1 CLOSE_PAREN
+    (66) expr13 -> . uexpr INT_CONSTANTS
+    (67) expr13 -> . uexpr FLOAT_CONSTANTS
+    (68) expr13 -> . CONSTANTS
+    (69) expr13 -> . VARIABLES
+    (70) uexpr -> . none
+    (71) uexpr -> . PLUS
+    (72) uexpr -> . MINUS
+    (73) uexpr -> . BITNOT
+    (74) uexpr -> . BITCOMP
+    (81) none -> .
+
+    OPEN_PAREN      shift and go to state 27
+    CONSTANTS       shift and go to state 38
+    VARIABLES       shift and go to state 24
+    PLUS            shift and go to state 32
+    MINUS           shift and go to state 23
+    BITNOT          shift and go to state 37
+    BITCOMP         shift and go to state 25
+    INT_CONSTANTS   reduce using rule 81 (none -> .)
+    FLOAT_CONSTANTS reduce using rule 81 (none -> .)
+
+    uexpr                          shift and go to state 35
+    none                           shift and go to state 36
+    expr9                          shift and go to state 34
+    expr12                         shift and go to state 20
+    expr3                          shift and go to state 40
+    expr6                          shift and go to state 28
+    expr7                          shift and go to state 29
+    expr4                          shift and go to state 30
+    expr5                          shift and go to state 31
+    expr10                         shift and go to state 21
+    expr8                          shift and go to state 33
+    expr13                         shift and go to state 22
+    expr11                         shift and go to state 39
+
+state 5
+
+    (19) mlhs -> VARIABLES .
+
+    EQUAL           reduce using rule 19 (mlhs -> VARIABLES .)
+
+
+state 6
+
+    (0) S' -> program .
+
+
+
+state 7
+
+    (1) program -> top_compstmt .
+
+    $end            reduce using rule 1 (program -> top_compstmt .)
+
+
+state 8
+
+    (6) top_stmt -> stmt .
+
+    DELIM           reduce using rule 6 (top_stmt -> stmt .)
+    newline         reduce using rule 6 (top_stmt -> stmt .)
+    KEYWORD_end     reduce using rule 6 (top_stmt -> stmt .)
+    $end            reduce using rule 6 (top_stmt -> stmt .)
+    KEYWORD_elsif   reduce using rule 6 (top_stmt -> stmt .)
+    KEYWORD_else    reduce using rule 6 (top_stmt -> stmt .)
+
+
+state 9
+
+    (3) top_stmts -> none .
+
+    DELIM           reduce using rule 3 (top_stmts -> none .)
+    newline         reduce using rule 3 (top_stmts -> none .)
+    KEYWORD_end     reduce using rule 3 (top_stmts -> none .)
+    $end            reduce using rule 3 (top_stmts -> none .)
+    KEYWORD_elsif   reduce using rule 3 (top_stmts -> none .)
+    KEYWORD_else    reduce using rule 3 (top_stmts -> none .)
+
+
+state 10
+
+    (9) stmt -> expr .
+
+    DELIM           reduce using rule 9 (stmt -> expr .)
+    newline         reduce using rule 9 (stmt -> expr .)
+    $end            reduce using rule 9 (stmt -> expr .)
+    KEYWORD_elsif   reduce using rule 9 (stmt -> expr .)
+    KEYWORD_else    reduce using rule 9 (stmt -> expr .)
+    KEYWORD_end     reduce using rule 9 (stmt -> expr .)
+
+
+state 11
+
+    (4) top_stmts -> top_stmt .
+
+    DELIM           reduce using rule 4 (top_stmts -> top_stmt .)
+    newline         reduce using rule 4 (top_stmts -> top_stmt .)
+    KEYWORD_end     reduce using rule 4 (top_stmts -> top_stmt .)
+    $end            reduce using rule 4 (top_stmts -> top_stmt .)
+    KEYWORD_elsif   reduce using rule 4 (top_stmts -> top_stmt .)
+    KEYWORD_else    reduce using rule 4 (top_stmts -> top_stmt .)
+
+
+state 12
+
+    (20) mlhs -> CONSTANTS .
+
+    EQUAL           reduce using rule 20 (mlhs -> CONSTANTS .)
+
+
+state 13
+
+    (18) expr -> mlhs EQUAL . mrhs
+    (21) mrhs -> . expr1
+    (29) expr1 -> . expr3 QUESTION_MARK expr2 COLON expr2
+    (30) expr1 -> . expr2
+    (34) expr3 -> . expr3 LOGICALOR expr4
+    (35) expr3 -> . expr4
+    (31) expr2 -> . expr7 DOUBLEDOT expr7
+    (32) expr2 -> . expr7 TRIPLEDOT expr7
+    (33) expr2 -> . expr3
+    (36) expr4 -> . expr4 LOGICALAND expr5
+    (37) expr4 -> . expr5
+    (48) expr7 -> . expr7 BITXOR expr8
+    (49) expr7 -> . expr7 PIPE expr8
+    (50) expr7 -> . expr8
+    (38) expr5 -> . expr6 IFF expr6
+    (39) expr5 -> . expr6 DOUBLEEQUAL expr6
+    (40) expr5 -> . expr6 TRIPLEEQUAL expr6
+    (41) expr5 -> . expr6 NOTEQUAL expr6
+    (42) expr5 -> . expr6
+    (51) expr8 -> . expr8 BITAND expr9
+    (52) expr8 -> . expr9
+    (43) expr6 -> . expr7 LESSEQUAL expr7
+    (44) expr6 -> . expr7 LESS expr7
+    (45) expr6 -> . expr7 GREATER expr7
+    (46) expr6 -> . expr7 GREATEREQUAL expr7
+    (47) expr6 -> . expr7
+    (53) expr9 -> . expr9 SHIFTL expr10
+    (54) expr9 -> . expr9 SHIFTR expr10
+    (55) expr9 -> . expr10
+    (56) expr10 -> . expr10 PLUS expr11
+    (57) expr10 -> . expr10 MINUS expr11
+    (58) expr10 -> . expr11
+    (59) expr11 -> . expr11 MULTIPLY expr12
+    (60) expr11 -> . expr11 DIV expr12
+    (61) expr11 -> . expr11 MOD expr12
+    (62) expr11 -> . expr12
+    (63) expr12 -> . expr13 DOUBLESTAR expr12
+    (64) expr12 -> . expr13
+    (65) expr13 -> . OPEN_PAREN expr1 CLOSE_PAREN
+    (66) expr13 -> . uexpr INT_CONSTANTS
+    (67) expr13 -> . uexpr FLOAT_CONSTANTS
+    (68) expr13 -> . CONSTANTS
+    (69) expr13 -> . VARIABLES
+    (70) uexpr -> . none
+    (71) uexpr -> . PLUS
+    (72) uexpr -> . MINUS
+    (73) uexpr -> . BITNOT
+    (74) uexpr -> . BITCOMP
+    (81) none -> .
+
+    OPEN_PAREN      shift and go to state 27
+    CONSTANTS       shift and go to state 38
+    VARIABLES       shift and go to state 24
+    PLUS            shift and go to state 32
+    MINUS           shift and go to state 23
+    BITNOT          shift and go to state 37
+    BITCOMP         shift and go to state 25
+    INT_CONSTANTS   reduce using rule 81 (none -> .)
+    FLOAT_CONSTANTS reduce using rule 81 (none -> .)
+
+    uexpr                          shift and go to state 35
+    none                           shift and go to state 36
+    expr12                         shift and go to state 20
+    expr13                         shift and go to state 22
+    expr2                          shift and go to state 41
+    expr3                          shift and go to state 42
+    mrhs                           shift and go to state 45
+    expr1                          shift and go to state 43
+    expr6                          shift and go to state 28
+    expr7                          shift and go to state 44
+    expr4                          shift and go to state 30
+    expr5                          shift and go to state 31
+    expr10                         shift and go to state 21
+    expr8                          shift and go to state 33
+    expr9                          shift and go to state 34
+    expr11                         shift and go to state 39
+
+state 14
+
+    (77) terms -> term .
+
+    KEYWORD_if      reduce using rule 77 (terms -> term .)
+    KEYWORD_while   reduce using rule 77 (terms -> term .)
+    DELIM           reduce using rule 77 (terms -> term .)
+    newline         reduce using rule 77 (terms -> term .)
+    VARIABLES       reduce using rule 77 (terms -> term .)
+    CONSTANTS       reduce using rule 77 (terms -> term .)
+    $end            reduce using rule 77 (terms -> term .)
+    KEYWORD_elsif   reduce using rule 77 (terms -> term .)
+    KEYWORD_else    reduce using rule 77 (terms -> term .)
+    KEYWORD_end     reduce using rule 77 (terms -> term .)
+
+
+state 15
+
+    (5) top_stmts -> top_stmts terms . top_stmt
+    (76) opt_terms -> terms .
+    (78) terms -> terms . term
+    (6) top_stmt -> . stmt
+    (7) top_stmt -> . KEYWORD_if expr3 opt_then top_compstmt elsif_tail opt_else_stmt KEYWORD_end
+    (8) top_stmt -> . KEYWORD_while expr3 opt_do top_compstmt KEYWORD_end
+    (79) term -> . DELIM
+    (80) term -> . newline
+    (9) stmt -> . expr
+    (18) expr -> . mlhs EQUAL mrhs
+    (19) mlhs -> . VARIABLES
+    (20) mlhs -> . CONSTANTS
+
+    $end            reduce using rule 76 (opt_terms -> terms .)
+    KEYWORD_elsif   reduce using rule 76 (opt_terms -> terms .)
+    KEYWORD_else    reduce using rule 76 (opt_terms -> terms .)
+    KEYWORD_end     reduce using rule 76 (opt_terms -> terms .)
+    KEYWORD_if      shift and go to state 3
+    KEYWORD_while   shift and go to state 4
+    DELIM           shift and go to state 17
+    newline         shift and go to state 16
+    VARIABLES       shift and go to state 5
+    CONSTANTS       shift and go to state 12
+
+    term                           shift and go to state 46
+    expr                           shift and go to state 10
+    mlhs                           shift and go to state 1
+    stmt                           shift and go to state 8
+    top_stmt                       shift and go to state 47
+
+state 16
+
+    (80) term -> newline .
+
+    KEYWORD_if      reduce using rule 80 (term -> newline .)
+    KEYWORD_while   reduce using rule 80 (term -> newline .)
+    DELIM           reduce using rule 80 (term -> newline .)
+    newline         reduce using rule 80 (term -> newline .)
+    VARIABLES       reduce using rule 80 (term -> newline .)
+    CONSTANTS       reduce using rule 80 (term -> newline .)
+    $end            reduce using rule 80 (term -> newline .)
+    KEYWORD_elsif   reduce using rule 80 (term -> newline .)
+    KEYWORD_else    reduce using rule 80 (term -> newline .)
+    KEYWORD_end     reduce using rule 80 (term -> newline .)
+
+
+state 17
+
+    (79) term -> DELIM .
+
+    KEYWORD_if      reduce using rule 79 (term -> DELIM .)
+    KEYWORD_while   reduce using rule 79 (term -> DELIM .)
+    DELIM           reduce using rule 79 (term -> DELIM .)
+    newline         reduce using rule 79 (term -> DELIM .)
+    VARIABLES       reduce using rule 79 (term -> DELIM .)
+    CONSTANTS       reduce using rule 79 (term -> DELIM .)
+    $end            reduce using rule 79 (term -> DELIM .)
+    KEYWORD_elsif   reduce using rule 79 (term -> DELIM .)
+    KEYWORD_else    reduce using rule 79 (term -> DELIM .)
+    KEYWORD_end     reduce using rule 79 (term -> DELIM .)
+
+
+state 18
+
+    (75) opt_terms -> none .
+
+    $end            reduce using rule 75 (opt_terms -> none .)
+    KEYWORD_elsif   reduce using rule 75 (opt_terms -> none .)
+    KEYWORD_else    reduce using rule 75 (opt_terms -> none .)
+    KEYWORD_end     reduce using rule 75 (opt_terms -> none .)
+
+
+state 19
+
+    (2) top_compstmt -> top_stmts opt_terms .
+
+    KEYWORD_elsif   reduce using rule 2 (top_compstmt -> top_stmts opt_terms .)
+    KEYWORD_else    reduce using rule 2 (top_compstmt -> top_stmts opt_terms .)
+    KEYWORD_end     reduce using rule 2 (top_compstmt -> top_stmts opt_terms .)
+    $end            reduce using rule 2 (top_compstmt -> top_stmts opt_terms .)
+
+
+state 20
+
+    (62) expr11 -> expr12 .
+
+    MULTIPLY        reduce using rule 62 (expr11 -> expr12 .)
+    DIV             reduce using rule 62 (expr11 -> expr12 .)
+    MOD             reduce using rule 62 (expr11 -> expr12 .)
+    PLUS            reduce using rule 62 (expr11 -> expr12 .)
+    MINUS           reduce using rule 62 (expr11 -> expr12 .)
+    SHIFTL          reduce using rule 62 (expr11 -> expr12 .)
+    SHIFTR          reduce using rule 62 (expr11 -> expr12 .)
+    BITAND          reduce using rule 62 (expr11 -> expr12 .)
+    LESSEQUAL       reduce using rule 62 (expr11 -> expr12 .)
+    LESS            reduce using rule 62 (expr11 -> expr12 .)
+    GREATER         reduce using rule 62 (expr11 -> expr12 .)
+    GREATEREQUAL    reduce using rule 62 (expr11 -> expr12 .)
+    BITXOR          reduce using rule 62 (expr11 -> expr12 .)
+    PIPE            reduce using rule 62 (expr11 -> expr12 .)
+    IFF             reduce using rule 62 (expr11 -> expr12 .)
+    DOUBLEEQUAL     reduce using rule 62 (expr11 -> expr12 .)
+    TRIPLEEQUAL     reduce using rule 62 (expr11 -> expr12 .)
+    NOTEQUAL        reduce using rule 62 (expr11 -> expr12 .)
+    LOGICALAND      reduce using rule 62 (expr11 -> expr12 .)
+    LOGICALOR       reduce using rule 62 (expr11 -> expr12 .)
+    KEYWORD_then    reduce using rule 62 (expr11 -> expr12 .)
+    KEYWORD_if      reduce using rule 62 (expr11 -> expr12 .)
+    KEYWORD_while   reduce using rule 62 (expr11 -> expr12 .)
+    VARIABLES       reduce using rule 62 (expr11 -> expr12 .)
+    CONSTANTS       reduce using rule 62 (expr11 -> expr12 .)
+    KEYWORD_elsif   reduce using rule 62 (expr11 -> expr12 .)
+    DELIM           reduce using rule 62 (expr11 -> expr12 .)
+    newline         reduce using rule 62 (expr11 -> expr12 .)
+    KEYWORD_else    reduce using rule 62 (expr11 -> expr12 .)
+    KEYWORD_end     reduce using rule 62 (expr11 -> expr12 .)
+    DOUBLEDOT       reduce using rule 62 (expr11 -> expr12 .)
+    TRIPLEDOT       reduce using rule 62 (expr11 -> expr12 .)
+    QUESTION_MARK   reduce using rule 62 (expr11 -> expr12 .)
+    CLOSE_PAREN     reduce using rule 62 (expr11 -> expr12 .)
+    $end            reduce using rule 62 (expr11 -> expr12 .)
+    COLON           reduce using rule 62 (expr11 -> expr12 .)
+    KEYWORD_do      reduce using rule 62 (expr11 -> expr12 .)
+
+
+state 21
+
+    (55) expr9 -> expr10 .
+    (56) expr10 -> expr10 . PLUS expr11
+    (57) expr10 -> expr10 . MINUS expr11
+
+    SHIFTL          reduce using rule 55 (expr9 -> expr10 .)
+    SHIFTR          reduce using rule 55 (expr9 -> expr10 .)
+    BITAND          reduce using rule 55 (expr9 -> expr10 .)
+    DOUBLEDOT       reduce using rule 55 (expr9 -> expr10 .)
+    TRIPLEDOT       reduce using rule 55 (expr9 -> expr10 .)
+    BITXOR          reduce using rule 55 (expr9 -> expr10 .)
+    PIPE            reduce using rule 55 (expr9 -> expr10 .)
+    LESSEQUAL       reduce using rule 55 (expr9 -> expr10 .)
+    LESS            reduce using rule 55 (expr9 -> expr10 .)
+    GREATER         reduce using rule 55 (expr9 -> expr10 .)
+    GREATEREQUAL    reduce using rule 55 (expr9 -> expr10 .)
+    IFF             reduce using rule 55 (expr9 -> expr10 .)
+    DOUBLEEQUAL     reduce using rule 55 (expr9 -> expr10 .)
+    TRIPLEEQUAL     reduce using rule 55 (expr9 -> expr10 .)
+    NOTEQUAL        reduce using rule 55 (expr9 -> expr10 .)
+    LOGICALAND      reduce using rule 55 (expr9 -> expr10 .)
+    QUESTION_MARK   reduce using rule 55 (expr9 -> expr10 .)
+    LOGICALOR       reduce using rule 55 (expr9 -> expr10 .)
+    DELIM           reduce using rule 55 (expr9 -> expr10 .)
+    newline         reduce using rule 55 (expr9 -> expr10 .)
+    $end            reduce using rule 55 (expr9 -> expr10 .)
+    KEYWORD_elsif   reduce using rule 55 (expr9 -> expr10 .)
+    KEYWORD_else    reduce using rule 55 (expr9 -> expr10 .)
+    KEYWORD_end     reduce using rule 55 (expr9 -> expr10 .)
+    CLOSE_PAREN     reduce using rule 55 (expr9 -> expr10 .)
+    COLON           reduce using rule 55 (expr9 -> expr10 .)
+    KEYWORD_then    reduce using rule 55 (expr9 -> expr10 .)
+    KEYWORD_if      reduce using rule 55 (expr9 -> expr10 .)
+    KEYWORD_while   reduce using rule 55 (expr9 -> expr10 .)
+    VARIABLES       reduce using rule 55 (expr9 -> expr10 .)
+    CONSTANTS       reduce using rule 55 (expr9 -> expr10 .)
+    KEYWORD_do      reduce using rule 55 (expr9 -> expr10 .)
+    PLUS            shift and go to state 48
+    MINUS           shift and go to state 49
+
+
+state 22
+
+    (63) expr12 -> expr13 . DOUBLESTAR expr12
+    (64) expr12 -> expr13 .
+
+    DOUBLESTAR      shift and go to state 50
+    MULTIPLY        reduce using rule 64 (expr12 -> expr13 .)
+    DIV             reduce using rule 64 (expr12 -> expr13 .)
+    MOD             reduce using rule 64 (expr12 -> expr13 .)
+    PLUS            reduce using rule 64 (expr12 -> expr13 .)
+    MINUS           reduce using rule 64 (expr12 -> expr13 .)
+    SHIFTL          reduce using rule 64 (expr12 -> expr13 .)
+    SHIFTR          reduce using rule 64 (expr12 -> expr13 .)
+    BITAND          reduce using rule 64 (expr12 -> expr13 .)
+    LESSEQUAL       reduce using rule 64 (expr12 -> expr13 .)
+    LESS            reduce using rule 64 (expr12 -> expr13 .)
+    GREATER         reduce using rule 64 (expr12 -> expr13 .)
+    GREATEREQUAL    reduce using rule 64 (expr12 -> expr13 .)
+    BITXOR          reduce using rule 64 (expr12 -> expr13 .)
+    PIPE            reduce using rule 64 (expr12 -> expr13 .)
+    IFF             reduce using rule 64 (expr12 -> expr13 .)
+    DOUBLEEQUAL     reduce using rule 64 (expr12 -> expr13 .)
+    TRIPLEEQUAL     reduce using rule 64 (expr12 -> expr13 .)
+    NOTEQUAL        reduce using rule 64 (expr12 -> expr13 .)
+    LOGICALAND      reduce using rule 64 (expr12 -> expr13 .)
+    LOGICALOR       reduce using rule 64 (expr12 -> expr13 .)
+    KEYWORD_then    reduce using rule 64 (expr12 -> expr13 .)
+    KEYWORD_if      reduce using rule 64 (expr12 -> expr13 .)
+    KEYWORD_while   reduce using rule 64 (expr12 -> expr13 .)
+    VARIABLES       reduce using rule 64 (expr12 -> expr13 .)
+    CONSTANTS       reduce using rule 64 (expr12 -> expr13 .)
+    KEYWORD_elsif   reduce using rule 64 (expr12 -> expr13 .)
+    KEYWORD_else    reduce using rule 64 (expr12 -> expr13 .)
+    KEYWORD_end     reduce using rule 64 (expr12 -> expr13 .)
+    DELIM           reduce using rule 64 (expr12 -> expr13 .)
+    newline         reduce using rule 64 (expr12 -> expr13 .)
+    KEYWORD_do      reduce using rule 64 (expr12 -> expr13 .)
+    DOUBLEDOT       reduce using rule 64 (expr12 -> expr13 .)
+    TRIPLEDOT       reduce using rule 64 (expr12 -> expr13 .)
+    QUESTION_MARK   reduce using rule 64 (expr12 -> expr13 .)
+    $end            reduce using rule 64 (expr12 -> expr13 .)
+    CLOSE_PAREN     reduce using rule 64 (expr12 -> expr13 .)
+    COLON           reduce using rule 64 (expr12 -> expr13 .)
+
+
+state 23
+
+    (72) uexpr -> MINUS .
+
+    INT_CONSTANTS   reduce using rule 72 (uexpr -> MINUS .)
+    FLOAT_CONSTANTS reduce using rule 72 (uexpr -> MINUS .)
+
+
+state 24
+
+    (69) expr13 -> VARIABLES .
+
+    DOUBLESTAR      reduce using rule 69 (expr13 -> VARIABLES .)
+    MULTIPLY        reduce using rule 69 (expr13 -> VARIABLES .)
+    DIV             reduce using rule 69 (expr13 -> VARIABLES .)
+    MOD             reduce using rule 69 (expr13 -> VARIABLES .)
+    PLUS            reduce using rule 69 (expr13 -> VARIABLES .)
+    MINUS           reduce using rule 69 (expr13 -> VARIABLES .)
+    SHIFTL          reduce using rule 69 (expr13 -> VARIABLES .)
+    SHIFTR          reduce using rule 69 (expr13 -> VARIABLES .)
+    BITAND          reduce using rule 69 (expr13 -> VARIABLES .)
+    BITXOR          reduce using rule 69 (expr13 -> VARIABLES .)
+    PIPE            reduce using rule 69 (expr13 -> VARIABLES .)
+    DELIM           reduce using rule 69 (expr13 -> VARIABLES .)
+    newline         reduce using rule 69 (expr13 -> VARIABLES .)
+    $end            reduce using rule 69 (expr13 -> VARIABLES .)
+    KEYWORD_elsif   reduce using rule 69 (expr13 -> VARIABLES .)
+    KEYWORD_else    reduce using rule 69 (expr13 -> VARIABLES .)
+    KEYWORD_end     reduce using rule 69 (expr13 -> VARIABLES .)
+    CLOSE_PAREN     reduce using rule 69 (expr13 -> VARIABLES .)
+    COLON           reduce using rule 69 (expr13 -> VARIABLES .)
+    LESSEQUAL       reduce using rule 69 (expr13 -> VARIABLES .)
+    LESS            reduce using rule 69 (expr13 -> VARIABLES .)
+    GREATER         reduce using rule 69 (expr13 -> VARIABLES .)
+    GREATEREQUAL    reduce using rule 69 (expr13 -> VARIABLES .)
+    IFF             reduce using rule 69 (expr13 -> VARIABLES .)
+    DOUBLEEQUAL     reduce using rule 69 (expr13 -> VARIABLES .)
+    TRIPLEEQUAL     reduce using rule 69 (expr13 -> VARIABLES .)
+    NOTEQUAL        reduce using rule 69 (expr13 -> VARIABLES .)
+    LOGICALAND      reduce using rule 69 (expr13 -> VARIABLES .)
+    LOGICALOR       reduce using rule 69 (expr13 -> VARIABLES .)
+    KEYWORD_then    reduce using rule 69 (expr13 -> VARIABLES .)
+    KEYWORD_if      reduce using rule 69 (expr13 -> VARIABLES .)
+    KEYWORD_while   reduce using rule 69 (expr13 -> VARIABLES .)
+    VARIABLES       reduce using rule 69 (expr13 -> VARIABLES .)
+    CONSTANTS       reduce using rule 69 (expr13 -> VARIABLES .)
+    KEYWORD_do      reduce using rule 69 (expr13 -> VARIABLES .)
+    DOUBLEDOT       reduce using rule 69 (expr13 -> VARIABLES .)
+    TRIPLEDOT       reduce using rule 69 (expr13 -> VARIABLES .)
+    QUESTION_MARK   reduce using rule 69 (expr13 -> VARIABLES .)
+
+
+state 25
+
+    (74) uexpr -> BITCOMP .
+
+    INT_CONSTANTS   reduce using rule 74 (uexpr -> BITCOMP .)
+    FLOAT_CONSTANTS reduce using rule 74 (uexpr -> BITCOMP .)
+
+
+state 26
+
+    (7) top_stmt -> KEYWORD_if expr3 . opt_then top_compstmt elsif_tail opt_else_stmt KEYWORD_end
+    (34) expr3 -> expr3 . LOGICALOR expr4
+    (14) opt_then -> . KEYWORD_then
+    (15) opt_then -> . none
+    (81) none -> .
+
+    LOGICALOR       shift and go to state 52
+    KEYWORD_then    shift and go to state 53
+    KEYWORD_if      reduce using rule 81 (none -> .)
+    KEYWORD_while   reduce using rule 81 (none -> .)
+    VARIABLES       reduce using rule 81 (none -> .)
+    CONSTANTS       reduce using rule 81 (none -> .)
+    KEYWORD_elsif   reduce using rule 81 (none -> .)
+    KEYWORD_else    reduce using rule 81 (none -> .)
+    KEYWORD_end     reduce using rule 81 (none -> .)
+    DELIM           reduce using rule 81 (none -> .)
+    newline         reduce using rule 81 (none -> .)
+
+    none                           shift and go to state 51
+    opt_then                       shift and go to state 54
+
+state 27
+
+    (65) expr13 -> OPEN_PAREN . expr1 CLOSE_PAREN
+    (29) expr1 -> . expr3 QUESTION_MARK expr2 COLON expr2
+    (30) expr1 -> . expr2
+    (34) expr3 -> . expr3 LOGICALOR expr4
+    (35) expr3 -> . expr4
+    (31) expr2 -> . expr7 DOUBLEDOT expr7
+    (32) expr2 -> . expr7 TRIPLEDOT expr7
+    (33) expr2 -> . expr3
+    (36) expr4 -> . expr4 LOGICALAND expr5
+    (37) expr4 -> . expr5
+    (48) expr7 -> . expr7 BITXOR expr8
+    (49) expr7 -> . expr7 PIPE expr8
+    (50) expr7 -> . expr8
+    (38) expr5 -> . expr6 IFF expr6
+    (39) expr5 -> . expr6 DOUBLEEQUAL expr6
+    (40) expr5 -> . expr6 TRIPLEEQUAL expr6
+    (41) expr5 -> . expr6 NOTEQUAL expr6
+    (42) expr5 -> . expr6
+    (51) expr8 -> . expr8 BITAND expr9
+    (52) expr8 -> . expr9
+    (43) expr6 -> . expr7 LESSEQUAL expr7
+    (44) expr6 -> . expr7 LESS expr7
+    (45) expr6 -> . expr7 GREATER expr7
+    (46) expr6 -> . expr7 GREATEREQUAL expr7
+    (47) expr6 -> . expr7
+    (53) expr9 -> . expr9 SHIFTL expr10
+    (54) expr9 -> . expr9 SHIFTR expr10
+    (55) expr9 -> . expr10
+    (56) expr10 -> . expr10 PLUS expr11
+    (57) expr10 -> . expr10 MINUS expr11
+    (58) expr10 -> . expr11
+    (59) expr11 -> . expr11 MULTIPLY expr12
+    (60) expr11 -> . expr11 DIV expr12
+    (61) expr11 -> . expr11 MOD expr12
+    (62) expr11 -> . expr12
+    (63) expr12 -> . expr13 DOUBLESTAR expr12
+    (64) expr12 -> . expr13
+    (65) expr13 -> . OPEN_PAREN expr1 CLOSE_PAREN
+    (66) expr13 -> . uexpr INT_CONSTANTS
+    (67) expr13 -> . uexpr FLOAT_CONSTANTS
+    (68) expr13 -> . CONSTANTS
+    (69) expr13 -> . VARIABLES
+    (70) uexpr -> . none
+    (71) uexpr -> . PLUS
+    (72) uexpr -> . MINUS
+    (73) uexpr -> . BITNOT
+    (74) uexpr -> . BITCOMP
+    (81) none -> .
+
+    OPEN_PAREN      shift and go to state 27
+    CONSTANTS       shift and go to state 38
+    VARIABLES       shift and go to state 24
+    PLUS            shift and go to state 32
+    MINUS           shift and go to state 23
+    BITNOT          shift and go to state 37
+    BITCOMP         shift and go to state 25
+    INT_CONSTANTS   reduce using rule 81 (none -> .)
+    FLOAT_CONSTANTS reduce using rule 81 (none -> .)
+
+    uexpr                          shift and go to state 35
+    none                           shift and go to state 36
+    expr12                         shift and go to state 20
+    expr13                         shift and go to state 22
+    expr2                          shift and go to state 41
+    expr3                          shift and go to state 42
+    expr1                          shift and go to state 55
+    expr6                          shift and go to state 28
+    expr7                          shift and go to state 44
+    expr4                          shift and go to state 30
+    expr5                          shift and go to state 31
+    expr10                         shift and go to state 21
+    expr8                          shift and go to state 33
+    expr9                          shift and go to state 34
+    expr11                         shift and go to state 39
+
+state 28
+
+    (38) expr5 -> expr6 . IFF expr6
+    (39) expr5 -> expr6 . DOUBLEEQUAL expr6
+    (40) expr5 -> expr6 . TRIPLEEQUAL expr6
+    (41) expr5 -> expr6 . NOTEQUAL expr6
+    (42) expr5 -> expr6 .
+
+    IFF             shift and go to state 57
+    DOUBLEEQUAL     shift and go to state 59
+    TRIPLEEQUAL     shift and go to state 58
+    NOTEQUAL        shift and go to state 56
+    LOGICALAND      reduce using rule 42 (expr5 -> expr6 .)
+    LOGICALOR       reduce using rule 42 (expr5 -> expr6 .)
+    KEYWORD_then    reduce using rule 42 (expr5 -> expr6 .)
+    KEYWORD_if      reduce using rule 42 (expr5 -> expr6 .)
+    KEYWORD_while   reduce using rule 42 (expr5 -> expr6 .)
+    VARIABLES       reduce using rule 42 (expr5 -> expr6 .)
+    CONSTANTS       reduce using rule 42 (expr5 -> expr6 .)
+    KEYWORD_elsif   reduce using rule 42 (expr5 -> expr6 .)
+    KEYWORD_else    reduce using rule 42 (expr5 -> expr6 .)
+    KEYWORD_end     reduce using rule 42 (expr5 -> expr6 .)
+    DELIM           reduce using rule 42 (expr5 -> expr6 .)
+    newline         reduce using rule 42 (expr5 -> expr6 .)
+    QUESTION_MARK   reduce using rule 42 (expr5 -> expr6 .)
+    $end            reduce using rule 42 (expr5 -> expr6 .)
+    CLOSE_PAREN     reduce using rule 42 (expr5 -> expr6 .)
+    KEYWORD_do      reduce using rule 42 (expr5 -> expr6 .)
+    COLON           reduce using rule 42 (expr5 -> expr6 .)
+
+
+state 29
+
+    (43) expr6 -> expr7 . LESSEQUAL expr7
+    (44) expr6 -> expr7 . LESS expr7
+    (45) expr6 -> expr7 . GREATER expr7
+    (46) expr6 -> expr7 . GREATEREQUAL expr7
+    (47) expr6 -> expr7 .
+    (48) expr7 -> expr7 . BITXOR expr8
+    (49) expr7 -> expr7 . PIPE expr8
+
+    LESSEQUAL       shift and go to state 65
+    LESS            shift and go to state 62
+    GREATER         shift and go to state 61
+    GREATEREQUAL    shift and go to state 60
+    IFF             reduce using rule 47 (expr6 -> expr7 .)
+    DOUBLEEQUAL     reduce using rule 47 (expr6 -> expr7 .)
+    TRIPLEEQUAL     reduce using rule 47 (expr6 -> expr7 .)
+    NOTEQUAL        reduce using rule 47 (expr6 -> expr7 .)
+    LOGICALAND      reduce using rule 47 (expr6 -> expr7 .)
+    LOGICALOR       reduce using rule 47 (expr6 -> expr7 .)
+    KEYWORD_then    reduce using rule 47 (expr6 -> expr7 .)
+    KEYWORD_if      reduce using rule 47 (expr6 -> expr7 .)
+    KEYWORD_while   reduce using rule 47 (expr6 -> expr7 .)
+    VARIABLES       reduce using rule 47 (expr6 -> expr7 .)
+    CONSTANTS       reduce using rule 47 (expr6 -> expr7 .)
+    KEYWORD_elsif   reduce using rule 47 (expr6 -> expr7 .)
+    KEYWORD_else    reduce using rule 47 (expr6 -> expr7 .)
+    KEYWORD_end     reduce using rule 47 (expr6 -> expr7 .)
+    DELIM           reduce using rule 47 (expr6 -> expr7 .)
+    newline         reduce using rule 47 (expr6 -> expr7 .)
+    KEYWORD_do      reduce using rule 47 (expr6 -> expr7 .)
+    QUESTION_MARK   reduce using rule 47 (expr6 -> expr7 .)
+    $end            reduce using rule 47 (expr6 -> expr7 .)
+    CLOSE_PAREN     reduce using rule 47 (expr6 -> expr7 .)
+    COLON           reduce using rule 47 (expr6 -> expr7 .)
+    BITXOR          shift and go to state 64
+    PIPE            shift and go to state 63
+
+
+state 30
+
+    (35) expr3 -> expr4 .
+    (36) expr4 -> expr4 . LOGICALAND expr5
+
+    LOGICALOR       reduce using rule 35 (expr3 -> expr4 .)
+    COLON           reduce using rule 35 (expr3 -> expr4 .)
+    QUESTION_MARK   reduce using rule 35 (expr3 -> expr4 .)
+    DELIM           reduce using rule 35 (expr3 -> expr4 .)
+    newline         reduce using rule 35 (expr3 -> expr4 .)
+    $end            reduce using rule 35 (expr3 -> expr4 .)
+    KEYWORD_elsif   reduce using rule 35 (expr3 -> expr4 .)
+    KEYWORD_else    reduce using rule 35 (expr3 -> expr4 .)
+    KEYWORD_end     reduce using rule 35 (expr3 -> expr4 .)
+    KEYWORD_then    reduce using rule 35 (expr3 -> expr4 .)
+    KEYWORD_if      reduce using rule 35 (expr3 -> expr4 .)
+    KEYWORD_while   reduce using rule 35 (expr3 -> expr4 .)
+    VARIABLES       reduce using rule 35 (expr3 -> expr4 .)
+    CONSTANTS       reduce using rule 35 (expr3 -> expr4 .)
+    KEYWORD_do      reduce using rule 35 (expr3 -> expr4 .)
+    CLOSE_PAREN     reduce using rule 35 (expr3 -> expr4 .)
+    LOGICALAND      shift and go to state 66
+
+
+state 31
+
+    (37) expr4 -> expr5 .
+
+    LOGICALAND      reduce using rule 37 (expr4 -> expr5 .)
+    LOGICALOR       reduce using rule 37 (expr4 -> expr5 .)
+    KEYWORD_then    reduce using rule 37 (expr4 -> expr5 .)
+    KEYWORD_if      reduce using rule 37 (expr4 -> expr5 .)
+    KEYWORD_while   reduce using rule 37 (expr4 -> expr5 .)
+    VARIABLES       reduce using rule 37 (expr4 -> expr5 .)
+    CONSTANTS       reduce using rule 37 (expr4 -> expr5 .)
+    KEYWORD_elsif   reduce using rule 37 (expr4 -> expr5 .)
+    DELIM           reduce using rule 37 (expr4 -> expr5 .)
+    newline         reduce using rule 37 (expr4 -> expr5 .)
+    KEYWORD_else    reduce using rule 37 (expr4 -> expr5 .)
+    KEYWORD_end     reduce using rule 37 (expr4 -> expr5 .)
+    KEYWORD_do      reduce using rule 37 (expr4 -> expr5 .)
+    QUESTION_MARK   reduce using rule 37 (expr4 -> expr5 .)
+    $end            reduce using rule 37 (expr4 -> expr5 .)
+    CLOSE_PAREN     reduce using rule 37 (expr4 -> expr5 .)
+    COLON           reduce using rule 37 (expr4 -> expr5 .)
+
+
+state 32
+
+    (71) uexpr -> PLUS .
+
+    INT_CONSTANTS   reduce using rule 71 (uexpr -> PLUS .)
+    FLOAT_CONSTANTS reduce using rule 71 (uexpr -> PLUS .)
+
+
+state 33
+
+    (50) expr7 -> expr8 .
+    (51) expr8 -> expr8 . BITAND expr9
+
+    LESSEQUAL       reduce using rule 50 (expr7 -> expr8 .)
+    LESS            reduce using rule 50 (expr7 -> expr8 .)
+    GREATER         reduce using rule 50 (expr7 -> expr8 .)
+    GREATEREQUAL    reduce using rule 50 (expr7 -> expr8 .)
+    BITXOR          reduce using rule 50 (expr7 -> expr8 .)
+    PIPE            reduce using rule 50 (expr7 -> expr8 .)
+    LOGICALAND      reduce using rule 50 (expr7 -> expr8 .)
+    LOGICALOR       reduce using rule 50 (expr7 -> expr8 .)
+    KEYWORD_then    reduce using rule 50 (expr7 -> expr8 .)
+    KEYWORD_if      reduce using rule 50 (expr7 -> expr8 .)
+    KEYWORD_while   reduce using rule 50 (expr7 -> expr8 .)
+    VARIABLES       reduce using rule 50 (expr7 -> expr8 .)
+    CONSTANTS       reduce using rule 50 (expr7 -> expr8 .)
+    KEYWORD_elsif   reduce using rule 50 (expr7 -> expr8 .)
+    KEYWORD_else    reduce using rule 50 (expr7 -> expr8 .)
+    KEYWORD_end     reduce using rule 50 (expr7 -> expr8 .)
+    DELIM           reduce using rule 50 (expr7 -> expr8 .)
+    newline         reduce using rule 50 (expr7 -> expr8 .)
+    KEYWORD_do      reduce using rule 50 (expr7 -> expr8 .)
+    QUESTION_MARK   reduce using rule 50 (expr7 -> expr8 .)
+    $end            reduce using rule 50 (expr7 -> expr8 .)
+    CLOSE_PAREN     reduce using rule 50 (expr7 -> expr8 .)
+    COLON           reduce using rule 50 (expr7 -> expr8 .)
+    IFF             reduce using rule 50 (expr7 -> expr8 .)
+    DOUBLEEQUAL     reduce using rule 50 (expr7 -> expr8 .)
+    TRIPLEEQUAL     reduce using rule 50 (expr7 -> expr8 .)
+    NOTEQUAL        reduce using rule 50 (expr7 -> expr8 .)
+    DOUBLEDOT       reduce using rule 50 (expr7 -> expr8 .)
+    TRIPLEDOT       reduce using rule 50 (expr7 -> expr8 .)
+    BITAND          shift and go to state 67
+
+
+state 34
+
+    (52) expr8 -> expr9 .
+    (53) expr9 -> expr9 . SHIFTL expr10
+    (54) expr9 -> expr9 . SHIFTR expr10
+
+    BITAND          reduce using rule 52 (expr8 -> expr9 .)
+    LESSEQUAL       reduce using rule 52 (expr8 -> expr9 .)
+    LESS            reduce using rule 52 (expr8 -> expr9 .)
+    GREATER         reduce using rule 52 (expr8 -> expr9 .)
+    GREATEREQUAL    reduce using rule 52 (expr8 -> expr9 .)
+    BITXOR          reduce using rule 52 (expr8 -> expr9 .)
+    PIPE            reduce using rule 52 (expr8 -> expr9 .)
+    LOGICALAND      reduce using rule 52 (expr8 -> expr9 .)
+    LOGICALOR       reduce using rule 52 (expr8 -> expr9 .)
+    KEYWORD_then    reduce using rule 52 (expr8 -> expr9 .)
+    KEYWORD_if      reduce using rule 52 (expr8 -> expr9 .)
+    KEYWORD_while   reduce using rule 52 (expr8 -> expr9 .)
+    VARIABLES       reduce using rule 52 (expr8 -> expr9 .)
+    CONSTANTS       reduce using rule 52 (expr8 -> expr9 .)
+    KEYWORD_elsif   reduce using rule 52 (expr8 -> expr9 .)
+    KEYWORD_else    reduce using rule 52 (expr8 -> expr9 .)
+    KEYWORD_end     reduce using rule 52 (expr8 -> expr9 .)
+    DELIM           reduce using rule 52 (expr8 -> expr9 .)
+    newline         reduce using rule 52 (expr8 -> expr9 .)
+    KEYWORD_do      reduce using rule 52 (expr8 -> expr9 .)
+    QUESTION_MARK   reduce using rule 52 (expr8 -> expr9 .)
+    $end            reduce using rule 52 (expr8 -> expr9 .)
+    CLOSE_PAREN     reduce using rule 52 (expr8 -> expr9 .)
+    COLON           reduce using rule 52 (expr8 -> expr9 .)
+    IFF             reduce using rule 52 (expr8 -> expr9 .)
+    DOUBLEEQUAL     reduce using rule 52 (expr8 -> expr9 .)
+    TRIPLEEQUAL     reduce using rule 52 (expr8 -> expr9 .)
+    NOTEQUAL        reduce using rule 52 (expr8 -> expr9 .)
+    DOUBLEDOT       reduce using rule 52 (expr8 -> expr9 .)
+    TRIPLEDOT       reduce using rule 52 (expr8 -> expr9 .)
+    SHIFTL          shift and go to state 69
+    SHIFTR          shift and go to state 68
+
+
+state 35
+
+    (66) expr13 -> uexpr . INT_CONSTANTS
+    (67) expr13 -> uexpr . FLOAT_CONSTANTS
+
+    INT_CONSTANTS   shift and go to state 70
+    FLOAT_CONSTANTS shift and go to state 71
+
+
+state 36
+
+    (70) uexpr -> none .
+
+    INT_CONSTANTS   reduce using rule 70 (uexpr -> none .)
+    FLOAT_CONSTANTS reduce using rule 70 (uexpr -> none .)
+
+
+state 37
+
+    (73) uexpr -> BITNOT .
+
+    INT_CONSTANTS   reduce using rule 73 (uexpr -> BITNOT .)
+    FLOAT_CONSTANTS reduce using rule 73 (uexpr -> BITNOT .)
+
+
+state 38
+
+    (68) expr13 -> CONSTANTS .
+
+    DOUBLESTAR      reduce using rule 68 (expr13 -> CONSTANTS .)
+    MULTIPLY        reduce using rule 68 (expr13 -> CONSTANTS .)
+    DIV             reduce using rule 68 (expr13 -> CONSTANTS .)
+    MOD             reduce using rule 68 (expr13 -> CONSTANTS .)
+    PLUS            reduce using rule 68 (expr13 -> CONSTANTS .)
+    MINUS           reduce using rule 68 (expr13 -> CONSTANTS .)
+    SHIFTL          reduce using rule 68 (expr13 -> CONSTANTS .)
+    SHIFTR          reduce using rule 68 (expr13 -> CONSTANTS .)
+    BITAND          reduce using rule 68 (expr13 -> CONSTANTS .)
+    BITXOR          reduce using rule 68 (expr13 -> CONSTANTS .)
+    PIPE            reduce using rule 68 (expr13 -> CONSTANTS .)
+    DELIM           reduce using rule 68 (expr13 -> CONSTANTS .)
+    newline         reduce using rule 68 (expr13 -> CONSTANTS .)
+    $end            reduce using rule 68 (expr13 -> CONSTANTS .)
+    KEYWORD_elsif   reduce using rule 68 (expr13 -> CONSTANTS .)
+    KEYWORD_else    reduce using rule 68 (expr13 -> CONSTANTS .)
+    KEYWORD_end     reduce using rule 68 (expr13 -> CONSTANTS .)
+    CLOSE_PAREN     reduce using rule 68 (expr13 -> CONSTANTS .)
+    COLON           reduce using rule 68 (expr13 -> CONSTANTS .)
+    LESSEQUAL       reduce using rule 68 (expr13 -> CONSTANTS .)
+    LESS            reduce using rule 68 (expr13 -> CONSTANTS .)
+    GREATER         reduce using rule 68 (expr13 -> CONSTANTS .)
+    GREATEREQUAL    reduce using rule 68 (expr13 -> CONSTANTS .)
+    IFF             reduce using rule 68 (expr13 -> CONSTANTS .)
+    DOUBLEEQUAL     reduce using rule 68 (expr13 -> CONSTANTS .)
+    TRIPLEEQUAL     reduce using rule 68 (expr13 -> CONSTANTS .)
+    NOTEQUAL        reduce using rule 68 (expr13 -> CONSTANTS .)
+    LOGICALAND      reduce using rule 68 (expr13 -> CONSTANTS .)
+    LOGICALOR       reduce using rule 68 (expr13 -> CONSTANTS .)
+    KEYWORD_then    reduce using rule 68 (expr13 -> CONSTANTS .)
+    KEYWORD_if      reduce using rule 68 (expr13 -> CONSTANTS .)
+    KEYWORD_while   reduce using rule 68 (expr13 -> CONSTANTS .)
+    VARIABLES       reduce using rule 68 (expr13 -> CONSTANTS .)
+    CONSTANTS       reduce using rule 68 (expr13 -> CONSTANTS .)
+    KEYWORD_do      reduce using rule 68 (expr13 -> CONSTANTS .)
+    DOUBLEDOT       reduce using rule 68 (expr13 -> CONSTANTS .)
+    TRIPLEDOT       reduce using rule 68 (expr13 -> CONSTANTS .)
+    QUESTION_MARK   reduce using rule 68 (expr13 -> CONSTANTS .)
+
+
+state 39
+
+    (58) expr10 -> expr11 .
+    (59) expr11 -> expr11 . MULTIPLY expr12
+    (60) expr11 -> expr11 . DIV expr12
+    (61) expr11 -> expr11 . MOD expr12
+
+    PLUS            reduce using rule 58 (expr10 -> expr11 .)
+    MINUS           reduce using rule 58 (expr10 -> expr11 .)
+    SHIFTL          reduce using rule 58 (expr10 -> expr11 .)
+    SHIFTR          reduce using rule 58 (expr10 -> expr11 .)
+    BITAND          reduce using rule 58 (expr10 -> expr11 .)
+    BITXOR          reduce using rule 58 (expr10 -> expr11 .)
+    PIPE            reduce using rule 58 (expr10 -> expr11 .)
+    IFF             reduce using rule 58 (expr10 -> expr11 .)
+    DOUBLEEQUAL     reduce using rule 58 (expr10 -> expr11 .)
+    TRIPLEEQUAL     reduce using rule 58 (expr10 -> expr11 .)
+    NOTEQUAL        reduce using rule 58 (expr10 -> expr11 .)
+    LOGICALAND      reduce using rule 58 (expr10 -> expr11 .)
+    LOGICALOR       reduce using rule 58 (expr10 -> expr11 .)
+    KEYWORD_then    reduce using rule 58 (expr10 -> expr11 .)
+    KEYWORD_if      reduce using rule 58 (expr10 -> expr11 .)
+    KEYWORD_while   reduce using rule 58 (expr10 -> expr11 .)
+    VARIABLES       reduce using rule 58 (expr10 -> expr11 .)
+    CONSTANTS       reduce using rule 58 (expr10 -> expr11 .)
+    KEYWORD_elsif   reduce using rule 58 (expr10 -> expr11 .)
+    KEYWORD_else    reduce using rule 58 (expr10 -> expr11 .)
+    KEYWORD_end     reduce using rule 58 (expr10 -> expr11 .)
+    DELIM           reduce using rule 58 (expr10 -> expr11 .)
+    newline         reduce using rule 58 (expr10 -> expr11 .)
+    KEYWORD_do      reduce using rule 58 (expr10 -> expr11 .)
+    QUESTION_MARK   reduce using rule 58 (expr10 -> expr11 .)
+    $end            reduce using rule 58 (expr10 -> expr11 .)
+    CLOSE_PAREN     reduce using rule 58 (expr10 -> expr11 .)
+    COLON           reduce using rule 58 (expr10 -> expr11 .)
+    LESSEQUAL       reduce using rule 58 (expr10 -> expr11 .)
+    LESS            reduce using rule 58 (expr10 -> expr11 .)
+    GREATER         reduce using rule 58 (expr10 -> expr11 .)
+    GREATEREQUAL    reduce using rule 58 (expr10 -> expr11 .)
+    DOUBLEDOT       reduce using rule 58 (expr10 -> expr11 .)
+    TRIPLEDOT       reduce using rule 58 (expr10 -> expr11 .)
+    MULTIPLY        shift and go to state 72
+    DIV             shift and go to state 73
+    MOD             shift and go to state 74
+
+
+state 40
+
+    (8) top_stmt -> KEYWORD_while expr3 . opt_do top_compstmt KEYWORD_end
+    (34) expr3 -> expr3 . LOGICALOR expr4
+    (16) opt_do -> . KEYWORD_do
+    (17) opt_do -> . none
+    (81) none -> .
+
+    LOGICALOR       shift and go to state 52
+    KEYWORD_do      shift and go to state 76
+    KEYWORD_if      reduce using rule 81 (none -> .)
+    KEYWORD_while   reduce using rule 81 (none -> .)
+    VARIABLES       reduce using rule 81 (none -> .)
+    CONSTANTS       reduce using rule 81 (none -> .)
+    KEYWORD_end     reduce using rule 81 (none -> .)
+    DELIM           reduce using rule 81 (none -> .)
+    newline         reduce using rule 81 (none -> .)
+
+    none                           shift and go to state 75
+    opt_do                         shift and go to state 77
+
+state 41
+
+    (30) expr1 -> expr2 .
+
+    CLOSE_PAREN     reduce using rule 30 (expr1 -> expr2 .)
+    DELIM           reduce using rule 30 (expr1 -> expr2 .)
+    newline         reduce using rule 30 (expr1 -> expr2 .)
+    $end            reduce using rule 30 (expr1 -> expr2 .)
+    KEYWORD_elsif   reduce using rule 30 (expr1 -> expr2 .)
+    KEYWORD_else    reduce using rule 30 (expr1 -> expr2 .)
+    KEYWORD_end     reduce using rule 30 (expr1 -> expr2 .)
+
+
+state 42
+
+    (29) expr1 -> expr3 . QUESTION_MARK expr2 COLON expr2
+    (34) expr3 -> expr3 . LOGICALOR expr4
+    (33) expr2 -> expr3 .
+
+    QUESTION_MARK   shift and go to state 78
+    LOGICALOR       shift and go to state 52
+    DELIM           reduce using rule 33 (expr2 -> expr3 .)
+    newline         reduce using rule 33 (expr2 -> expr3 .)
+    $end            reduce using rule 33 (expr2 -> expr3 .)
+    KEYWORD_elsif   reduce using rule 33 (expr2 -> expr3 .)
+    KEYWORD_else    reduce using rule 33 (expr2 -> expr3 .)
+    KEYWORD_end     reduce using rule 33 (expr2 -> expr3 .)
+    CLOSE_PAREN     reduce using rule 33 (expr2 -> expr3 .)
+
+
+state 43
+
+    (21) mrhs -> expr1 .
+
+    DELIM           reduce using rule 21 (mrhs -> expr1 .)
+    newline         reduce using rule 21 (mrhs -> expr1 .)
+    $end            reduce using rule 21 (mrhs -> expr1 .)
+    KEYWORD_elsif   reduce using rule 21 (mrhs -> expr1 .)
+    KEYWORD_else    reduce using rule 21 (mrhs -> expr1 .)
+    KEYWORD_end     reduce using rule 21 (mrhs -> expr1 .)
+
+
+state 44
+
+    (31) expr2 -> expr7 . DOUBLEDOT expr7
+    (32) expr2 -> expr7 . TRIPLEDOT expr7
+    (48) expr7 -> expr7 . BITXOR expr8
+    (49) expr7 -> expr7 . PIPE expr8
+    (43) expr6 -> expr7 . LESSEQUAL expr7
+    (44) expr6 -> expr7 . LESS expr7
+    (45) expr6 -> expr7 . GREATER expr7
+    (46) expr6 -> expr7 . GREATEREQUAL expr7
+    (47) expr6 -> expr7 .
+
+    DOUBLEDOT       shift and go to state 79
+    TRIPLEDOT       shift and go to state 80
+    BITXOR          shift and go to state 64
+    PIPE            shift and go to state 63
+    LESSEQUAL       shift and go to state 65
+    LESS            shift and go to state 62
+    GREATER         shift and go to state 61
+    GREATEREQUAL    shift and go to state 60
+    IFF             reduce using rule 47 (expr6 -> expr7 .)
+    DOUBLEEQUAL     reduce using rule 47 (expr6 -> expr7 .)
+    TRIPLEEQUAL     reduce using rule 47 (expr6 -> expr7 .)
+    NOTEQUAL        reduce using rule 47 (expr6 -> expr7 .)
+    LOGICALAND      reduce using rule 47 (expr6 -> expr7 .)
+    QUESTION_MARK   reduce using rule 47 (expr6 -> expr7 .)
+    LOGICALOR       reduce using rule 47 (expr6 -> expr7 .)
+    CLOSE_PAREN     reduce using rule 47 (expr6 -> expr7 .)
+    DELIM           reduce using rule 47 (expr6 -> expr7 .)
+    newline         reduce using rule 47 (expr6 -> expr7 .)
+    $end            reduce using rule 47 (expr6 -> expr7 .)
+    KEYWORD_elsif   reduce using rule 47 (expr6 -> expr7 .)
+    KEYWORD_else    reduce using rule 47 (expr6 -> expr7 .)
+    KEYWORD_end     reduce using rule 47 (expr6 -> expr7 .)
+    COLON           reduce using rule 47 (expr6 -> expr7 .)
+
+
+state 45
+
+    (18) expr -> mlhs EQUAL mrhs .
+
+    DELIM           reduce using rule 18 (expr -> mlhs EQUAL mrhs .)
+    newline         reduce using rule 18 (expr -> mlhs EQUAL mrhs .)
+    KEYWORD_end     reduce using rule 18 (expr -> mlhs EQUAL mrhs .)
+    $end            reduce using rule 18 (expr -> mlhs EQUAL mrhs .)
+    KEYWORD_elsif   reduce using rule 18 (expr -> mlhs EQUAL mrhs .)
+    KEYWORD_else    reduce using rule 18 (expr -> mlhs EQUAL mrhs .)
+
+
+state 46
+
+    (78) terms -> terms term .
+
+    KEYWORD_if      reduce using rule 78 (terms -> terms term .)
+    KEYWORD_while   reduce using rule 78 (terms -> terms term .)
+    DELIM           reduce using rule 78 (terms -> terms term .)
+    newline         reduce using rule 78 (terms -> terms term .)
+    VARIABLES       reduce using rule 78 (terms -> terms term .)
+    CONSTANTS       reduce using rule 78 (terms -> terms term .)
+    $end            reduce using rule 78 (terms -> terms term .)
+    KEYWORD_elsif   reduce using rule 78 (terms -> terms term .)
+    KEYWORD_else    reduce using rule 78 (terms -> terms term .)
+    KEYWORD_end     reduce using rule 78 (terms -> terms term .)
+
+
+state 47
+
+    (5) top_stmts -> top_stmts terms top_stmt .
+
+    DELIM           reduce using rule 5 (top_stmts -> top_stmts terms top_stmt .)
+    newline         reduce using rule 5 (top_stmts -> top_stmts terms top_stmt .)
+    KEYWORD_end     reduce using rule 5 (top_stmts -> top_stmts terms top_stmt .)
+    $end            reduce using rule 5 (top_stmts -> top_stmts terms top_stmt .)
+    KEYWORD_elsif   reduce using rule 5 (top_stmts -> top_stmts terms top_stmt .)
+    KEYWORD_else    reduce using rule 5 (top_stmts -> top_stmts terms top_stmt .)
+
+
+state 48
+
+    (56) expr10 -> expr10 PLUS . expr11
+    (59) expr11 -> . expr11 MULTIPLY expr12
+    (60) expr11 -> . expr11 DIV expr12
+    (61) expr11 -> . expr11 MOD expr12
+    (62) expr11 -> . expr12
+    (63) expr12 -> . expr13 DOUBLESTAR expr12
+    (64) expr12 -> . expr13
+    (65) expr13 -> . OPEN_PAREN expr1 CLOSE_PAREN
+    (66) expr13 -> . uexpr INT_CONSTANTS
+    (67) expr13 -> . uexpr FLOAT_CONSTANTS
+    (68) expr13 -> . CONSTANTS
+    (69) expr13 -> . VARIABLES
+    (70) uexpr -> . none
+    (71) uexpr -> . PLUS
+    (72) uexpr -> . MINUS
+    (73) uexpr -> . BITNOT
+    (74) uexpr -> . BITCOMP
+    (81) none -> .
+
+    OPEN_PAREN      shift and go to state 27
+    CONSTANTS       shift and go to state 38
+    VARIABLES       shift and go to state 24
+    PLUS            shift and go to state 32
+    MINUS           shift and go to state 23
+    BITNOT          shift and go to state 37
+    BITCOMP         shift and go to state 25
+    INT_CONSTANTS   reduce using rule 81 (none -> .)
+    FLOAT_CONSTANTS reduce using rule 81 (none -> .)
+
+    uexpr                          shift and go to state 35
+    none                           shift and go to state 36
+    expr11                         shift and go to state 81
+    expr12                         shift and go to state 20
+    expr13                         shift and go to state 22
+
+state 49
+
+    (57) expr10 -> expr10 MINUS . expr11
+    (59) expr11 -> . expr11 MULTIPLY expr12
+    (60) expr11 -> . expr11 DIV expr12
+    (61) expr11 -> . expr11 MOD expr12
+    (62) expr11 -> . expr12
+    (63) expr12 -> . expr13 DOUBLESTAR expr12
+    (64) expr12 -> . expr13
+    (65) expr13 -> . OPEN_PAREN expr1 CLOSE_PAREN
+    (66) expr13 -> . uexpr INT_CONSTANTS
+    (67) expr13 -> . uexpr FLOAT_CONSTANTS
+    (68) expr13 -> . CONSTANTS
+    (69) expr13 -> . VARIABLES
+    (70) uexpr -> . none
+    (71) uexpr -> . PLUS
+    (72) uexpr -> . MINUS
+    (73) uexpr -> . BITNOT
+    (74) uexpr -> . BITCOMP
+    (81) none -> .
+
+    OPEN_PAREN      shift and go to state 27
+    CONSTANTS       shift and go to state 38
+    VARIABLES       shift and go to state 24
+    PLUS            shift and go to state 32
+    MINUS           shift and go to state 23
+    BITNOT          shift and go to state 37
+    BITCOMP         shift and go to state 25
+    INT_CONSTANTS   reduce using rule 81 (none -> .)
+    FLOAT_CONSTANTS reduce using rule 81 (none -> .)
+
+    uexpr                          shift and go to state 35
+    none                           shift and go to state 36
+    expr11                         shift and go to state 82
+    expr12                         shift and go to state 20
+    expr13                         shift and go to state 22
+
+state 50
+
+    (63) expr12 -> expr13 DOUBLESTAR . expr12
+    (63) expr12 -> . expr13 DOUBLESTAR expr12
+    (64) expr12 -> . expr13
+    (65) expr13 -> . OPEN_PAREN expr1 CLOSE_PAREN
+    (66) expr13 -> . uexpr INT_CONSTANTS
+    (67) expr13 -> . uexpr FLOAT_CONSTANTS
+    (68) expr13 -> . CONSTANTS
+    (69) expr13 -> . VARIABLES
+    (70) uexpr -> . none
+    (71) uexpr -> . PLUS
+    (72) uexpr -> . MINUS
+    (73) uexpr -> . BITNOT
+    (74) uexpr -> . BITCOMP
+    (81) none -> .
+
+    OPEN_PAREN      shift and go to state 27
+    CONSTANTS       shift and go to state 38
+    VARIABLES       shift and go to state 24
+    PLUS            shift and go to state 32
+    MINUS           shift and go to state 23
+    BITNOT          shift and go to state 37
+    BITCOMP         shift and go to state 25
+    INT_CONSTANTS   reduce using rule 81 (none -> .)
+    FLOAT_CONSTANTS reduce using rule 81 (none -> .)
+
+    uexpr                          shift and go to state 35
+    none                           shift and go to state 36
+    expr12                         shift and go to state 83
+    expr13                         shift and go to state 22
+
+state 51
+
+    (15) opt_then -> none .
+
+    KEYWORD_if      reduce using rule 15 (opt_then -> none .)
+    KEYWORD_while   reduce using rule 15 (opt_then -> none .)
+    VARIABLES       reduce using rule 15 (opt_then -> none .)
+    CONSTANTS       reduce using rule 15 (opt_then -> none .)
+    KEYWORD_elsif   reduce using rule 15 (opt_then -> none .)
+    KEYWORD_else    reduce using rule 15 (opt_then -> none .)
+    KEYWORD_end     reduce using rule 15 (opt_then -> none .)
+    DELIM           reduce using rule 15 (opt_then -> none .)
+    newline         reduce using rule 15 (opt_then -> none .)
+
+
+state 52
+
+    (34) expr3 -> expr3 LOGICALOR . expr4
+    (36) expr4 -> . expr4 LOGICALAND expr5
+    (37) expr4 -> . expr5
+    (38) expr5 -> . expr6 IFF expr6
+    (39) expr5 -> . expr6 DOUBLEEQUAL expr6
+    (40) expr5 -> . expr6 TRIPLEEQUAL expr6
+    (41) expr5 -> . expr6 NOTEQUAL expr6
+    (42) expr5 -> . expr6
+    (43) expr6 -> . expr7 LESSEQUAL expr7
+    (44) expr6 -> . expr7 LESS expr7
+    (45) expr6 -> . expr7 GREATER expr7
+    (46) expr6 -> . expr7 GREATEREQUAL expr7
+    (47) expr6 -> . expr7
+    (48) expr7 -> . expr7 BITXOR expr8
+    (49) expr7 -> . expr7 PIPE expr8
+    (50) expr7 -> . expr8
+    (51) expr8 -> . expr8 BITAND expr9
+    (52) expr8 -> . expr9
+    (53) expr9 -> . expr9 SHIFTL expr10
+    (54) expr9 -> . expr9 SHIFTR expr10
+    (55) expr9 -> . expr10
+    (56) expr10 -> . expr10 PLUS expr11
+    (57) expr10 -> . expr10 MINUS expr11
+    (58) expr10 -> . expr11
+    (59) expr11 -> . expr11 MULTIPLY expr12
+    (60) expr11 -> . expr11 DIV expr12
+    (61) expr11 -> . expr11 MOD expr12
+    (62) expr11 -> . expr12
+    (63) expr12 -> . expr13 DOUBLESTAR expr12
+    (64) expr12 -> . expr13
+    (65) expr13 -> . OPEN_PAREN expr1 CLOSE_PAREN
+    (66) expr13 -> . uexpr INT_CONSTANTS
+    (67) expr13 -> . uexpr FLOAT_CONSTANTS
+    (68) expr13 -> . CONSTANTS
+    (69) expr13 -> . VARIABLES
+    (70) uexpr -> . none
+    (71) uexpr -> . PLUS
+    (72) uexpr -> . MINUS
+    (73) uexpr -> . BITNOT
+    (74) uexpr -> . BITCOMP
+    (81) none -> .
+
+    OPEN_PAREN      shift and go to state 27
+    CONSTANTS       shift and go to state 38
+    VARIABLES       shift and go to state 24
+    PLUS            shift and go to state 32
+    MINUS           shift and go to state 23
+    BITNOT          shift and go to state 37
+    BITCOMP         shift and go to state 25
+    INT_CONSTANTS   reduce using rule 81 (none -> .)
+    FLOAT_CONSTANTS reduce using rule 81 (none -> .)
+
+    uexpr                          shift and go to state 35
+    none                           shift and go to state 36
+    expr12                         shift and go to state 20
+    expr13                         shift and go to state 22
+    expr6                          shift and go to state 28
+    expr7                          shift and go to state 29
+    expr4                          shift and go to state 84
+    expr5                          shift and go to state 31
+    expr10                         shift and go to state 21
+    expr8                          shift and go to state 33
+    expr9                          shift and go to state 34
+    expr11                         shift and go to state 39
+
+state 53
+
+    (14) opt_then -> KEYWORD_then .
+
+    KEYWORD_if      reduce using rule 14 (opt_then -> KEYWORD_then .)
+    KEYWORD_while   reduce using rule 14 (opt_then -> KEYWORD_then .)
+    VARIABLES       reduce using rule 14 (opt_then -> KEYWORD_then .)
+    CONSTANTS       reduce using rule 14 (opt_then -> KEYWORD_then .)
+    KEYWORD_elsif   reduce using rule 14 (opt_then -> KEYWORD_then .)
+    KEYWORD_else    reduce using rule 14 (opt_then -> KEYWORD_then .)
+    KEYWORD_end     reduce using rule 14 (opt_then -> KEYWORD_then .)
+    DELIM           reduce using rule 14 (opt_then -> KEYWORD_then .)
+    newline         reduce using rule 14 (opt_then -> KEYWORD_then .)
+
+
+state 54
+
+    (7) top_stmt -> KEYWORD_if expr3 opt_then . top_compstmt elsif_tail opt_else_stmt KEYWORD_end
+    (2) top_compstmt -> . top_stmts opt_terms
+    (3) top_stmts -> . none
+    (4) top_stmts -> . top_stmt
+    (5) top_stmts -> . top_stmts terms top_stmt
+    (81) none -> .
+    (6) top_stmt -> . stmt
+    (7) top_stmt -> . KEYWORD_if expr3 opt_then top_compstmt elsif_tail opt_else_stmt KEYWORD_end
+    (8) top_stmt -> . KEYWORD_while expr3 opt_do top_compstmt KEYWORD_end
+    (9) stmt -> . expr
+    (18) expr -> . mlhs EQUAL mrhs
+    (19) mlhs -> . VARIABLES
+    (20) mlhs -> . CONSTANTS
+
+    DELIM           reduce using rule 81 (none -> .)
+    newline         reduce using rule 81 (none -> .)
+    KEYWORD_elsif   reduce using rule 81 (none -> .)
+    KEYWORD_else    reduce using rule 81 (none -> .)
+    KEYWORD_end     reduce using rule 81 (none -> .)
+    KEYWORD_if      shift and go to state 3
+    KEYWORD_while   shift and go to state 4
+    VARIABLES       shift and go to state 5
+    CONSTANTS       shift and go to state 12
+
+    none                           shift and go to state 9
+    expr                           shift and go to state 10
+    top_compstmt                   shift and go to state 85
+    mlhs                           shift and go to state 1
+    stmt                           shift and go to state 8
+    top_stmts                      shift and go to state 2
+    top_stmt                       shift and go to state 11
+
+state 55
+
+    (65) expr13 -> OPEN_PAREN expr1 . CLOSE_PAREN
+
+    CLOSE_PAREN     shift and go to state 86
+
+
+state 56
+
+    (41) expr5 -> expr6 NOTEQUAL . expr6
+    (43) expr6 -> . expr7 LESSEQUAL expr7
+    (44) expr6 -> . expr7 LESS expr7
+    (45) expr6 -> . expr7 GREATER expr7
+    (46) expr6 -> . expr7 GREATEREQUAL expr7
+    (47) expr6 -> . expr7
+    (48) expr7 -> . expr7 BITXOR expr8
+    (49) expr7 -> . expr7 PIPE expr8
+    (50) expr7 -> . expr8
+    (51) expr8 -> . expr8 BITAND expr9
+    (52) expr8 -> . expr9
+    (53) expr9 -> . expr9 SHIFTL expr10
+    (54) expr9 -> . expr9 SHIFTR expr10
+    (55) expr9 -> . expr10
+    (56) expr10 -> . expr10 PLUS expr11
+    (57) expr10 -> . expr10 MINUS expr11
+    (58) expr10 -> . expr11
+    (59) expr11 -> . expr11 MULTIPLY expr12
+    (60) expr11 -> . expr11 DIV expr12
+    (61) expr11 -> . expr11 MOD expr12
+    (62) expr11 -> . expr12
+    (63) expr12 -> . expr13 DOUBLESTAR expr12
+    (64) expr12 -> . expr13
+    (65) expr13 -> . OPEN_PAREN expr1 CLOSE_PAREN
+    (66) expr13 -> . uexpr INT_CONSTANTS
+    (67) expr13 -> . uexpr FLOAT_CONSTANTS
+    (68) expr13 -> . CONSTANTS
+    (69) expr13 -> . VARIABLES
+    (70) uexpr -> . none
+    (71) uexpr -> . PLUS
+    (72) uexpr -> . MINUS
+    (73) uexpr -> . BITNOT
+    (74) uexpr -> . BITCOMP
+    (81) none -> .
+
+    OPEN_PAREN      shift and go to state 27
+    CONSTANTS       shift and go to state 38
+    VARIABLES       shift and go to state 24
+    PLUS            shift and go to state 32
+    MINUS           shift and go to state 23
+    BITNOT          shift and go to state 37
+    BITCOMP         shift and go to state 25
+    INT_CONSTANTS   reduce using rule 81 (none -> .)
+    FLOAT_CONSTANTS reduce using rule 81 (none -> .)
+
+    uexpr                          shift and go to state 35
+    none                           shift and go to state 36
+    expr10                         shift and go to state 21
+    expr7                          shift and go to state 29
+    expr12                         shift and go to state 20
+    expr13                         shift and go to state 22
+    expr6                          shift and go to state 87
+    expr8                          shift and go to state 33
+    expr9                          shift and go to state 34
+    expr11                         shift and go to state 39
+
+state 57
+
+    (38) expr5 -> expr6 IFF . expr6
+    (43) expr6 -> . expr7 LESSEQUAL expr7
+    (44) expr6 -> . expr7 LESS expr7
+    (45) expr6 -> . expr7 GREATER expr7
+    (46) expr6 -> . expr7 GREATEREQUAL expr7
+    (47) expr6 -> . expr7
+    (48) expr7 -> . expr7 BITXOR expr8
+    (49) expr7 -> . expr7 PIPE expr8
+    (50) expr7 -> . expr8
+    (51) expr8 -> . expr8 BITAND expr9
+    (52) expr8 -> . expr9
+    (53) expr9 -> . expr9 SHIFTL expr10
+    (54) expr9 -> . expr9 SHIFTR expr10
+    (55) expr9 -> . expr10
+    (56) expr10 -> . expr10 PLUS expr11
+    (57) expr10 -> . expr10 MINUS expr11
+    (58) expr10 -> . expr11
+    (59) expr11 -> . expr11 MULTIPLY expr12
+    (60) expr11 -> . expr11 DIV expr12
+    (61) expr11 -> . expr11 MOD expr12
+    (62) expr11 -> . expr12
+    (63) expr12 -> . expr13 DOUBLESTAR expr12
+    (64) expr12 -> . expr13
+    (65) expr13 -> . OPEN_PAREN expr1 CLOSE_PAREN
+    (66) expr13 -> . uexpr INT_CONSTANTS
+    (67) expr13 -> . uexpr FLOAT_CONSTANTS
+    (68) expr13 -> . CONSTANTS
+    (69) expr13 -> . VARIABLES
+    (70) uexpr -> . none
+    (71) uexpr -> . PLUS
+    (72) uexpr -> . MINUS
+    (73) uexpr -> . BITNOT
+    (74) uexpr -> . BITCOMP
+    (81) none -> .
+
+    OPEN_PAREN      shift and go to state 27
+    CONSTANTS       shift and go to state 38
+    VARIABLES       shift and go to state 24
+    PLUS            shift and go to state 32
+    MINUS           shift and go to state 23
+    BITNOT          shift and go to state 37
+    BITCOMP         shift and go to state 25
+    INT_CONSTANTS   reduce using rule 81 (none -> .)
+    FLOAT_CONSTANTS reduce using rule 81 (none -> .)
+
+    uexpr                          shift and go to state 35
+    none                           shift and go to state 36
+    expr10                         shift and go to state 21
+    expr7                          shift and go to state 29
+    expr12                         shift and go to state 20
+    expr13                         shift and go to state 22
+    expr6                          shift and go to state 88
+    expr8                          shift and go to state 33
+    expr9                          shift and go to state 34
+    expr11                         shift and go to state 39
+
+state 58
+
+    (40) expr5 -> expr6 TRIPLEEQUAL . expr6
+    (43) expr6 -> . expr7 LESSEQUAL expr7
+    (44) expr6 -> . expr7 LESS expr7
+    (45) expr6 -> . expr7 GREATER expr7
+    (46) expr6 -> . expr7 GREATEREQUAL expr7
+    (47) expr6 -> . expr7
+    (48) expr7 -> . expr7 BITXOR expr8
+    (49) expr7 -> . expr7 PIPE expr8
+    (50) expr7 -> . expr8
+    (51) expr8 -> . expr8 BITAND expr9
+    (52) expr8 -> . expr9
+    (53) expr9 -> . expr9 SHIFTL expr10
+    (54) expr9 -> . expr9 SHIFTR expr10
+    (55) expr9 -> . expr10
+    (56) expr10 -> . expr10 PLUS expr11
+    (57) expr10 -> . expr10 MINUS expr11
+    (58) expr10 -> . expr11
+    (59) expr11 -> . expr11 MULTIPLY expr12
+    (60) expr11 -> . expr11 DIV expr12
+    (61) expr11 -> . expr11 MOD expr12
+    (62) expr11 -> . expr12
+    (63) expr12 -> . expr13 DOUBLESTAR expr12
+    (64) expr12 -> . expr13
+    (65) expr13 -> . OPEN_PAREN expr1 CLOSE_PAREN
+    (66) expr13 -> . uexpr INT_CONSTANTS
+    (67) expr13 -> . uexpr FLOAT_CONSTANTS
+    (68) expr13 -> . CONSTANTS
+    (69) expr13 -> . VARIABLES
+    (70) uexpr -> . none
+    (71) uexpr -> . PLUS
+    (72) uexpr -> . MINUS
+    (73) uexpr -> . BITNOT
+    (74) uexpr -> . BITCOMP
+    (81) none -> .
+
+    OPEN_PAREN      shift and go to state 27
+    CONSTANTS       shift and go to state 38
+    VARIABLES       shift and go to state 24
+    PLUS            shift and go to state 32
+    MINUS           shift and go to state 23
+    BITNOT          shift and go to state 37
+    BITCOMP         shift and go to state 25
+    INT_CONSTANTS   reduce using rule 81 (none -> .)
+    FLOAT_CONSTANTS reduce using rule 81 (none -> .)
+
+    uexpr                          shift and go to state 35
+    none                           shift and go to state 36
+    expr10                         shift and go to state 21
+    expr7                          shift and go to state 29
+    expr12                         shift and go to state 20
+    expr13                         shift and go to state 22
+    expr6                          shift and go to state 89
+    expr8                          shift and go to state 33
+    expr9                          shift and go to state 34
+    expr11                         shift and go to state 39
+
+state 59
+
+    (39) expr5 -> expr6 DOUBLEEQUAL . expr6
+    (43) expr6 -> . expr7 LESSEQUAL expr7
+    (44) expr6 -> . expr7 LESS expr7
+    (45) expr6 -> . expr7 GREATER expr7
+    (46) expr6 -> . expr7 GREATEREQUAL expr7
+    (47) expr6 -> . expr7
+    (48) expr7 -> . expr7 BITXOR expr8
+    (49) expr7 -> . expr7 PIPE expr8
+    (50) expr7 -> . expr8
+    (51) expr8 -> . expr8 BITAND expr9
+    (52) expr8 -> . expr9
+    (53) expr9 -> . expr9 SHIFTL expr10
+    (54) expr9 -> . expr9 SHIFTR expr10
+    (55) expr9 -> . expr10
+    (56) expr10 -> . expr10 PLUS expr11
+    (57) expr10 -> . expr10 MINUS expr11
+    (58) expr10 -> . expr11
+    (59) expr11 -> . expr11 MULTIPLY expr12
+    (60) expr11 -> . expr11 DIV expr12
+    (61) expr11 -> . expr11 MOD expr12
+    (62) expr11 -> . expr12
+    (63) expr12 -> . expr13 DOUBLESTAR expr12
+    (64) expr12 -> . expr13
+    (65) expr13 -> . OPEN_PAREN expr1 CLOSE_PAREN
+    (66) expr13 -> . uexpr INT_CONSTANTS
+    (67) expr13 -> . uexpr FLOAT_CONSTANTS
+    (68) expr13 -> . CONSTANTS
+    (69) expr13 -> . VARIABLES
+    (70) uexpr -> . none
+    (71) uexpr -> . PLUS
+    (72) uexpr -> . MINUS
+    (73) uexpr -> . BITNOT
+    (74) uexpr -> . BITCOMP
+    (81) none -> .
+
+    OPEN_PAREN      shift and go to state 27
+    CONSTANTS       shift and go to state 38
+    VARIABLES       shift and go to state 24
+    PLUS            shift and go to state 32
+    MINUS           shift and go to state 23
+    BITNOT          shift and go to state 37
+    BITCOMP         shift and go to state 25
+    INT_CONSTANTS   reduce using rule 81 (none -> .)
+    FLOAT_CONSTANTS reduce using rule 81 (none -> .)
+
+    uexpr                          shift and go to state 35
+    none                           shift and go to state 36
+    expr10                         shift and go to state 21
+    expr7                          shift and go to state 29
+    expr12                         shift and go to state 20
+    expr13                         shift and go to state 22
+    expr6                          shift and go to state 90
+    expr8                          shift and go to state 33
+    expr9                          shift and go to state 34
+    expr11                         shift and go to state 39
+
+state 60
+
+    (46) expr6 -> expr7 GREATEREQUAL . expr7
+    (48) expr7 -> . expr7 BITXOR expr8
+    (49) expr7 -> . expr7 PIPE expr8
+    (50) expr7 -> . expr8
+    (51) expr8 -> . expr8 BITAND expr9
+    (52) expr8 -> . expr9
+    (53) expr9 -> . expr9 SHIFTL expr10
+    (54) expr9 -> . expr9 SHIFTR expr10
+    (55) expr9 -> . expr10
+    (56) expr10 -> . expr10 PLUS expr11
+    (57) expr10 -> . expr10 MINUS expr11
+    (58) expr10 -> . expr11
+    (59) expr11 -> . expr11 MULTIPLY expr12
+    (60) expr11 -> . expr11 DIV expr12
+    (61) expr11 -> . expr11 MOD expr12
+    (62) expr11 -> . expr12
+    (63) expr12 -> . expr13 DOUBLESTAR expr12
+    (64) expr12 -> . expr13
+    (65) expr13 -> . OPEN_PAREN expr1 CLOSE_PAREN
+    (66) expr13 -> . uexpr INT_CONSTANTS
+    (67) expr13 -> . uexpr FLOAT_CONSTANTS
+    (68) expr13 -> . CONSTANTS
+    (69) expr13 -> . VARIABLES
+    (70) uexpr -> . none
+    (71) uexpr -> . PLUS
+    (72) uexpr -> . MINUS
+    (73) uexpr -> . BITNOT
+    (74) uexpr -> . BITCOMP
+    (81) none -> .
+
+    OPEN_PAREN      shift and go to state 27
+    CONSTANTS       shift and go to state 38
+    VARIABLES       shift and go to state 24
+    PLUS            shift and go to state 32
+    MINUS           shift and go to state 23
+    BITNOT          shift and go to state 37
+    BITCOMP         shift and go to state 25
+    INT_CONSTANTS   reduce using rule 81 (none -> .)
+    FLOAT_CONSTANTS reduce using rule 81 (none -> .)
+
+    uexpr                          shift and go to state 35
+    none                           shift and go to state 36
+    expr10                         shift and go to state 21
+    expr7                          shift and go to state 91
+    expr12                         shift and go to state 20
+    expr13                         shift and go to state 22
+    expr8                          shift and go to state 33
+    expr9                          shift and go to state 34
+    expr11                         shift and go to state 39
+
+state 61
+
+    (45) expr6 -> expr7 GREATER . expr7
+    (48) expr7 -> . expr7 BITXOR expr8
+    (49) expr7 -> . expr7 PIPE expr8
+    (50) expr7 -> . expr8
+    (51) expr8 -> . expr8 BITAND expr9
+    (52) expr8 -> . expr9
+    (53) expr9 -> . expr9 SHIFTL expr10
+    (54) expr9 -> . expr9 SHIFTR expr10
+    (55) expr9 -> . expr10
+    (56) expr10 -> . expr10 PLUS expr11
+    (57) expr10 -> . expr10 MINUS expr11
+    (58) expr10 -> . expr11
+    (59) expr11 -> . expr11 MULTIPLY expr12
+    (60) expr11 -> . expr11 DIV expr12
+    (61) expr11 -> . expr11 MOD expr12
+    (62) expr11 -> . expr12
+    (63) expr12 -> . expr13 DOUBLESTAR expr12
+    (64) expr12 -> . expr13
+    (65) expr13 -> . OPEN_PAREN expr1 CLOSE_PAREN
+    (66) expr13 -> . uexpr INT_CONSTANTS
+    (67) expr13 -> . uexpr FLOAT_CONSTANTS
+    (68) expr13 -> . CONSTANTS
+    (69) expr13 -> . VARIABLES
+    (70) uexpr -> . none
+    (71) uexpr -> . PLUS
+    (72) uexpr -> . MINUS
+    (73) uexpr -> . BITNOT
+    (74) uexpr -> . BITCOMP
+    (81) none -> .
+
+    OPEN_PAREN      shift and go to state 27
+    CONSTANTS       shift and go to state 38
+    VARIABLES       shift and go to state 24
+    PLUS            shift and go to state 32
+    MINUS           shift and go to state 23
+    BITNOT          shift and go to state 37
+    BITCOMP         shift and go to state 25
+    INT_CONSTANTS   reduce using rule 81 (none -> .)
+    FLOAT_CONSTANTS reduce using rule 81 (none -> .)
+
+    uexpr                          shift and go to state 35
+    none                           shift and go to state 36
+    expr10                         shift and go to state 21
+    expr7                          shift and go to state 92
+    expr12                         shift and go to state 20
+    expr13                         shift and go to state 22
+    expr8                          shift and go to state 33
+    expr9                          shift and go to state 34
+    expr11                         shift and go to state 39
+
+state 62
+
+    (44) expr6 -> expr7 LESS . expr7
+    (48) expr7 -> . expr7 BITXOR expr8
+    (49) expr7 -> . expr7 PIPE expr8
+    (50) expr7 -> . expr8
+    (51) expr8 -> . expr8 BITAND expr9
+    (52) expr8 -> . expr9
+    (53) expr9 -> . expr9 SHIFTL expr10
+    (54) expr9 -> . expr9 SHIFTR expr10
+    (55) expr9 -> . expr10
+    (56) expr10 -> . expr10 PLUS expr11
+    (57) expr10 -> . expr10 MINUS expr11
+    (58) expr10 -> . expr11
+    (59) expr11 -> . expr11 MULTIPLY expr12
+    (60) expr11 -> . expr11 DIV expr12
+    (61) expr11 -> . expr11 MOD expr12
+    (62) expr11 -> . expr12
+    (63) expr12 -> . expr13 DOUBLESTAR expr12
+    (64) expr12 -> . expr13
+    (65) expr13 -> . OPEN_PAREN expr1 CLOSE_PAREN
+    (66) expr13 -> . uexpr INT_CONSTANTS
+    (67) expr13 -> . uexpr FLOAT_CONSTANTS
+    (68) expr13 -> . CONSTANTS
+    (69) expr13 -> . VARIABLES
+    (70) uexpr -> . none
+    (71) uexpr -> . PLUS
+    (72) uexpr -> . MINUS
+    (73) uexpr -> . BITNOT
+    (74) uexpr -> . BITCOMP
+    (81) none -> .
+
+    OPEN_PAREN      shift and go to state 27
+    CONSTANTS       shift and go to state 38
+    VARIABLES       shift and go to state 24
+    PLUS            shift and go to state 32
+    MINUS           shift and go to state 23
+    BITNOT          shift and go to state 37
+    BITCOMP         shift and go to state 25
+    INT_CONSTANTS   reduce using rule 81 (none -> .)
+    FLOAT_CONSTANTS reduce using rule 81 (none -> .)
+
+    uexpr                          shift and go to state 35
+    none                           shift and go to state 36
+    expr10                         shift and go to state 21
+    expr7                          shift and go to state 93
+    expr12                         shift and go to state 20
+    expr13                         shift and go to state 22
+    expr8                          shift and go to state 33
+    expr9                          shift and go to state 34
+    expr11                         shift and go to state 39
+
+state 63
+
+    (49) expr7 -> expr7 PIPE . expr8
+    (51) expr8 -> . expr8 BITAND expr9
+    (52) expr8 -> . expr9
+    (53) expr9 -> . expr9 SHIFTL expr10
+    (54) expr9 -> . expr9 SHIFTR expr10
+    (55) expr9 -> . expr10
+    (56) expr10 -> . expr10 PLUS expr11
+    (57) expr10 -> . expr10 MINUS expr11
+    (58) expr10 -> . expr11
+    (59) expr11 -> . expr11 MULTIPLY expr12
+    (60) expr11 -> . expr11 DIV expr12
+    (61) expr11 -> . expr11 MOD expr12
+    (62) expr11 -> . expr12
+    (63) expr12 -> . expr13 DOUBLESTAR expr12
+    (64) expr12 -> . expr13
+    (65) expr13 -> . OPEN_PAREN expr1 CLOSE_PAREN
+    (66) expr13 -> . uexpr INT_CONSTANTS
+    (67) expr13 -> . uexpr FLOAT_CONSTANTS
+    (68) expr13 -> . CONSTANTS
+    (69) expr13 -> . VARIABLES
+    (70) uexpr -> . none
+    (71) uexpr -> . PLUS
+    (72) uexpr -> . MINUS
+    (73) uexpr -> . BITNOT
+    (74) uexpr -> . BITCOMP
+    (81) none -> .
+
+    OPEN_PAREN      shift and go to state 27
+    CONSTANTS       shift and go to state 38
+    VARIABLES       shift and go to state 24
+    PLUS            shift and go to state 32
+    MINUS           shift and go to state 23
+    BITNOT          shift and go to state 37
+    BITCOMP         shift and go to state 25
+    INT_CONSTANTS   reduce using rule 81 (none -> .)
+    FLOAT_CONSTANTS reduce using rule 81 (none -> .)
+
+    uexpr                          shift and go to state 35
+    none                           shift and go to state 36
+    expr10                         shift and go to state 21
+    expr12                         shift and go to state 20
+    expr13                         shift and go to state 22
+    expr8                          shift and go to state 94
+    expr9                          shift and go to state 34
+    expr11                         shift and go to state 39
+
+state 64
+
+    (48) expr7 -> expr7 BITXOR . expr8
+    (51) expr8 -> . expr8 BITAND expr9
+    (52) expr8 -> . expr9
+    (53) expr9 -> . expr9 SHIFTL expr10
+    (54) expr9 -> . expr9 SHIFTR expr10
+    (55) expr9 -> . expr10
+    (56) expr10 -> . expr10 PLUS expr11
+    (57) expr10 -> . expr10 MINUS expr11
+    (58) expr10 -> . expr11
+    (59) expr11 -> . expr11 MULTIPLY expr12
+    (60) expr11 -> . expr11 DIV expr12
+    (61) expr11 -> . expr11 MOD expr12
+    (62) expr11 -> . expr12
+    (63) expr12 -> . expr13 DOUBLESTAR expr12
+    (64) expr12 -> . expr13
+    (65) expr13 -> . OPEN_PAREN expr1 CLOSE_PAREN
+    (66) expr13 -> . uexpr INT_CONSTANTS
+    (67) expr13 -> . uexpr FLOAT_CONSTANTS
+    (68) expr13 -> . CONSTANTS
+    (69) expr13 -> . VARIABLES
+    (70) uexpr -> . none
+    (71) uexpr -> . PLUS
+    (72) uexpr -> . MINUS
+    (73) uexpr -> . BITNOT
+    (74) uexpr -> . BITCOMP
+    (81) none -> .
+
+    OPEN_PAREN      shift and go to state 27
+    CONSTANTS       shift and go to state 38
+    VARIABLES       shift and go to state 24
+    PLUS            shift and go to state 32
+    MINUS           shift and go to state 23
+    BITNOT          shift and go to state 37
+    BITCOMP         shift and go to state 25
+    INT_CONSTANTS   reduce using rule 81 (none -> .)
+    FLOAT_CONSTANTS reduce using rule 81 (none -> .)
+
+    uexpr                          shift and go to state 35
+    none                           shift and go to state 36
+    expr10                         shift and go to state 21
+    expr12                         shift and go to state 20
+    expr13                         shift and go to state 22
+    expr8                          shift and go to state 95
+    expr9                          shift and go to state 34
+    expr11                         shift and go to state 39
+
+state 65
+
+    (43) expr6 -> expr7 LESSEQUAL . expr7
+    (48) expr7 -> . expr7 BITXOR expr8
+    (49) expr7 -> . expr7 PIPE expr8
+    (50) expr7 -> . expr8
+    (51) expr8 -> . expr8 BITAND expr9
+    (52) expr8 -> . expr9
+    (53) expr9 -> . expr9 SHIFTL expr10
+    (54) expr9 -> . expr9 SHIFTR expr10
+    (55) expr9 -> . expr10
+    (56) expr10 -> . expr10 PLUS expr11
+    (57) expr10 -> . expr10 MINUS expr11
+    (58) expr10 -> . expr11
+    (59) expr11 -> . expr11 MULTIPLY expr12
+    (60) expr11 -> . expr11 DIV expr12
+    (61) expr11 -> . expr11 MOD expr12
+    (62) expr11 -> . expr12
+    (63) expr12 -> . expr13 DOUBLESTAR expr12
+    (64) expr12 -> . expr13
+    (65) expr13 -> . OPEN_PAREN expr1 CLOSE_PAREN
+    (66) expr13 -> . uexpr INT_CONSTANTS
+    (67) expr13 -> . uexpr FLOAT_CONSTANTS
+    (68) expr13 -> . CONSTANTS
+    (69) expr13 -> . VARIABLES
+    (70) uexpr -> . none
+    (71) uexpr -> . PLUS
+    (72) uexpr -> . MINUS
+    (73) uexpr -> . BITNOT
+    (74) uexpr -> . BITCOMP
+    (81) none -> .
+
+    OPEN_PAREN      shift and go to state 27
+    CONSTANTS       shift and go to state 38
+    VARIABLES       shift and go to state 24
+    PLUS            shift and go to state 32
+    MINUS           shift and go to state 23
+    BITNOT          shift and go to state 37
+    BITCOMP         shift and go to state 25
+    INT_CONSTANTS   reduce using rule 81 (none -> .)
+    FLOAT_CONSTANTS reduce using rule 81 (none -> .)
+
+    uexpr                          shift and go to state 35
+    none                           shift and go to state 36
+    expr10                         shift and go to state 21
+    expr7                          shift and go to state 96
+    expr12                         shift and go to state 20
+    expr13                         shift and go to state 22
+    expr8                          shift and go to state 33
+    expr9                          shift and go to state 34
+    expr11                         shift and go to state 39
+
+state 66
+
+    (36) expr4 -> expr4 LOGICALAND . expr5
+    (38) expr5 -> . expr6 IFF expr6
+    (39) expr5 -> . expr6 DOUBLEEQUAL expr6
+    (40) expr5 -> . expr6 TRIPLEEQUAL expr6
+    (41) expr5 -> . expr6 NOTEQUAL expr6
+    (42) expr5 -> . expr6
+    (43) expr6 -> . expr7 LESSEQUAL expr7
+    (44) expr6 -> . expr7 LESS expr7
+    (45) expr6 -> . expr7 GREATER expr7
+    (46) expr6 -> . expr7 GREATEREQUAL expr7
+    (47) expr6 -> . expr7
+    (48) expr7 -> . expr7 BITXOR expr8
+    (49) expr7 -> . expr7 PIPE expr8
+    (50) expr7 -> . expr8
+    (51) expr8 -> . expr8 BITAND expr9
+    (52) expr8 -> . expr9
+    (53) expr9 -> . expr9 SHIFTL expr10
+    (54) expr9 -> . expr9 SHIFTR expr10
+    (55) expr9 -> . expr10
+    (56) expr10 -> . expr10 PLUS expr11
+    (57) expr10 -> . expr10 MINUS expr11
+    (58) expr10 -> . expr11
+    (59) expr11 -> . expr11 MULTIPLY expr12
+    (60) expr11 -> . expr11 DIV expr12
+    (61) expr11 -> . expr11 MOD expr12
+    (62) expr11 -> . expr12
+    (63) expr12 -> . expr13 DOUBLESTAR expr12
+    (64) expr12 -> . expr13
+    (65) expr13 -> . OPEN_PAREN expr1 CLOSE_PAREN
+    (66) expr13 -> . uexpr INT_CONSTANTS
+    (67) expr13 -> . uexpr FLOAT_CONSTANTS
+    (68) expr13 -> . CONSTANTS
+    (69) expr13 -> . VARIABLES
+    (70) uexpr -> . none
+    (71) uexpr -> . PLUS
+    (72) uexpr -> . MINUS
+    (73) uexpr -> . BITNOT
+    (74) uexpr -> . BITCOMP
+    (81) none -> .
+
+    OPEN_PAREN      shift and go to state 27
+    CONSTANTS       shift and go to state 38
+    VARIABLES       shift and go to state 24
+    PLUS            shift and go to state 32
+    MINUS           shift and go to state 23
+    BITNOT          shift and go to state 37
+    BITCOMP         shift and go to state 25
+    INT_CONSTANTS   reduce using rule 81 (none -> .)
+    FLOAT_CONSTANTS reduce using rule 81 (none -> .)
+
+    uexpr                          shift and go to state 35
+    none                           shift and go to state 36
+    expr12                         shift and go to state 20
+    expr13                         shift and go to state 22
+    expr6                          shift and go to state 28
+    expr7                          shift and go to state 29
+    expr5                          shift and go to state 97
+    expr10                         shift and go to state 21
+    expr8                          shift and go to state 33
+    expr9                          shift and go to state 34
+    expr11                         shift and go to state 39
+
+state 67
+
+    (51) expr8 -> expr8 BITAND . expr9
+    (53) expr9 -> . expr9 SHIFTL expr10
+    (54) expr9 -> . expr9 SHIFTR expr10
+    (55) expr9 -> . expr10
+    (56) expr10 -> . expr10 PLUS expr11
+    (57) expr10 -> . expr10 MINUS expr11
+    (58) expr10 -> . expr11
+    (59) expr11 -> . expr11 MULTIPLY expr12
+    (60) expr11 -> . expr11 DIV expr12
+    (61) expr11 -> . expr11 MOD expr12
+    (62) expr11 -> . expr12
+    (63) expr12 -> . expr13 DOUBLESTAR expr12
+    (64) expr12 -> . expr13
+    (65) expr13 -> . OPEN_PAREN expr1 CLOSE_PAREN
+    (66) expr13 -> . uexpr INT_CONSTANTS
+    (67) expr13 -> . uexpr FLOAT_CONSTANTS
+    (68) expr13 -> . CONSTANTS
+    (69) expr13 -> . VARIABLES
+    (70) uexpr -> . none
+    (71) uexpr -> . PLUS
+    (72) uexpr -> . MINUS
+    (73) uexpr -> . BITNOT
+    (74) uexpr -> . BITCOMP
+    (81) none -> .
+
+    OPEN_PAREN      shift and go to state 27
+    CONSTANTS       shift and go to state 38
+    VARIABLES       shift and go to state 24
+    PLUS            shift and go to state 32
+    MINUS           shift and go to state 23
+    BITNOT          shift and go to state 37
+    BITCOMP         shift and go to state 25
+    INT_CONSTANTS   reduce using rule 81 (none -> .)
+    FLOAT_CONSTANTS reduce using rule 81 (none -> .)
+
+    uexpr                          shift and go to state 35
+    none                           shift and go to state 36
+    expr10                         shift and go to state 21
+    expr11                         shift and go to state 39
+    expr12                         shift and go to state 20
+    expr13                         shift and go to state 22
+    expr9                          shift and go to state 98
+
+state 68
+
+    (54) expr9 -> expr9 SHIFTR . expr10
+    (56) expr10 -> . expr10 PLUS expr11
+    (57) expr10 -> . expr10 MINUS expr11
+    (58) expr10 -> . expr11
+    (59) expr11 -> . expr11 MULTIPLY expr12
+    (60) expr11 -> . expr11 DIV expr12
+    (61) expr11 -> . expr11 MOD expr12
+    (62) expr11 -> . expr12
+    (63) expr12 -> . expr13 DOUBLESTAR expr12
+    (64) expr12 -> . expr13
+    (65) expr13 -> . OPEN_PAREN expr1 CLOSE_PAREN
+    (66) expr13 -> . uexpr INT_CONSTANTS
+    (67) expr13 -> . uexpr FLOAT_CONSTANTS
+    (68) expr13 -> . CONSTANTS
+    (69) expr13 -> . VARIABLES
+    (70) uexpr -> . none
+    (71) uexpr -> . PLUS
+    (72) uexpr -> . MINUS
+    (73) uexpr -> . BITNOT
+    (74) uexpr -> . BITCOMP
+    (81) none -> .
+
+    OPEN_PAREN      shift and go to state 27
+    CONSTANTS       shift and go to state 38
+    VARIABLES       shift and go to state 24
+    PLUS            shift and go to state 32
+    MINUS           shift and go to state 23
+    BITNOT          shift and go to state 37
+    BITCOMP         shift and go to state 25
+    INT_CONSTANTS   reduce using rule 81 (none -> .)
+    FLOAT_CONSTANTS reduce using rule 81 (none -> .)
+
+    uexpr                          shift and go to state 35
+    none                           shift and go to state 36
+    expr10                         shift and go to state 99
+    expr11                         shift and go to state 39
+    expr12                         shift and go to state 20
+    expr13                         shift and go to state 22
+
+state 69
+
+    (53) expr9 -> expr9 SHIFTL . expr10
+    (56) expr10 -> . expr10 PLUS expr11
+    (57) expr10 -> . expr10 MINUS expr11
+    (58) expr10 -> . expr11
+    (59) expr11 -> . expr11 MULTIPLY expr12
+    (60) expr11 -> . expr11 DIV expr12
+    (61) expr11 -> . expr11 MOD expr12
+    (62) expr11 -> . expr12
+    (63) expr12 -> . expr13 DOUBLESTAR expr12
+    (64) expr12 -> . expr13
+    (65) expr13 -> . OPEN_PAREN expr1 CLOSE_PAREN
+    (66) expr13 -> . uexpr INT_CONSTANTS
+    (67) expr13 -> . uexpr FLOAT_CONSTANTS
+    (68) expr13 -> . CONSTANTS
+    (69) expr13 -> . VARIABLES
+    (70) uexpr -> . none
+    (71) uexpr -> . PLUS
+    (72) uexpr -> . MINUS
+    (73) uexpr -> . BITNOT
+    (74) uexpr -> . BITCOMP
+    (81) none -> .
+
+    OPEN_PAREN      shift and go to state 27
+    CONSTANTS       shift and go to state 38
+    VARIABLES       shift and go to state 24
+    PLUS            shift and go to state 32
+    MINUS           shift and go to state 23
+    BITNOT          shift and go to state 37
+    BITCOMP         shift and go to state 25
+    INT_CONSTANTS   reduce using rule 81 (none -> .)
+    FLOAT_CONSTANTS reduce using rule 81 (none -> .)
+
+    uexpr                          shift and go to state 35
+    none                           shift and go to state 36
+    expr10                         shift and go to state 100
+    expr11                         shift and go to state 39
+    expr12                         shift and go to state 20
+    expr13                         shift and go to state 22
+
+state 70
+
+    (66) expr13 -> uexpr INT_CONSTANTS .
+
+    DOUBLESTAR      reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    MULTIPLY        reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    DIV             reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    MOD             reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    PLUS            reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    MINUS           reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    SHIFTL          reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    SHIFTR          reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    BITAND          reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    BITXOR          reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    PIPE            reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    DELIM           reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    newline         reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    $end            reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    KEYWORD_elsif   reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    KEYWORD_else    reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    KEYWORD_end     reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    CLOSE_PAREN     reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    COLON           reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    LESSEQUAL       reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    LESS            reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    GREATER         reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    GREATEREQUAL    reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    IFF             reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    DOUBLEEQUAL     reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    TRIPLEEQUAL     reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    NOTEQUAL        reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    LOGICALAND      reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    LOGICALOR       reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    KEYWORD_then    reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    KEYWORD_if      reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    KEYWORD_while   reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    VARIABLES       reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    CONSTANTS       reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    KEYWORD_do      reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    DOUBLEDOT       reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    TRIPLEDOT       reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+    QUESTION_MARK   reduce using rule 66 (expr13 -> uexpr INT_CONSTANTS .)
+
+
+state 71
+
+    (67) expr13 -> uexpr FLOAT_CONSTANTS .
+
+    DOUBLESTAR      reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    MULTIPLY        reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    DIV             reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    MOD             reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    PLUS            reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    MINUS           reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    SHIFTL          reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    SHIFTR          reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    BITAND          reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    BITXOR          reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    PIPE            reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    DELIM           reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    newline         reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    $end            reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    KEYWORD_elsif   reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    KEYWORD_else    reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    KEYWORD_end     reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    CLOSE_PAREN     reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    COLON           reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    LESSEQUAL       reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    LESS            reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    GREATER         reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    GREATEREQUAL    reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    IFF             reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    DOUBLEEQUAL     reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    TRIPLEEQUAL     reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    NOTEQUAL        reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    LOGICALAND      reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    LOGICALOR       reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    KEYWORD_then    reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    KEYWORD_if      reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    KEYWORD_while   reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    VARIABLES       reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    CONSTANTS       reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    KEYWORD_do      reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    DOUBLEDOT       reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    TRIPLEDOT       reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+    QUESTION_MARK   reduce using rule 67 (expr13 -> uexpr FLOAT_CONSTANTS .)
+
+
+state 72
+
+    (59) expr11 -> expr11 MULTIPLY . expr12
+    (63) expr12 -> . expr13 DOUBLESTAR expr12
+    (64) expr12 -> . expr13
+    (65) expr13 -> . OPEN_PAREN expr1 CLOSE_PAREN
+    (66) expr13 -> . uexpr INT_CONSTANTS
+    (67) expr13 -> . uexpr FLOAT_CONSTANTS
+    (68) expr13 -> . CONSTANTS
+    (69) expr13 -> . VARIABLES
+    (70) uexpr -> . none
+    (71) uexpr -> . PLUS
+    (72) uexpr -> . MINUS
+    (73) uexpr -> . BITNOT
+    (74) uexpr -> . BITCOMP
+    (81) none -> .
+
+    OPEN_PAREN      shift and go to state 27
+    CONSTANTS       shift and go to state 38
+    VARIABLES       shift and go to state 24
+    PLUS            shift and go to state 32
+    MINUS           shift and go to state 23
+    BITNOT          shift and go to state 37
+    BITCOMP         shift and go to state 25
+    INT_CONSTANTS   reduce using rule 81 (none -> .)
+    FLOAT_CONSTANTS reduce using rule 81 (none -> .)
+
+    uexpr                          shift and go to state 35
+    none                           shift and go to state 36
+    expr12                         shift and go to state 101
+    expr13                         shift and go to state 22
+
+state 73
+
+    (60) expr11 -> expr11 DIV . expr12
+    (63) expr12 -> . expr13 DOUBLESTAR expr12
+    (64) expr12 -> . expr13
+    (65) expr13 -> . OPEN_PAREN expr1 CLOSE_PAREN
+    (66) expr13 -> . uexpr INT_CONSTANTS
+    (67) expr13 -> . uexpr FLOAT_CONSTANTS
+    (68) expr13 -> . CONSTANTS
+    (69) expr13 -> . VARIABLES
+    (70) uexpr -> . none
+    (71) uexpr -> . PLUS
+    (72) uexpr -> . MINUS
+    (73) uexpr -> . BITNOT
+    (74) uexpr -> . BITCOMP
+    (81) none -> .
+
+    OPEN_PAREN      shift and go to state 27
+    CONSTANTS       shift and go to state 38
+    VARIABLES       shift and go to state 24
+    PLUS            shift and go to state 32
+    MINUS           shift and go to state 23
+    BITNOT          shift and go to state 37
+    BITCOMP         shift and go to state 25
+    INT_CONSTANTS   reduce using rule 81 (none -> .)
+    FLOAT_CONSTANTS reduce using rule 81 (none -> .)
+
+    uexpr                          shift and go to state 35
+    none                           shift and go to state 36
+    expr12                         shift and go to state 102
+    expr13                         shift and go to state 22
+
+state 74
+
+    (61) expr11 -> expr11 MOD . expr12
+    (63) expr12 -> . expr13 DOUBLESTAR expr12
+    (64) expr12 -> . expr13
+    (65) expr13 -> . OPEN_PAREN expr1 CLOSE_PAREN
+    (66) expr13 -> . uexpr INT_CONSTANTS
+    (67) expr13 -> . uexpr FLOAT_CONSTANTS
+    (68) expr13 -> . CONSTANTS
+    (69) expr13 -> . VARIABLES
+    (70) uexpr -> . none
+    (71) uexpr -> . PLUS
+    (72) uexpr -> . MINUS
+    (73) uexpr -> . BITNOT
+    (74) uexpr -> . BITCOMP
+    (81) none -> .
+
+    OPEN_PAREN      shift and go to state 27
+    CONSTANTS       shift and go to state 38
+    VARIABLES       shift and go to state 24
+    PLUS            shift and go to state 32
+    MINUS           shift and go to state 23
+    BITNOT          shift and go to state 37
+    BITCOMP         shift and go to state 25
+    INT_CONSTANTS   reduce using rule 81 (none -> .)
+    FLOAT_CONSTANTS reduce using rule 81 (none -> .)
+
+    uexpr                          shift and go to state 35
+    none                           shift and go to state 36
+    expr12                         shift and go to state 103
+    expr13                         shift and go to state 22
+
+state 75
+
+    (17) opt_do -> none .
+
+    KEYWORD_if      reduce using rule 17 (opt_do -> none .)
+    KEYWORD_while   reduce using rule 17 (opt_do -> none .)
+    VARIABLES       reduce using rule 17 (opt_do -> none .)
+    CONSTANTS       reduce using rule 17 (opt_do -> none .)
+    KEYWORD_end     reduce using rule 17 (opt_do -> none .)
+    DELIM           reduce using rule 17 (opt_do -> none .)
+    newline         reduce using rule 17 (opt_do -> none .)
+
+
+state 76
+
+    (16) opt_do -> KEYWORD_do .
+
+    KEYWORD_if      reduce using rule 16 (opt_do -> KEYWORD_do .)
+    KEYWORD_while   reduce using rule 16 (opt_do -> KEYWORD_do .)
+    VARIABLES       reduce using rule 16 (opt_do -> KEYWORD_do .)
+    CONSTANTS       reduce using rule 16 (opt_do -> KEYWORD_do .)
+    KEYWORD_end     reduce using rule 16 (opt_do -> KEYWORD_do .)
+    DELIM           reduce using rule 16 (opt_do -> KEYWORD_do .)
+    newline         reduce using rule 16 (opt_do -> KEYWORD_do .)
+
+
+state 77
+
+    (8) top_stmt -> KEYWORD_while expr3 opt_do . top_compstmt KEYWORD_end
+    (2) top_compstmt -> . top_stmts opt_terms
+    (3) top_stmts -> . none
+    (4) top_stmts -> . top_stmt
+    (5) top_stmts -> . top_stmts terms top_stmt
+    (81) none -> .
+    (6) top_stmt -> . stmt
+    (7) top_stmt -> . KEYWORD_if expr3 opt_then top_compstmt elsif_tail opt_else_stmt KEYWORD_end
+    (8) top_stmt -> . KEYWORD_while expr3 opt_do top_compstmt KEYWORD_end
+    (9) stmt -> . expr
+    (18) expr -> . mlhs EQUAL mrhs
+    (19) mlhs -> . VARIABLES
+    (20) mlhs -> . CONSTANTS
+
+    DELIM           reduce using rule 81 (none -> .)
+    newline         reduce using rule 81 (none -> .)
+    KEYWORD_end     reduce using rule 81 (none -> .)
+    KEYWORD_if      shift and go to state 3
+    KEYWORD_while   shift and go to state 4
+    VARIABLES       shift and go to state 5
+    CONSTANTS       shift and go to state 12
+
+    none                           shift and go to state 9
+    expr                           shift and go to state 10
+    top_compstmt                   shift and go to state 104
+    mlhs                           shift and go to state 1
+    stmt                           shift and go to state 8
+    top_stmts                      shift and go to state 2
+    top_stmt                       shift and go to state 11
+
+state 78
+
+    (29) expr1 -> expr3 QUESTION_MARK . expr2 COLON expr2
+    (31) expr2 -> . expr7 DOUBLEDOT expr7
+    (32) expr2 -> . expr7 TRIPLEDOT expr7
+    (33) expr2 -> . expr3
+    (48) expr7 -> . expr7 BITXOR expr8
+    (49) expr7 -> . expr7 PIPE expr8
+    (50) expr7 -> . expr8
+    (34) expr3 -> . expr3 LOGICALOR expr4
+    (35) expr3 -> . expr4
+    (51) expr8 -> . expr8 BITAND expr9
+    (52) expr8 -> . expr9
+    (36) expr4 -> . expr4 LOGICALAND expr5
+    (37) expr4 -> . expr5
+    (53) expr9 -> . expr9 SHIFTL expr10
+    (54) expr9 -> . expr9 SHIFTR expr10
+    (55) expr9 -> . expr10
+    (38) expr5 -> . expr6 IFF expr6
+    (39) expr5 -> . expr6 DOUBLEEQUAL expr6
+    (40) expr5 -> . expr6 TRIPLEEQUAL expr6
+    (41) expr5 -> . expr6 NOTEQUAL expr6
+    (42) expr5 -> . expr6
+    (56) expr10 -> . expr10 PLUS expr11
+    (57) expr10 -> . expr10 MINUS expr11
+    (58) expr10 -> . expr11
+    (43) expr6 -> . expr7 LESSEQUAL expr7
+    (44) expr6 -> . expr7 LESS expr7
+    (45) expr6 -> . expr7 GREATER expr7
+    (46) expr6 -> . expr7 GREATEREQUAL expr7
+    (47) expr6 -> . expr7
+    (59) expr11 -> . expr11 MULTIPLY expr12
+    (60) expr11 -> . expr11 DIV expr12
+    (61) expr11 -> . expr11 MOD expr12
+    (62) expr11 -> . expr12
+    (63) expr12 -> . expr13 DOUBLESTAR expr12
+    (64) expr12 -> . expr13
+    (65) expr13 -> . OPEN_PAREN expr1 CLOSE_PAREN
+    (66) expr13 -> . uexpr INT_CONSTANTS
+    (67) expr13 -> . uexpr FLOAT_CONSTANTS
+    (68) expr13 -> . CONSTANTS
+    (69) expr13 -> . VARIABLES
+    (70) uexpr -> . none
+    (71) uexpr -> . PLUS
+    (72) uexpr -> . MINUS
+    (73) uexpr -> . BITNOT
+    (74) uexpr -> . BITCOMP
+    (81) none -> .
+
+    OPEN_PAREN      shift and go to state 27
+    CONSTANTS       shift and go to state 38
+    VARIABLES       shift and go to state 24
+    PLUS            shift and go to state 32
+    MINUS           shift and go to state 23
+    BITNOT          shift and go to state 37
+    BITCOMP         shift and go to state 25
+    INT_CONSTANTS   reduce using rule 81 (none -> .)
+    FLOAT_CONSTANTS reduce using rule 81 (none -> .)
+
+    uexpr                          shift and go to state 35
+    none                           shift and go to state 36
+    expr12                         shift and go to state 20
+    expr13                         shift and go to state 22
+    expr2                          shift and go to state 105
+    expr3                          shift and go to state 106
+    expr10                         shift and go to state 21
+    expr7                          shift and go to state 44
+    expr4                          shift and go to state 30
+    expr5                          shift and go to state 31
+    expr6                          shift and go to state 28
+    expr8                          shift and go to state 33
+    expr9                          shift and go to state 34
+    expr11                         shift and go to state 39
+
+state 79
+
+    (31) expr2 -> expr7 DOUBLEDOT . expr7
+    (48) expr7 -> . expr7 BITXOR expr8
+    (49) expr7 -> . expr7 PIPE expr8
+    (50) expr7 -> . expr8
+    (51) expr8 -> . expr8 BITAND expr9
+    (52) expr8 -> . expr9
+    (53) expr9 -> . expr9 SHIFTL expr10
+    (54) expr9 -> . expr9 SHIFTR expr10
+    (55) expr9 -> . expr10
+    (56) expr10 -> . expr10 PLUS expr11
+    (57) expr10 -> . expr10 MINUS expr11
+    (58) expr10 -> . expr11
+    (59) expr11 -> . expr11 MULTIPLY expr12
+    (60) expr11 -> . expr11 DIV expr12
+    (61) expr11 -> . expr11 MOD expr12
+    (62) expr11 -> . expr12
+    (63) expr12 -> . expr13 DOUBLESTAR expr12
+    (64) expr12 -> . expr13
+    (65) expr13 -> . OPEN_PAREN expr1 CLOSE_PAREN
+    (66) expr13 -> . uexpr INT_CONSTANTS
+    (67) expr13 -> . uexpr FLOAT_CONSTANTS
+    (68) expr13 -> . CONSTANTS
+    (69) expr13 -> . VARIABLES
+    (70) uexpr -> . none
+    (71) uexpr -> . PLUS
+    (72) uexpr -> . MINUS
+    (73) uexpr -> . BITNOT
+    (74) uexpr -> . BITCOMP
+    (81) none -> .
+
+    OPEN_PAREN      shift and go to state 27
+    CONSTANTS       shift and go to state 38
+    VARIABLES       shift and go to state 24
+    PLUS            shift and go to state 32
+    MINUS           shift and go to state 23
+    BITNOT          shift and go to state 37
+    BITCOMP         shift and go to state 25
+    INT_CONSTANTS   reduce using rule 81 (none -> .)
+    FLOAT_CONSTANTS reduce using rule 81 (none -> .)
+
+    uexpr                          shift and go to state 35
+    none                           shift and go to state 36
+    expr10                         shift and go to state 21
+    expr7                          shift and go to state 107
+    expr12                         shift and go to state 20
+    expr13                         shift and go to state 22
+    expr8                          shift and go to state 33
+    expr9                          shift and go to state 34
+    expr11                         shift and go to state 39
+
+state 80
+
+    (32) expr2 -> expr7 TRIPLEDOT . expr7
+    (48) expr7 -> . expr7 BITXOR expr8
+    (49) expr7 -> . expr7 PIPE expr8
+    (50) expr7 -> . expr8
+    (51) expr8 -> . expr8 BITAND expr9
+    (52) expr8 -> . expr9
+    (53) expr9 -> . expr9 SHIFTL expr10
+    (54) expr9 -> . expr9 SHIFTR expr10
+    (55) expr9 -> . expr10
+    (56) expr10 -> . expr10 PLUS expr11
+    (57) expr10 -> . expr10 MINUS expr11
+    (58) expr10 -> . expr11
+    (59) expr11 -> . expr11 MULTIPLY expr12
+    (60) expr11 -> . expr11 DIV expr12
+    (61) expr11 -> . expr11 MOD expr12
+    (62) expr11 -> . expr12
+    (63) expr12 -> . expr13 DOUBLESTAR expr12
+    (64) expr12 -> . expr13
+    (65) expr13 -> . OPEN_PAREN expr1 CLOSE_PAREN
+    (66) expr13 -> . uexpr INT_CONSTANTS
+    (67) expr13 -> . uexpr FLOAT_CONSTANTS
+    (68) expr13 -> . CONSTANTS
+    (69) expr13 -> . VARIABLES
+    (70) uexpr -> . none
+    (71) uexpr -> . PLUS
+    (72) uexpr -> . MINUS
+    (73) uexpr -> . BITNOT
+    (74) uexpr -> . BITCOMP
+    (81) none -> .
+
+    OPEN_PAREN      shift and go to state 27
+    CONSTANTS       shift and go to state 38
+    VARIABLES       shift and go to state 24
+    PLUS            shift and go to state 32
+    MINUS           shift and go to state 23
+    BITNOT          shift and go to state 37
+    BITCOMP         shift and go to state 25
+    INT_CONSTANTS   reduce using rule 81 (none -> .)
+    FLOAT_CONSTANTS reduce using rule 81 (none -> .)
+
+    uexpr                          shift and go to state 35
+    none                           shift and go to state 36
+    expr10                         shift and go to state 21
+    expr7                          shift and go to state 108
+    expr12                         shift and go to state 20
+    expr13                         shift and go to state 22
+    expr8                          shift and go to state 33
+    expr9                          shift and go to state 34
+    expr11                         shift and go to state 39
+
+state 81
+
+    (56) expr10 -> expr10 PLUS expr11 .
+    (59) expr11 -> expr11 . MULTIPLY expr12
+    (60) expr11 -> expr11 . DIV expr12
+    (61) expr11 -> expr11 . MOD expr12
+
+    PLUS            reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    MINUS           reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    SHIFTL          reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    SHIFTR          reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    BITAND          reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    BITXOR          reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    PIPE            reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    IFF             reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    DOUBLEEQUAL     reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    TRIPLEEQUAL     reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    NOTEQUAL        reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    LOGICALAND      reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    LOGICALOR       reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    KEYWORD_then    reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    KEYWORD_if      reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    KEYWORD_while   reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    VARIABLES       reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    CONSTANTS       reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    KEYWORD_elsif   reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    KEYWORD_else    reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    KEYWORD_end     reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    DELIM           reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    newline         reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    KEYWORD_do      reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    QUESTION_MARK   reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    $end            reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    CLOSE_PAREN     reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    COLON           reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    LESSEQUAL       reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    LESS            reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    GREATER         reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    GREATEREQUAL    reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    DOUBLEDOT       reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    TRIPLEDOT       reduce using rule 56 (expr10 -> expr10 PLUS expr11 .)
+    MULTIPLY        shift and go to state 72
+    DIV             shift and go to state 73
+    MOD             shift and go to state 74
+
+
+state 82
+
+    (57) expr10 -> expr10 MINUS expr11 .
+    (59) expr11 -> expr11 . MULTIPLY expr12
+    (60) expr11 -> expr11 . DIV expr12
+    (61) expr11 -> expr11 . MOD expr12
+
+    PLUS            reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    MINUS           reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    SHIFTL          reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    SHIFTR          reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    BITAND          reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    BITXOR          reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    PIPE            reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    IFF             reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    DOUBLEEQUAL     reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    TRIPLEEQUAL     reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    NOTEQUAL        reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    LOGICALAND      reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    LOGICALOR       reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    KEYWORD_then    reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    KEYWORD_if      reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    KEYWORD_while   reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    VARIABLES       reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    CONSTANTS       reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    KEYWORD_elsif   reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    KEYWORD_else    reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    KEYWORD_end     reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    DELIM           reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    newline         reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    KEYWORD_do      reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    QUESTION_MARK   reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    $end            reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    CLOSE_PAREN     reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    COLON           reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    LESSEQUAL       reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    LESS            reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    GREATER         reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    GREATEREQUAL    reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    DOUBLEDOT       reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    TRIPLEDOT       reduce using rule 57 (expr10 -> expr10 MINUS expr11 .)
+    MULTIPLY        shift and go to state 72
+    DIV             shift and go to state 73
+    MOD             shift and go to state 74
+
+
+state 83
+
+    (63) expr12 -> expr13 DOUBLESTAR expr12 .
+
+    MULTIPLY        reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    DIV             reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    MOD             reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    PLUS            reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    MINUS           reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    SHIFTL          reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    SHIFTR          reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    BITAND          reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    LESSEQUAL       reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    LESS            reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    GREATER         reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    GREATEREQUAL    reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    BITXOR          reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    PIPE            reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    IFF             reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    DOUBLEEQUAL     reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    TRIPLEEQUAL     reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    NOTEQUAL        reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    LOGICALAND      reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    LOGICALOR       reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    KEYWORD_then    reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    KEYWORD_if      reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    KEYWORD_while   reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    VARIABLES       reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    CONSTANTS       reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    KEYWORD_elsif   reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    KEYWORD_else    reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    KEYWORD_end     reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    DELIM           reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    newline         reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    KEYWORD_do      reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    DOUBLEDOT       reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    TRIPLEDOT       reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    QUESTION_MARK   reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    $end            reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    CLOSE_PAREN     reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+    COLON           reduce using rule 63 (expr12 -> expr13 DOUBLESTAR expr12 .)
+
+
+state 84
+
+    (34) expr3 -> expr3 LOGICALOR expr4 .
+    (36) expr4 -> expr4 . LOGICALAND expr5
+
+    LOGICALOR       reduce using rule 34 (expr3 -> expr3 LOGICALOR expr4 .)
+    COLON           reduce using rule 34 (expr3 -> expr3 LOGICALOR expr4 .)
+    QUESTION_MARK   reduce using rule 34 (expr3 -> expr3 LOGICALOR expr4 .)
+    DELIM           reduce using rule 34 (expr3 -> expr3 LOGICALOR expr4 .)
+    newline         reduce using rule 34 (expr3 -> expr3 LOGICALOR expr4 .)
+    $end            reduce using rule 34 (expr3 -> expr3 LOGICALOR expr4 .)
+    KEYWORD_elsif   reduce using rule 34 (expr3 -> expr3 LOGICALOR expr4 .)
+    KEYWORD_else    reduce using rule 34 (expr3 -> expr3 LOGICALOR expr4 .)
+    KEYWORD_end     reduce using rule 34 (expr3 -> expr3 LOGICALOR expr4 .)
+    KEYWORD_then    reduce using rule 34 (expr3 -> expr3 LOGICALOR expr4 .)
+    KEYWORD_if      reduce using rule 34 (expr3 -> expr3 LOGICALOR expr4 .)
+    KEYWORD_while   reduce using rule 34 (expr3 -> expr3 LOGICALOR expr4 .)
+    VARIABLES       reduce using rule 34 (expr3 -> expr3 LOGICALOR expr4 .)
+    CONSTANTS       reduce using rule 34 (expr3 -> expr3 LOGICALOR expr4 .)
+    KEYWORD_do      reduce using rule 34 (expr3 -> expr3 LOGICALOR expr4 .)
+    CLOSE_PAREN     reduce using rule 34 (expr3 -> expr3 LOGICALOR expr4 .)
+    LOGICALAND      shift and go to state 66
+
+
+state 85
+
+    (7) top_stmt -> KEYWORD_if expr3 opt_then top_compstmt . elsif_tail opt_else_stmt KEYWORD_end
+    (12) elsif_tail -> . none
+    (13) elsif_tail -> . KEYWORD_elsif expr3 opt_then top_compstmt elsif_tail
+    (81) none -> .
+
+    KEYWORD_elsif   shift and go to state 110
+    KEYWORD_else    reduce using rule 81 (none -> .)
+    KEYWORD_end     reduce using rule 81 (none -> .)
+
+    none                           shift and go to state 109
+    elsif_tail                     shift and go to state 111
+
+state 86
+
+    (65) expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .
+
+    DOUBLESTAR      reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    MULTIPLY        reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    DIV             reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    MOD             reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    PLUS            reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    MINUS           reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    SHIFTL          reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    SHIFTR          reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    BITAND          reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    BITXOR          reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    PIPE            reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    DELIM           reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    newline         reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    $end            reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    KEYWORD_elsif   reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    KEYWORD_else    reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    KEYWORD_end     reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    CLOSE_PAREN     reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    COLON           reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    LESSEQUAL       reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    LESS            reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    GREATER         reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    GREATEREQUAL    reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    IFF             reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    DOUBLEEQUAL     reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    TRIPLEEQUAL     reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    NOTEQUAL        reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    LOGICALAND      reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    LOGICALOR       reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    KEYWORD_then    reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    KEYWORD_if      reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    KEYWORD_while   reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    VARIABLES       reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    CONSTANTS       reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    KEYWORD_do      reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    DOUBLEDOT       reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    TRIPLEDOT       reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+    QUESTION_MARK   reduce using rule 65 (expr13 -> OPEN_PAREN expr1 CLOSE_PAREN .)
+
+
+state 87
+
+    (41) expr5 -> expr6 NOTEQUAL expr6 .
+
+    LOGICALAND      reduce using rule 41 (expr5 -> expr6 NOTEQUAL expr6 .)
+    LOGICALOR       reduce using rule 41 (expr5 -> expr6 NOTEQUAL expr6 .)
+    KEYWORD_then    reduce using rule 41 (expr5 -> expr6 NOTEQUAL expr6 .)
+    KEYWORD_if      reduce using rule 41 (expr5 -> expr6 NOTEQUAL expr6 .)
+    KEYWORD_while   reduce using rule 41 (expr5 -> expr6 NOTEQUAL expr6 .)
+    VARIABLES       reduce using rule 41 (expr5 -> expr6 NOTEQUAL expr6 .)
+    CONSTANTS       reduce using rule 41 (expr5 -> expr6 NOTEQUAL expr6 .)
+    KEYWORD_elsif   reduce using rule 41 (expr5 -> expr6 NOTEQUAL expr6 .)
+    KEYWORD_else    reduce using rule 41 (expr5 -> expr6 NOTEQUAL expr6 .)
+    KEYWORD_end     reduce using rule 41 (expr5 -> expr6 NOTEQUAL expr6 .)
+    DELIM           reduce using rule 41 (expr5 -> expr6 NOTEQUAL expr6 .)
+    newline         reduce using rule 41 (expr5 -> expr6 NOTEQUAL expr6 .)
+    QUESTION_MARK   reduce using rule 41 (expr5 -> expr6 NOTEQUAL expr6 .)
+    $end            reduce using rule 41 (expr5 -> expr6 NOTEQUAL expr6 .)
+    CLOSE_PAREN     reduce using rule 41 (expr5 -> expr6 NOTEQUAL expr6 .)
+    KEYWORD_do      reduce using rule 41 (expr5 -> expr6 NOTEQUAL expr6 .)
+    COLON           reduce using rule 41 (expr5 -> expr6 NOTEQUAL expr6 .)
+
+
+state 88
+
+    (38) expr5 -> expr6 IFF expr6 .
+
+    LOGICALAND      reduce using rule 38 (expr5 -> expr6 IFF expr6 .)
+    LOGICALOR       reduce using rule 38 (expr5 -> expr6 IFF expr6 .)
+    KEYWORD_then    reduce using rule 38 (expr5 -> expr6 IFF expr6 .)
+    KEYWORD_if      reduce using rule 38 (expr5 -> expr6 IFF expr6 .)
+    KEYWORD_while   reduce using rule 38 (expr5 -> expr6 IFF expr6 .)
+    VARIABLES       reduce using rule 38 (expr5 -> expr6 IFF expr6 .)
+    CONSTANTS       reduce using rule 38 (expr5 -> expr6 IFF expr6 .)
+    KEYWORD_elsif   reduce using rule 38 (expr5 -> expr6 IFF expr6 .)
+    KEYWORD_else    reduce using rule 38 (expr5 -> expr6 IFF expr6 .)
+    KEYWORD_end     reduce using rule 38 (expr5 -> expr6 IFF expr6 .)
+    DELIM           reduce using rule 38 (expr5 -> expr6 IFF expr6 .)
+    newline         reduce using rule 38 (expr5 -> expr6 IFF expr6 .)
+    QUESTION_MARK   reduce using rule 38 (expr5 -> expr6 IFF expr6 .)
+    $end            reduce using rule 38 (expr5 -> expr6 IFF expr6 .)
+    CLOSE_PAREN     reduce using rule 38 (expr5 -> expr6 IFF expr6 .)
+    KEYWORD_do      reduce using rule 38 (expr5 -> expr6 IFF expr6 .)
+    COLON           reduce using rule 38 (expr5 -> expr6 IFF expr6 .)
+
+
+state 89
+
+    (40) expr5 -> expr6 TRIPLEEQUAL expr6 .
+
+    LOGICALAND      reduce using rule 40 (expr5 -> expr6 TRIPLEEQUAL expr6 .)
+    LOGICALOR       reduce using rule 40 (expr5 -> expr6 TRIPLEEQUAL expr6 .)
+    KEYWORD_then    reduce using rule 40 (expr5 -> expr6 TRIPLEEQUAL expr6 .)
+    KEYWORD_if      reduce using rule 40 (expr5 -> expr6 TRIPLEEQUAL expr6 .)
+    KEYWORD_while   reduce using rule 40 (expr5 -> expr6 TRIPLEEQUAL expr6 .)
+    VARIABLES       reduce using rule 40 (expr5 -> expr6 TRIPLEEQUAL expr6 .)
+    CONSTANTS       reduce using rule 40 (expr5 -> expr6 TRIPLEEQUAL expr6 .)
+    KEYWORD_elsif   reduce using rule 40 (expr5 -> expr6 TRIPLEEQUAL expr6 .)
+    KEYWORD_else    reduce using rule 40 (expr5 -> expr6 TRIPLEEQUAL expr6 .)
+    KEYWORD_end     reduce using rule 40 (expr5 -> expr6 TRIPLEEQUAL expr6 .)
+    DELIM           reduce using rule 40 (expr5 -> expr6 TRIPLEEQUAL expr6 .)
+    newline         reduce using rule 40 (expr5 -> expr6 TRIPLEEQUAL expr6 .)
+    QUESTION_MARK   reduce using rule 40 (expr5 -> expr6 TRIPLEEQUAL expr6 .)
+    $end            reduce using rule 40 (expr5 -> expr6 TRIPLEEQUAL expr6 .)
+    CLOSE_PAREN     reduce using rule 40 (expr5 -> expr6 TRIPLEEQUAL expr6 .)
+    KEYWORD_do      reduce using rule 40 (expr5 -> expr6 TRIPLEEQUAL expr6 .)
+    COLON           reduce using rule 40 (expr5 -> expr6 TRIPLEEQUAL expr6 .)
+
+
+state 90
+
+    (39) expr5 -> expr6 DOUBLEEQUAL expr6 .
+
+    LOGICALAND      reduce using rule 39 (expr5 -> expr6 DOUBLEEQUAL expr6 .)
+    LOGICALOR       reduce using rule 39 (expr5 -> expr6 DOUBLEEQUAL expr6 .)
+    KEYWORD_then    reduce using rule 39 (expr5 -> expr6 DOUBLEEQUAL expr6 .)
+    KEYWORD_if      reduce using rule 39 (expr5 -> expr6 DOUBLEEQUAL expr6 .)
+    KEYWORD_while   reduce using rule 39 (expr5 -> expr6 DOUBLEEQUAL expr6 .)
+    VARIABLES       reduce using rule 39 (expr5 -> expr6 DOUBLEEQUAL expr6 .)
+    CONSTANTS       reduce using rule 39 (expr5 -> expr6 DOUBLEEQUAL expr6 .)
+    KEYWORD_elsif   reduce using rule 39 (expr5 -> expr6 DOUBLEEQUAL expr6 .)
+    KEYWORD_else    reduce using rule 39 (expr5 -> expr6 DOUBLEEQUAL expr6 .)
+    KEYWORD_end     reduce using rule 39 (expr5 -> expr6 DOUBLEEQUAL expr6 .)
+    DELIM           reduce using rule 39 (expr5 -> expr6 DOUBLEEQUAL expr6 .)
+    newline         reduce using rule 39 (expr5 -> expr6 DOUBLEEQUAL expr6 .)
+    QUESTION_MARK   reduce using rule 39 (expr5 -> expr6 DOUBLEEQUAL expr6 .)
+    $end            reduce using rule 39 (expr5 -> expr6 DOUBLEEQUAL expr6 .)
+    CLOSE_PAREN     reduce using rule 39 (expr5 -> expr6 DOUBLEEQUAL expr6 .)
+    KEYWORD_do      reduce using rule 39 (expr5 -> expr6 DOUBLEEQUAL expr6 .)
+    COLON           reduce using rule 39 (expr5 -> expr6 DOUBLEEQUAL expr6 .)
+
+
+state 91
+
+    (46) expr6 -> expr7 GREATEREQUAL expr7 .
+    (48) expr7 -> expr7 . BITXOR expr8
+    (49) expr7 -> expr7 . PIPE expr8
+
+    IFF             reduce using rule 46 (expr6 -> expr7 GREATEREQUAL expr7 .)
+    DOUBLEEQUAL     reduce using rule 46 (expr6 -> expr7 GREATEREQUAL expr7 .)
+    TRIPLEEQUAL     reduce using rule 46 (expr6 -> expr7 GREATEREQUAL expr7 .)
+    NOTEQUAL        reduce using rule 46 (expr6 -> expr7 GREATEREQUAL expr7 .)
+    LOGICALAND      reduce using rule 46 (expr6 -> expr7 GREATEREQUAL expr7 .)
+    QUESTION_MARK   reduce using rule 46 (expr6 -> expr7 GREATEREQUAL expr7 .)
+    LOGICALOR       reduce using rule 46 (expr6 -> expr7 GREATEREQUAL expr7 .)
+    CLOSE_PAREN     reduce using rule 46 (expr6 -> expr7 GREATEREQUAL expr7 .)
+    KEYWORD_then    reduce using rule 46 (expr6 -> expr7 GREATEREQUAL expr7 .)
+    KEYWORD_if      reduce using rule 46 (expr6 -> expr7 GREATEREQUAL expr7 .)
+    KEYWORD_while   reduce using rule 46 (expr6 -> expr7 GREATEREQUAL expr7 .)
+    VARIABLES       reduce using rule 46 (expr6 -> expr7 GREATEREQUAL expr7 .)
+    CONSTANTS       reduce using rule 46 (expr6 -> expr7 GREATEREQUAL expr7 .)
+    KEYWORD_elsif   reduce using rule 46 (expr6 -> expr7 GREATEREQUAL expr7 .)
+    KEYWORD_else    reduce using rule 46 (expr6 -> expr7 GREATEREQUAL expr7 .)
+    KEYWORD_end     reduce using rule 46 (expr6 -> expr7 GREATEREQUAL expr7 .)
+    DELIM           reduce using rule 46 (expr6 -> expr7 GREATEREQUAL expr7 .)
+    newline         reduce using rule 46 (expr6 -> expr7 GREATEREQUAL expr7 .)
+    KEYWORD_do      reduce using rule 46 (expr6 -> expr7 GREATEREQUAL expr7 .)
+    $end            reduce using rule 46 (expr6 -> expr7 GREATEREQUAL expr7 .)
+    COLON           reduce using rule 46 (expr6 -> expr7 GREATEREQUAL expr7 .)
+    BITXOR          shift and go to state 64
+    PIPE            shift and go to state 63
+
+
+state 92
+
+    (45) expr6 -> expr7 GREATER expr7 .
+    (48) expr7 -> expr7 . BITXOR expr8
+    (49) expr7 -> expr7 . PIPE expr8
+
+    IFF             reduce using rule 45 (expr6 -> expr7 GREATER expr7 .)
+    DOUBLEEQUAL     reduce using rule 45 (expr6 -> expr7 GREATER expr7 .)
+    TRIPLEEQUAL     reduce using rule 45 (expr6 -> expr7 GREATER expr7 .)
+    NOTEQUAL        reduce using rule 45 (expr6 -> expr7 GREATER expr7 .)
+    LOGICALAND      reduce using rule 45 (expr6 -> expr7 GREATER expr7 .)
+    QUESTION_MARK   reduce using rule 45 (expr6 -> expr7 GREATER expr7 .)
+    LOGICALOR       reduce using rule 45 (expr6 -> expr7 GREATER expr7 .)
+    CLOSE_PAREN     reduce using rule 45 (expr6 -> expr7 GREATER expr7 .)
+    KEYWORD_then    reduce using rule 45 (expr6 -> expr7 GREATER expr7 .)
+    KEYWORD_if      reduce using rule 45 (expr6 -> expr7 GREATER expr7 .)
+    KEYWORD_while   reduce using rule 45 (expr6 -> expr7 GREATER expr7 .)
+    VARIABLES       reduce using rule 45 (expr6 -> expr7 GREATER expr7 .)
+    CONSTANTS       reduce using rule 45 (expr6 -> expr7 GREATER expr7 .)
+    KEYWORD_elsif   reduce using rule 45 (expr6 -> expr7 GREATER expr7 .)
+    KEYWORD_else    reduce using rule 45 (expr6 -> expr7 GREATER expr7 .)
+    KEYWORD_end     reduce using rule 45 (expr6 -> expr7 GREATER expr7 .)
+    DELIM           reduce using rule 45 (expr6 -> expr7 GREATER expr7 .)
+    newline         reduce using rule 45 (expr6 -> expr7 GREATER expr7 .)
+    KEYWORD_do      reduce using rule 45 (expr6 -> expr7 GREATER expr7 .)
+    $end            reduce using rule 45 (expr6 -> expr7 GREATER expr7 .)
+    COLON           reduce using rule 45 (expr6 -> expr7 GREATER expr7 .)
+    BITXOR          shift and go to state 64
+    PIPE            shift and go to state 63
+
+
+state 93
+
+    (44) expr6 -> expr7 LESS expr7 .
+    (48) expr7 -> expr7 . BITXOR expr8
+    (49) expr7 -> expr7 . PIPE expr8
+
+    IFF             reduce using rule 44 (expr6 -> expr7 LESS expr7 .)
+    DOUBLEEQUAL     reduce using rule 44 (expr6 -> expr7 LESS expr7 .)
+    TRIPLEEQUAL     reduce using rule 44 (expr6 -> expr7 LESS expr7 .)
+    NOTEQUAL        reduce using rule 44 (expr6 -> expr7 LESS expr7 .)
+    LOGICALAND      reduce using rule 44 (expr6 -> expr7 LESS expr7 .)
+    QUESTION_MARK   reduce using rule 44 (expr6 -> expr7 LESS expr7 .)
+    LOGICALOR       reduce using rule 44 (expr6 -> expr7 LESS expr7 .)
+    CLOSE_PAREN     reduce using rule 44 (expr6 -> expr7 LESS expr7 .)
+    KEYWORD_then    reduce using rule 44 (expr6 -> expr7 LESS expr7 .)
+    KEYWORD_if      reduce using rule 44 (expr6 -> expr7 LESS expr7 .)
+    KEYWORD_while   reduce using rule 44 (expr6 -> expr7 LESS expr7 .)
+    VARIABLES       reduce using rule 44 (expr6 -> expr7 LESS expr7 .)
+    CONSTANTS       reduce using rule 44 (expr6 -> expr7 LESS expr7 .)
+    KEYWORD_elsif   reduce using rule 44 (expr6 -> expr7 LESS expr7 .)
+    KEYWORD_else    reduce using rule 44 (expr6 -> expr7 LESS expr7 .)
+    KEYWORD_end     reduce using rule 44 (expr6 -> expr7 LESS expr7 .)
+    DELIM           reduce using rule 44 (expr6 -> expr7 LESS expr7 .)
+    newline         reduce using rule 44 (expr6 -> expr7 LESS expr7 .)
+    KEYWORD_do      reduce using rule 44 (expr6 -> expr7 LESS expr7 .)
+    $end            reduce using rule 44 (expr6 -> expr7 LESS expr7 .)
+    COLON           reduce using rule 44 (expr6 -> expr7 LESS expr7 .)
+    BITXOR          shift and go to state 64
+    PIPE            shift and go to state 63
+
+
+state 94
+
+    (49) expr7 -> expr7 PIPE expr8 .
+    (51) expr8 -> expr8 . BITAND expr9
+
+    LESSEQUAL       reduce using rule 49 (expr7 -> expr7 PIPE expr8 .)
+    LESS            reduce using rule 49 (expr7 -> expr7 PIPE expr8 .)
+    GREATER         reduce using rule 49 (expr7 -> expr7 PIPE expr8 .)
+    GREATEREQUAL    reduce using rule 49 (expr7 -> expr7 PIPE expr8 .)
+    BITXOR          reduce using rule 49 (expr7 -> expr7 PIPE expr8 .)
+    PIPE            reduce using rule 49 (expr7 -> expr7 PIPE expr8 .)
+    LOGICALAND      reduce using rule 49 (expr7 -> expr7 PIPE expr8 .)
+    LOGICALOR       reduce using rule 49 (expr7 -> expr7 PIPE expr8 .)
+    KEYWORD_then    reduce using rule 49 (expr7 -> expr7 PIPE expr8 .)
+    KEYWORD_if      reduce using rule 49 (expr7 -> expr7 PIPE expr8 .)
+    KEYWORD_while   reduce using rule 49 (expr7 -> expr7 PIPE expr8 .)
+    VARIABLES       reduce using rule 49 (expr7 -> expr7 PIPE expr8 .)
+    CONSTANTS       reduce using rule 49 (expr7 -> expr7 PIPE expr8 .)
+    KEYWORD_elsif   reduce using rule 49 (expr7 -> expr7 PIPE expr8 .)
+    KEYWORD_else    reduce using rule 49 (expr7 -> expr7 PIPE expr8 .)
+    KEYWORD_end     reduce using rule 49 (expr7 -> expr7 PIPE expr8 .)
+    DELIM           reduce using rule 49 (expr7 -> expr7 PIPE expr8 .)
+    newline         reduce using rule 49 (expr7 -> expr7 PIPE expr8 .)
+    KEYWORD_do      reduce using rule 49 (expr7 -> expr7 PIPE expr8 .)
+    QUESTION_MARK   reduce using rule 49 (expr7 -> expr7 PIPE expr8 .)
+    $end            reduce using rule 49 (expr7 -> expr7 PIPE expr8 .)
+    CLOSE_PAREN     reduce using rule 49 (expr7 -> expr7 PIPE expr8 .)
+    COLON           reduce using rule 49 (expr7 -> expr7 PIPE expr8 .)
+    IFF             reduce using rule 49 (expr7 -> expr7 PIPE expr8 .)
+    DOUBLEEQUAL     reduce using rule 49 (expr7 -> expr7 PIPE expr8 .)
+    TRIPLEEQUAL     reduce using rule 49 (expr7 -> expr7 PIPE expr8 .)
+    NOTEQUAL        reduce using rule 49 (expr7 -> expr7 PIPE expr8 .)
+    DOUBLEDOT       reduce using rule 49 (expr7 -> expr7 PIPE expr8 .)
+    TRIPLEDOT       reduce using rule 49 (expr7 -> expr7 PIPE expr8 .)
+    BITAND          shift and go to state 67
+
+
+state 95
+
+    (48) expr7 -> expr7 BITXOR expr8 .
+    (51) expr8 -> expr8 . BITAND expr9
+
+    LESSEQUAL       reduce using rule 48 (expr7 -> expr7 BITXOR expr8 .)
+    LESS            reduce using rule 48 (expr7 -> expr7 BITXOR expr8 .)
+    GREATER         reduce using rule 48 (expr7 -> expr7 BITXOR expr8 .)
+    GREATEREQUAL    reduce using rule 48 (expr7 -> expr7 BITXOR expr8 .)
+    BITXOR          reduce using rule 48 (expr7 -> expr7 BITXOR expr8 .)
+    PIPE            reduce using rule 48 (expr7 -> expr7 BITXOR expr8 .)
+    LOGICALAND      reduce using rule 48 (expr7 -> expr7 BITXOR expr8 .)
+    LOGICALOR       reduce using rule 48 (expr7 -> expr7 BITXOR expr8 .)
+    KEYWORD_then    reduce using rule 48 (expr7 -> expr7 BITXOR expr8 .)
+    KEYWORD_if      reduce using rule 48 (expr7 -> expr7 BITXOR expr8 .)
+    KEYWORD_while   reduce using rule 48 (expr7 -> expr7 BITXOR expr8 .)
+    VARIABLES       reduce using rule 48 (expr7 -> expr7 BITXOR expr8 .)
+    CONSTANTS       reduce using rule 48 (expr7 -> expr7 BITXOR expr8 .)
+    KEYWORD_elsif   reduce using rule 48 (expr7 -> expr7 BITXOR expr8 .)
+    KEYWORD_else    reduce using rule 48 (expr7 -> expr7 BITXOR expr8 .)
+    KEYWORD_end     reduce using rule 48 (expr7 -> expr7 BITXOR expr8 .)
+    DELIM           reduce using rule 48 (expr7 -> expr7 BITXOR expr8 .)
+    newline         reduce using rule 48 (expr7 -> expr7 BITXOR expr8 .)
+    KEYWORD_do      reduce using rule 48 (expr7 -> expr7 BITXOR expr8 .)
+    QUESTION_MARK   reduce using rule 48 (expr7 -> expr7 BITXOR expr8 .)
+    $end            reduce using rule 48 (expr7 -> expr7 BITXOR expr8 .)
+    CLOSE_PAREN     reduce using rule 48 (expr7 -> expr7 BITXOR expr8 .)
+    COLON           reduce using rule 48 (expr7 -> expr7 BITXOR expr8 .)
+    IFF             reduce using rule 48 (expr7 -> expr7 BITXOR expr8 .)
+    DOUBLEEQUAL     reduce using rule 48 (expr7 -> expr7 BITXOR expr8 .)
+    TRIPLEEQUAL     reduce using rule 48 (expr7 -> expr7 BITXOR expr8 .)
+    NOTEQUAL        reduce using rule 48 (expr7 -> expr7 BITXOR expr8 .)
+    DOUBLEDOT       reduce using rule 48 (expr7 -> expr7 BITXOR expr8 .)
+    TRIPLEDOT       reduce using rule 48 (expr7 -> expr7 BITXOR expr8 .)
+    BITAND          shift and go to state 67
+
+
+state 96
+
+    (43) expr6 -> expr7 LESSEQUAL expr7 .
+    (48) expr7 -> expr7 . BITXOR expr8
+    (49) expr7 -> expr7 . PIPE expr8
+
+    IFF             reduce using rule 43 (expr6 -> expr7 LESSEQUAL expr7 .)
+    DOUBLEEQUAL     reduce using rule 43 (expr6 -> expr7 LESSEQUAL expr7 .)
+    TRIPLEEQUAL     reduce using rule 43 (expr6 -> expr7 LESSEQUAL expr7 .)
+    NOTEQUAL        reduce using rule 43 (expr6 -> expr7 LESSEQUAL expr7 .)
+    LOGICALAND      reduce using rule 43 (expr6 -> expr7 LESSEQUAL expr7 .)
+    QUESTION_MARK   reduce using rule 43 (expr6 -> expr7 LESSEQUAL expr7 .)
+    LOGICALOR       reduce using rule 43 (expr6 -> expr7 LESSEQUAL expr7 .)
+    CLOSE_PAREN     reduce using rule 43 (expr6 -> expr7 LESSEQUAL expr7 .)
+    KEYWORD_then    reduce using rule 43 (expr6 -> expr7 LESSEQUAL expr7 .)
+    KEYWORD_if      reduce using rule 43 (expr6 -> expr7 LESSEQUAL expr7 .)
+    KEYWORD_while   reduce using rule 43 (expr6 -> expr7 LESSEQUAL expr7 .)
+    VARIABLES       reduce using rule 43 (expr6 -> expr7 LESSEQUAL expr7 .)
+    CONSTANTS       reduce using rule 43 (expr6 -> expr7 LESSEQUAL expr7 .)
+    KEYWORD_elsif   reduce using rule 43 (expr6 -> expr7 LESSEQUAL expr7 .)
+    KEYWORD_else    reduce using rule 43 (expr6 -> expr7 LESSEQUAL expr7 .)
+    KEYWORD_end     reduce using rule 43 (expr6 -> expr7 LESSEQUAL expr7 .)
+    DELIM           reduce using rule 43 (expr6 -> expr7 LESSEQUAL expr7 .)
+    newline         reduce using rule 43 (expr6 -> expr7 LESSEQUAL expr7 .)
+    KEYWORD_do      reduce using rule 43 (expr6 -> expr7 LESSEQUAL expr7 .)
+    $end            reduce using rule 43 (expr6 -> expr7 LESSEQUAL expr7 .)
+    COLON           reduce using rule 43 (expr6 -> expr7 LESSEQUAL expr7 .)
+    BITXOR          shift and go to state 64
+    PIPE            shift and go to state 63
+
+
+state 97
+
+    (36) expr4 -> expr4 LOGICALAND expr5 .
+
+    LOGICALAND      reduce using rule 36 (expr4 -> expr4 LOGICALAND expr5 .)
+    LOGICALOR       reduce using rule 36 (expr4 -> expr4 LOGICALAND expr5 .)
+    KEYWORD_then    reduce using rule 36 (expr4 -> expr4 LOGICALAND expr5 .)
+    KEYWORD_if      reduce using rule 36 (expr4 -> expr4 LOGICALAND expr5 .)
+    KEYWORD_while   reduce using rule 36 (expr4 -> expr4 LOGICALAND expr5 .)
+    VARIABLES       reduce using rule 36 (expr4 -> expr4 LOGICALAND expr5 .)
+    CONSTANTS       reduce using rule 36 (expr4 -> expr4 LOGICALAND expr5 .)
+    KEYWORD_elsif   reduce using rule 36 (expr4 -> expr4 LOGICALAND expr5 .)
+    DELIM           reduce using rule 36 (expr4 -> expr4 LOGICALAND expr5 .)
+    newline         reduce using rule 36 (expr4 -> expr4 LOGICALAND expr5 .)
+    KEYWORD_else    reduce using rule 36 (expr4 -> expr4 LOGICALAND expr5 .)
+    KEYWORD_end     reduce using rule 36 (expr4 -> expr4 LOGICALAND expr5 .)
+    KEYWORD_do      reduce using rule 36 (expr4 -> expr4 LOGICALAND expr5 .)
+    QUESTION_MARK   reduce using rule 36 (expr4 -> expr4 LOGICALAND expr5 .)
+    $end            reduce using rule 36 (expr4 -> expr4 LOGICALAND expr5 .)
+    CLOSE_PAREN     reduce using rule 36 (expr4 -> expr4 LOGICALAND expr5 .)
+    COLON           reduce using rule 36 (expr4 -> expr4 LOGICALAND expr5 .)
+
+
+state 98
+
+    (51) expr8 -> expr8 BITAND expr9 .
+    (53) expr9 -> expr9 . SHIFTL expr10
+    (54) expr9 -> expr9 . SHIFTR expr10
+
+    BITAND          reduce using rule 51 (expr8 -> expr8 BITAND expr9 .)
+    LESSEQUAL       reduce using rule 51 (expr8 -> expr8 BITAND expr9 .)
+    LESS            reduce using rule 51 (expr8 -> expr8 BITAND expr9 .)
+    GREATER         reduce using rule 51 (expr8 -> expr8 BITAND expr9 .)
+    GREATEREQUAL    reduce using rule 51 (expr8 -> expr8 BITAND expr9 .)
+    BITXOR          reduce using rule 51 (expr8 -> expr8 BITAND expr9 .)
+    PIPE            reduce using rule 51 (expr8 -> expr8 BITAND expr9 .)
+    LOGICALAND      reduce using rule 51 (expr8 -> expr8 BITAND expr9 .)
+    LOGICALOR       reduce using rule 51 (expr8 -> expr8 BITAND expr9 .)
+    KEYWORD_then    reduce using rule 51 (expr8 -> expr8 BITAND expr9 .)
+    KEYWORD_if      reduce using rule 51 (expr8 -> expr8 BITAND expr9 .)
+    KEYWORD_while   reduce using rule 51 (expr8 -> expr8 BITAND expr9 .)
+    VARIABLES       reduce using rule 51 (expr8 -> expr8 BITAND expr9 .)
+    CONSTANTS       reduce using rule 51 (expr8 -> expr8 BITAND expr9 .)
+    KEYWORD_elsif   reduce using rule 51 (expr8 -> expr8 BITAND expr9 .)
+    KEYWORD_else    reduce using rule 51 (expr8 -> expr8 BITAND expr9 .)
+    KEYWORD_end     reduce using rule 51 (expr8 -> expr8 BITAND expr9 .)
+    DELIM           reduce using rule 51 (expr8 -> expr8 BITAND expr9 .)
+    newline         reduce using rule 51 (expr8 -> expr8 BITAND expr9 .)
+    KEYWORD_do      reduce using rule 51 (expr8 -> expr8 BITAND expr9 .)
+    QUESTION_MARK   reduce using rule 51 (expr8 -> expr8 BITAND expr9 .)
+    $end            reduce using rule 51 (expr8 -> expr8 BITAND expr9 .)
+    CLOSE_PAREN     reduce using rule 51 (expr8 -> expr8 BITAND expr9 .)
+    COLON           reduce using rule 51 (expr8 -> expr8 BITAND expr9 .)
+    IFF             reduce using rule 51 (expr8 -> expr8 BITAND expr9 .)
+    DOUBLEEQUAL     reduce using rule 51 (expr8 -> expr8 BITAND expr9 .)
+    TRIPLEEQUAL     reduce using rule 51 (expr8 -> expr8 BITAND expr9 .)
+    NOTEQUAL        reduce using rule 51 (expr8 -> expr8 BITAND expr9 .)
+    DOUBLEDOT       reduce using rule 51 (expr8 -> expr8 BITAND expr9 .)
+    TRIPLEDOT       reduce using rule 51 (expr8 -> expr8 BITAND expr9 .)
+    SHIFTL          shift and go to state 69
+    SHIFTR          shift and go to state 68
+
+
+state 99
+
+    (54) expr9 -> expr9 SHIFTR expr10 .
+    (56) expr10 -> expr10 . PLUS expr11
+    (57) expr10 -> expr10 . MINUS expr11
+
+    SHIFTL          reduce using rule 54 (expr9 -> expr9 SHIFTR expr10 .)
+    SHIFTR          reduce using rule 54 (expr9 -> expr9 SHIFTR expr10 .)
+    BITAND          reduce using rule 54 (expr9 -> expr9 SHIFTR expr10 .)
+    DOUBLEDOT       reduce using rule 54 (expr9 -> expr9 SHIFTR expr10 .)
+    TRIPLEDOT       reduce using rule 54 (expr9 -> expr9 SHIFTR expr10 .)
+    BITXOR          reduce using rule 54 (expr9 -> expr9 SHIFTR expr10 .)
+    PIPE            reduce using rule 54 (expr9 -> expr9 SHIFTR expr10 .)
+    LESSEQUAL       reduce using rule 54 (expr9 -> expr9 SHIFTR expr10 .)
+    LESS            reduce using rule 54 (expr9 -> expr9 SHIFTR expr10 .)
+    GREATER         reduce using rule 54 (expr9 -> expr9 SHIFTR expr10 .)
+    GREATEREQUAL    reduce using rule 54 (expr9 -> expr9 SHIFTR expr10 .)
+    IFF             reduce using rule 54 (expr9 -> expr9 SHIFTR expr10 .)
+    DOUBLEEQUAL     reduce using rule 54 (expr9 -> expr9 SHIFTR expr10 .)
+    TRIPLEEQUAL     reduce using rule 54 (expr9 -> expr9 SHIFTR expr10 .)
+    NOTEQUAL        reduce using rule 54 (expr9 -> expr9 SHIFTR expr10 .)
+    LOGICALAND      reduce using rule 54 (expr9 -> expr9 SHIFTR expr10 .)
+    QUESTION_MARK   reduce using rule 54 (expr9 -> expr9 SHIFTR expr10 .)
+    LOGICALOR       reduce using rule 54 (expr9 -> expr9 SHIFTR expr10 .)
+    DELIM           reduce using rule 54 (expr9 -> expr9 SHIFTR expr10 .)
+    newline         reduce using rule 54 (expr9 -> expr9 SHIFTR expr10 .)
+    $end            reduce using rule 54 (expr9 -> expr9 SHIFTR expr10 .)
+    KEYWORD_elsif   reduce using rule 54 (expr9 -> expr9 SHIFTR expr10 .)
+    KEYWORD_else    reduce using rule 54 (expr9 -> expr9 SHIFTR expr10 .)
+    KEYWORD_end     reduce using rule 54 (expr9 -> expr9 SHIFTR expr10 .)
+    CLOSE_PAREN     reduce using rule 54 (expr9 -> expr9 SHIFTR expr10 .)
+    COLON           reduce using rule 54 (expr9 -> expr9 SHIFTR expr10 .)
+    KEYWORD_then    reduce using rule 54 (expr9 -> expr9 SHIFTR expr10 .)
+    KEYWORD_if      reduce using rule 54 (expr9 -> expr9 SHIFTR expr10 .)
+    KEYWORD_while   reduce using rule 54 (expr9 -> expr9 SHIFTR expr10 .)
+    VARIABLES       reduce using rule 54 (expr9 -> expr9 SHIFTR expr10 .)
+    CONSTANTS       reduce using rule 54 (expr9 -> expr9 SHIFTR expr10 .)
+    KEYWORD_do      reduce using rule 54 (expr9 -> expr9 SHIFTR expr10 .)
+    PLUS            shift and go to state 48
+    MINUS           shift and go to state 49
+
+
+state 100
+
+    (53) expr9 -> expr9 SHIFTL expr10 .
+    (56) expr10 -> expr10 . PLUS expr11
+    (57) expr10 -> expr10 . MINUS expr11
+
+    SHIFTL          reduce using rule 53 (expr9 -> expr9 SHIFTL expr10 .)
+    SHIFTR          reduce using rule 53 (expr9 -> expr9 SHIFTL expr10 .)
+    BITAND          reduce using rule 53 (expr9 -> expr9 SHIFTL expr10 .)
+    DOUBLEDOT       reduce using rule 53 (expr9 -> expr9 SHIFTL expr10 .)
+    TRIPLEDOT       reduce using rule 53 (expr9 -> expr9 SHIFTL expr10 .)
+    BITXOR          reduce using rule 53 (expr9 -> expr9 SHIFTL expr10 .)
+    PIPE            reduce using rule 53 (expr9 -> expr9 SHIFTL expr10 .)
+    LESSEQUAL       reduce using rule 53 (expr9 -> expr9 SHIFTL expr10 .)
+    LESS            reduce using rule 53 (expr9 -> expr9 SHIFTL expr10 .)
+    GREATER         reduce using rule 53 (expr9 -> expr9 SHIFTL expr10 .)
+    GREATEREQUAL    reduce using rule 53 (expr9 -> expr9 SHIFTL expr10 .)
+    IFF             reduce using rule 53 (expr9 -> expr9 SHIFTL expr10 .)
+    DOUBLEEQUAL     reduce using rule 53 (expr9 -> expr9 SHIFTL expr10 .)
+    TRIPLEEQUAL     reduce using rule 53 (expr9 -> expr9 SHIFTL expr10 .)
+    NOTEQUAL        reduce using rule 53 (expr9 -> expr9 SHIFTL expr10 .)
+    LOGICALAND      reduce using rule 53 (expr9 -> expr9 SHIFTL expr10 .)
+    QUESTION_MARK   reduce using rule 53 (expr9 -> expr9 SHIFTL expr10 .)
+    LOGICALOR       reduce using rule 53 (expr9 -> expr9 SHIFTL expr10 .)
+    DELIM           reduce using rule 53 (expr9 -> expr9 SHIFTL expr10 .)
+    newline         reduce using rule 53 (expr9 -> expr9 SHIFTL expr10 .)
+    $end            reduce using rule 53 (expr9 -> expr9 SHIFTL expr10 .)
+    KEYWORD_elsif   reduce using rule 53 (expr9 -> expr9 SHIFTL expr10 .)
+    KEYWORD_else    reduce using rule 53 (expr9 -> expr9 SHIFTL expr10 .)
+    KEYWORD_end     reduce using rule 53 (expr9 -> expr9 SHIFTL expr10 .)
+    CLOSE_PAREN     reduce using rule 53 (expr9 -> expr9 SHIFTL expr10 .)
+    COLON           reduce using rule 53 (expr9 -> expr9 SHIFTL expr10 .)
+    KEYWORD_then    reduce using rule 53 (expr9 -> expr9 SHIFTL expr10 .)
+    KEYWORD_if      reduce using rule 53 (expr9 -> expr9 SHIFTL expr10 .)
+    KEYWORD_while   reduce using rule 53 (expr9 -> expr9 SHIFTL expr10 .)
+    VARIABLES       reduce using rule 53 (expr9 -> expr9 SHIFTL expr10 .)
+    CONSTANTS       reduce using rule 53 (expr9 -> expr9 SHIFTL expr10 .)
+    KEYWORD_do      reduce using rule 53 (expr9 -> expr9 SHIFTL expr10 .)
+    PLUS            shift and go to state 48
+    MINUS           shift and go to state 49
+
+
+state 101
+
+    (59) expr11 -> expr11 MULTIPLY expr12 .
+
+    MULTIPLY        reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    DIV             reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    MOD             reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    PLUS            reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    MINUS           reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    SHIFTL          reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    SHIFTR          reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    BITAND          reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    LESSEQUAL       reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    LESS            reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    GREATER         reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    GREATEREQUAL    reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    BITXOR          reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    PIPE            reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    IFF             reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    DOUBLEEQUAL     reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    TRIPLEEQUAL     reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    NOTEQUAL        reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    LOGICALAND      reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    LOGICALOR       reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    KEYWORD_then    reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    KEYWORD_if      reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    KEYWORD_while   reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    VARIABLES       reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    CONSTANTS       reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    KEYWORD_elsif   reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    DELIM           reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    newline         reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    KEYWORD_else    reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    KEYWORD_end     reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    DOUBLEDOT       reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    TRIPLEDOT       reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    QUESTION_MARK   reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    CLOSE_PAREN     reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    $end            reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    COLON           reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+    KEYWORD_do      reduce using rule 59 (expr11 -> expr11 MULTIPLY expr12 .)
+
+
+state 102
+
+    (60) expr11 -> expr11 DIV expr12 .
+
+    MULTIPLY        reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    DIV             reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    MOD             reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    PLUS            reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    MINUS           reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    SHIFTL          reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    SHIFTR          reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    BITAND          reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    LESSEQUAL       reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    LESS            reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    GREATER         reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    GREATEREQUAL    reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    BITXOR          reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    PIPE            reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    IFF             reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    DOUBLEEQUAL     reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    TRIPLEEQUAL     reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    NOTEQUAL        reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    LOGICALAND      reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    LOGICALOR       reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    KEYWORD_then    reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    KEYWORD_if      reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    KEYWORD_while   reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    VARIABLES       reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    CONSTANTS       reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    KEYWORD_elsif   reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    DELIM           reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    newline         reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    KEYWORD_else    reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    KEYWORD_end     reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    DOUBLEDOT       reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    TRIPLEDOT       reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    QUESTION_MARK   reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    CLOSE_PAREN     reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    $end            reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    COLON           reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+    KEYWORD_do      reduce using rule 60 (expr11 -> expr11 DIV expr12 .)
+
+
+state 103
+
+    (61) expr11 -> expr11 MOD expr12 .
+
+    MULTIPLY        reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    DIV             reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    MOD             reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    PLUS            reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    MINUS           reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    SHIFTL          reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    SHIFTR          reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    BITAND          reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    LESSEQUAL       reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    LESS            reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    GREATER         reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    GREATEREQUAL    reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    BITXOR          reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    PIPE            reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    IFF             reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    DOUBLEEQUAL     reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    TRIPLEEQUAL     reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    NOTEQUAL        reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    LOGICALAND      reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    LOGICALOR       reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    KEYWORD_then    reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    KEYWORD_if      reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    KEYWORD_while   reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    VARIABLES       reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    CONSTANTS       reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    KEYWORD_elsif   reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    DELIM           reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    newline         reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    KEYWORD_else    reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    KEYWORD_end     reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    DOUBLEDOT       reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    TRIPLEDOT       reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    QUESTION_MARK   reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    CLOSE_PAREN     reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    $end            reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    COLON           reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+    KEYWORD_do      reduce using rule 61 (expr11 -> expr11 MOD expr12 .)
+
+
+state 104
+
+    (8) top_stmt -> KEYWORD_while expr3 opt_do top_compstmt . KEYWORD_end
+
+    KEYWORD_end     shift and go to state 112
+
+
+state 105
+
+    (29) expr1 -> expr3 QUESTION_MARK expr2 . COLON expr2
+
+    COLON           shift and go to state 113
+
+
+state 106
+
+    (33) expr2 -> expr3 .
+    (34) expr3 -> expr3 . LOGICALOR expr4
+
+    COLON           reduce using rule 33 (expr2 -> expr3 .)
+    DELIM           reduce using rule 33 (expr2 -> expr3 .)
+    newline         reduce using rule 33 (expr2 -> expr3 .)
+    $end            reduce using rule 33 (expr2 -> expr3 .)
+    KEYWORD_elsif   reduce using rule 33 (expr2 -> expr3 .)
+    KEYWORD_else    reduce using rule 33 (expr2 -> expr3 .)
+    KEYWORD_end     reduce using rule 33 (expr2 -> expr3 .)
+    CLOSE_PAREN     reduce using rule 33 (expr2 -> expr3 .)
+    LOGICALOR       shift and go to state 52
+
+
+state 107
+
+    (31) expr2 -> expr7 DOUBLEDOT expr7 .
+    (48) expr7 -> expr7 . BITXOR expr8
+    (49) expr7 -> expr7 . PIPE expr8
+
+    COLON           reduce using rule 31 (expr2 -> expr7 DOUBLEDOT expr7 .)
+    DELIM           reduce using rule 31 (expr2 -> expr7 DOUBLEDOT expr7 .)
+    newline         reduce using rule 31 (expr2 -> expr7 DOUBLEDOT expr7 .)
+    $end            reduce using rule 31 (expr2 -> expr7 DOUBLEDOT expr7 .)
+    KEYWORD_elsif   reduce using rule 31 (expr2 -> expr7 DOUBLEDOT expr7 .)
+    KEYWORD_else    reduce using rule 31 (expr2 -> expr7 DOUBLEDOT expr7 .)
+    KEYWORD_end     reduce using rule 31 (expr2 -> expr7 DOUBLEDOT expr7 .)
+    CLOSE_PAREN     reduce using rule 31 (expr2 -> expr7 DOUBLEDOT expr7 .)
+    BITXOR          shift and go to state 64
+    PIPE            shift and go to state 63
+
+
+state 108
+
+    (32) expr2 -> expr7 TRIPLEDOT expr7 .
+    (48) expr7 -> expr7 . BITXOR expr8
+    (49) expr7 -> expr7 . PIPE expr8
+
+    COLON           reduce using rule 32 (expr2 -> expr7 TRIPLEDOT expr7 .)
+    DELIM           reduce using rule 32 (expr2 -> expr7 TRIPLEDOT expr7 .)
+    newline         reduce using rule 32 (expr2 -> expr7 TRIPLEDOT expr7 .)
+    $end            reduce using rule 32 (expr2 -> expr7 TRIPLEDOT expr7 .)
+    KEYWORD_elsif   reduce using rule 32 (expr2 -> expr7 TRIPLEDOT expr7 .)
+    KEYWORD_else    reduce using rule 32 (expr2 -> expr7 TRIPLEDOT expr7 .)
+    KEYWORD_end     reduce using rule 32 (expr2 -> expr7 TRIPLEDOT expr7 .)
+    CLOSE_PAREN     reduce using rule 32 (expr2 -> expr7 TRIPLEDOT expr7 .)
+    BITXOR          shift and go to state 64
+    PIPE            shift and go to state 63
+
+
+state 109
+
+    (12) elsif_tail -> none .
+
+    KEYWORD_else    reduce using rule 12 (elsif_tail -> none .)
+    KEYWORD_end     reduce using rule 12 (elsif_tail -> none .)
+
+
+state 110
+
+    (13) elsif_tail -> KEYWORD_elsif . expr3 opt_then top_compstmt elsif_tail
+    (34) expr3 -> . expr3 LOGICALOR expr4
+    (35) expr3 -> . expr4
+    (36) expr4 -> . expr4 LOGICALAND expr5
+    (37) expr4 -> . expr5
+    (38) expr5 -> . expr6 IFF expr6
+    (39) expr5 -> . expr6 DOUBLEEQUAL expr6
+    (40) expr5 -> . expr6 TRIPLEEQUAL expr6
+    (41) expr5 -> . expr6 NOTEQUAL expr6
+    (42) expr5 -> . expr6
+    (43) expr6 -> . expr7 LESSEQUAL expr7
+    (44) expr6 -> . expr7 LESS expr7
+    (45) expr6 -> . expr7 GREATER expr7
+    (46) expr6 -> . expr7 GREATEREQUAL expr7
+    (47) expr6 -> . expr7
+    (48) expr7 -> . expr7 BITXOR expr8
+    (49) expr7 -> . expr7 PIPE expr8
+    (50) expr7 -> . expr8
+    (51) expr8 -> . expr8 BITAND expr9
+    (52) expr8 -> . expr9
+    (53) expr9 -> . expr9 SHIFTL expr10
+    (54) expr9 -> . expr9 SHIFTR expr10
+    (55) expr9 -> . expr10
+    (56) expr10 -> . expr10 PLUS expr11
+    (57) expr10 -> . expr10 MINUS expr11
+    (58) expr10 -> . expr11
+    (59) expr11 -> . expr11 MULTIPLY expr12
+    (60) expr11 -> . expr11 DIV expr12
+    (61) expr11 -> . expr11 MOD expr12
+    (62) expr11 -> . expr12
+    (63) expr12 -> . expr13 DOUBLESTAR expr12
+    (64) expr12 -> . expr13
+    (65) expr13 -> . OPEN_PAREN expr1 CLOSE_PAREN
+    (66) expr13 -> . uexpr INT_CONSTANTS
+    (67) expr13 -> . uexpr FLOAT_CONSTANTS
+    (68) expr13 -> . CONSTANTS
+    (69) expr13 -> . VARIABLES
+    (70) uexpr -> . none
+    (71) uexpr -> . PLUS
+    (72) uexpr -> . MINUS
+    (73) uexpr -> . BITNOT
+    (74) uexpr -> . BITCOMP
+    (81) none -> .
+
+    OPEN_PAREN      shift and go to state 27
+    CONSTANTS       shift and go to state 38
+    VARIABLES       shift and go to state 24
+    PLUS            shift and go to state 32
+    MINUS           shift and go to state 23
+    BITNOT          shift and go to state 37
+    BITCOMP         shift and go to state 25
+    INT_CONSTANTS   reduce using rule 81 (none -> .)
+    FLOAT_CONSTANTS reduce using rule 81 (none -> .)
+
+    uexpr                          shift and go to state 35
+    none                           shift and go to state 36
+    expr3                          shift and go to state 114
+    expr6                          shift and go to state 28
+    expr7                          shift and go to state 29
+    expr4                          shift and go to state 30
+    expr5                          shift and go to state 31
+    expr10                         shift and go to state 21
+    expr8                          shift and go to state 33
+    expr9                          shift and go to state 34
+    expr13                         shift and go to state 22
+    expr12                         shift and go to state 20
+    expr11                         shift and go to state 39
+
+state 111
+
+    (7) top_stmt -> KEYWORD_if expr3 opt_then top_compstmt elsif_tail . opt_else_stmt KEYWORD_end
+    (10) opt_else_stmt -> . KEYWORD_else top_compstmt
+    (11) opt_else_stmt -> . none
+    (81) none -> .
+
+    KEYWORD_else    shift and go to state 116
+    KEYWORD_end     reduce using rule 81 (none -> .)
+
+    none                           shift and go to state 115
+    opt_else_stmt                  shift and go to state 117
+
+state 112
+
+    (8) top_stmt -> KEYWORD_while expr3 opt_do top_compstmt KEYWORD_end .
+
+    DELIM           reduce using rule 8 (top_stmt -> KEYWORD_while expr3 opt_do top_compstmt KEYWORD_end .)
+    newline         reduce using rule 8 (top_stmt -> KEYWORD_while expr3 opt_do top_compstmt KEYWORD_end .)
+    KEYWORD_end     reduce using rule 8 (top_stmt -> KEYWORD_while expr3 opt_do top_compstmt KEYWORD_end .)
+    $end            reduce using rule 8 (top_stmt -> KEYWORD_while expr3 opt_do top_compstmt KEYWORD_end .)
+    KEYWORD_elsif   reduce using rule 8 (top_stmt -> KEYWORD_while expr3 opt_do top_compstmt KEYWORD_end .)
+    KEYWORD_else    reduce using rule 8 (top_stmt -> KEYWORD_while expr3 opt_do top_compstmt KEYWORD_end .)
+
+
+state 113
+
+    (29) expr1 -> expr3 QUESTION_MARK expr2 COLON . expr2
+    (31) expr2 -> . expr7 DOUBLEDOT expr7
+    (32) expr2 -> . expr7 TRIPLEDOT expr7
+    (33) expr2 -> . expr3
+    (48) expr7 -> . expr7 BITXOR expr8
+    (49) expr7 -> . expr7 PIPE expr8
+    (50) expr7 -> . expr8
+    (34) expr3 -> . expr3 LOGICALOR expr4
+    (35) expr3 -> . expr4
+    (51) expr8 -> . expr8 BITAND expr9
+    (52) expr8 -> . expr9
+    (36) expr4 -> . expr4 LOGICALAND expr5
+    (37) expr4 -> . expr5
+    (53) expr9 -> . expr9 SHIFTL expr10
+    (54) expr9 -> . expr9 SHIFTR expr10
+    (55) expr9 -> . expr10
+    (38) expr5 -> . expr6 IFF expr6
+    (39) expr5 -> . expr6 DOUBLEEQUAL expr6
+    (40) expr5 -> . expr6 TRIPLEEQUAL expr6
+    (41) expr5 -> . expr6 NOTEQUAL expr6
+    (42) expr5 -> . expr6
+    (56) expr10 -> . expr10 PLUS expr11
+    (57) expr10 -> . expr10 MINUS expr11
+    (58) expr10 -> . expr11
+    (43) expr6 -> . expr7 LESSEQUAL expr7
+    (44) expr6 -> . expr7 LESS expr7
+    (45) expr6 -> . expr7 GREATER expr7
+    (46) expr6 -> . expr7 GREATEREQUAL expr7
+    (47) expr6 -> . expr7
+    (59) expr11 -> . expr11 MULTIPLY expr12
+    (60) expr11 -> . expr11 DIV expr12
+    (61) expr11 -> . expr11 MOD expr12
+    (62) expr11 -> . expr12
+    (63) expr12 -> . expr13 DOUBLESTAR expr12
+    (64) expr12 -> . expr13
+    (65) expr13 -> . OPEN_PAREN expr1 CLOSE_PAREN
+    (66) expr13 -> . uexpr INT_CONSTANTS
+    (67) expr13 -> . uexpr FLOAT_CONSTANTS
+    (68) expr13 -> . CONSTANTS
+    (69) expr13 -> . VARIABLES
+    (70) uexpr -> . none
+    (71) uexpr -> . PLUS
+    (72) uexpr -> . MINUS
+    (73) uexpr -> . BITNOT
+    (74) uexpr -> . BITCOMP
+    (81) none -> .
+
+    OPEN_PAREN      shift and go to state 27
+    CONSTANTS       shift and go to state 38
+    VARIABLES       shift and go to state 24
+    PLUS            shift and go to state 32
+    MINUS           shift and go to state 23
+    BITNOT          shift and go to state 37
+    BITCOMP         shift and go to state 25
+    INT_CONSTANTS   reduce using rule 81 (none -> .)
+    FLOAT_CONSTANTS reduce using rule 81 (none -> .)
+
+    uexpr                          shift and go to state 35
+    none                           shift and go to state 36
+    expr12                         shift and go to state 20
+    expr13                         shift and go to state 22
+    expr2                          shift and go to state 118
+    expr3                          shift and go to state 106
+    expr10                         shift and go to state 21
+    expr7                          shift and go to state 44
+    expr4                          shift and go to state 30
+    expr5                          shift and go to state 31
+    expr6                          shift and go to state 28
+    expr8                          shift and go to state 33
+    expr9                          shift and go to state 34
+    expr11                         shift and go to state 39
+
+state 114
+
+    (13) elsif_tail -> KEYWORD_elsif expr3 . opt_then top_compstmt elsif_tail
+    (34) expr3 -> expr3 . LOGICALOR expr4
+    (14) opt_then -> . KEYWORD_then
+    (15) opt_then -> . none
+    (81) none -> .
+
+    LOGICALOR       shift and go to state 52
+    KEYWORD_then    shift and go to state 53
+    KEYWORD_if      reduce using rule 81 (none -> .)
+    KEYWORD_while   reduce using rule 81 (none -> .)
+    VARIABLES       reduce using rule 81 (none -> .)
+    CONSTANTS       reduce using rule 81 (none -> .)
+    KEYWORD_elsif   reduce using rule 81 (none -> .)
+    DELIM           reduce using rule 81 (none -> .)
+    newline         reduce using rule 81 (none -> .)
+    KEYWORD_else    reduce using rule 81 (none -> .)
+    KEYWORD_end     reduce using rule 81 (none -> .)
+
+    none                           shift and go to state 51
+    opt_then                       shift and go to state 119
+
+state 115
+
+    (11) opt_else_stmt -> none .
+
+    KEYWORD_end     reduce using rule 11 (opt_else_stmt -> none .)
+
+
+state 116
+
+    (10) opt_else_stmt -> KEYWORD_else . top_compstmt
+    (2) top_compstmt -> . top_stmts opt_terms
+    (3) top_stmts -> . none
+    (4) top_stmts -> . top_stmt
+    (5) top_stmts -> . top_stmts terms top_stmt
+    (81) none -> .
+    (6) top_stmt -> . stmt
+    (7) top_stmt -> . KEYWORD_if expr3 opt_then top_compstmt elsif_tail opt_else_stmt KEYWORD_end
+    (8) top_stmt -> . KEYWORD_while expr3 opt_do top_compstmt KEYWORD_end
+    (9) stmt -> . expr
+    (18) expr -> . mlhs EQUAL mrhs
+    (19) mlhs -> . VARIABLES
+    (20) mlhs -> . CONSTANTS
+
+    DELIM           reduce using rule 81 (none -> .)
+    newline         reduce using rule 81 (none -> .)
+    KEYWORD_end     reduce using rule 81 (none -> .)
+    KEYWORD_if      shift and go to state 3
+    KEYWORD_while   shift and go to state 4
+    VARIABLES       shift and go to state 5
+    CONSTANTS       shift and go to state 12
+
+    none                           shift and go to state 9
+    expr                           shift and go to state 10
+    top_compstmt                   shift and go to state 120
+    mlhs                           shift and go to state 1
+    stmt                           shift and go to state 8
+    top_stmts                      shift and go to state 2
+    top_stmt                       shift and go to state 11
+
+state 117
+
+    (7) top_stmt -> KEYWORD_if expr3 opt_then top_compstmt elsif_tail opt_else_stmt . KEYWORD_end
+
+    KEYWORD_end     shift and go to state 121
+
+
+state 118
+
+    (29) expr1 -> expr3 QUESTION_MARK expr2 COLON expr2 .
+
+    CLOSE_PAREN     reduce using rule 29 (expr1 -> expr3 QUESTION_MARK expr2 COLON expr2 .)
+    DELIM           reduce using rule 29 (expr1 -> expr3 QUESTION_MARK expr2 COLON expr2 .)
+    newline         reduce using rule 29 (expr1 -> expr3 QUESTION_MARK expr2 COLON expr2 .)
+    $end            reduce using rule 29 (expr1 -> expr3 QUESTION_MARK expr2 COLON expr2 .)
+    KEYWORD_elsif   reduce using rule 29 (expr1 -> expr3 QUESTION_MARK expr2 COLON expr2 .)
+    KEYWORD_else    reduce using rule 29 (expr1 -> expr3 QUESTION_MARK expr2 COLON expr2 .)
+    KEYWORD_end     reduce using rule 29 (expr1 -> expr3 QUESTION_MARK expr2 COLON expr2 .)
+
+
+state 119
+
+    (13) elsif_tail -> KEYWORD_elsif expr3 opt_then . top_compstmt elsif_tail
+    (2) top_compstmt -> . top_stmts opt_terms
+    (3) top_stmts -> . none
+    (4) top_stmts -> . top_stmt
+    (5) top_stmts -> . top_stmts terms top_stmt
+    (81) none -> .
+    (6) top_stmt -> . stmt
+    (7) top_stmt -> . KEYWORD_if expr3 opt_then top_compstmt elsif_tail opt_else_stmt KEYWORD_end
+    (8) top_stmt -> . KEYWORD_while expr3 opt_do top_compstmt KEYWORD_end
+    (9) stmt -> . expr
+    (18) expr -> . mlhs EQUAL mrhs
+    (19) mlhs -> . VARIABLES
+    (20) mlhs -> . CONSTANTS
+
+    DELIM           reduce using rule 81 (none -> .)
+    newline         reduce using rule 81 (none -> .)
+    KEYWORD_elsif   reduce using rule 81 (none -> .)
+    KEYWORD_else    reduce using rule 81 (none -> .)
+    KEYWORD_end     reduce using rule 81 (none -> .)
+    KEYWORD_if      shift and go to state 3
+    KEYWORD_while   shift and go to state 4
+    VARIABLES       shift and go to state 5
+    CONSTANTS       shift and go to state 12
+
+    none                           shift and go to state 9
+    expr                           shift and go to state 10
+    top_compstmt                   shift and go to state 122
+    mlhs                           shift and go to state 1
+    stmt                           shift and go to state 8
+    top_stmts                      shift and go to state 2
+    top_stmt                       shift and go to state 11
+
+state 120
+
+    (10) opt_else_stmt -> KEYWORD_else top_compstmt .
+
+    KEYWORD_end     reduce using rule 10 (opt_else_stmt -> KEYWORD_else top_compstmt .)
+
+
+state 121
+
+    (7) top_stmt -> KEYWORD_if expr3 opt_then top_compstmt elsif_tail opt_else_stmt KEYWORD_end .
+
+    DELIM           reduce using rule 7 (top_stmt -> KEYWORD_if expr3 opt_then top_compstmt elsif_tail opt_else_stmt KEYWORD_end .)
+    newline         reduce using rule 7 (top_stmt -> KEYWORD_if expr3 opt_then top_compstmt elsif_tail opt_else_stmt KEYWORD_end .)
+    KEYWORD_end     reduce using rule 7 (top_stmt -> KEYWORD_if expr3 opt_then top_compstmt elsif_tail opt_else_stmt KEYWORD_end .)
+    $end            reduce using rule 7 (top_stmt -> KEYWORD_if expr3 opt_then top_compstmt elsif_tail opt_else_stmt KEYWORD_end .)
+    KEYWORD_elsif   reduce using rule 7 (top_stmt -> KEYWORD_if expr3 opt_then top_compstmt elsif_tail opt_else_stmt KEYWORD_end .)
+    KEYWORD_else    reduce using rule 7 (top_stmt -> KEYWORD_if expr3 opt_then top_compstmt elsif_tail opt_else_stmt KEYWORD_end .)
+
+
+state 122
+
+    (13) elsif_tail -> KEYWORD_elsif expr3 opt_then top_compstmt . elsif_tail
+    (12) elsif_tail -> . none
+    (13) elsif_tail -> . KEYWORD_elsif expr3 opt_then top_compstmt elsif_tail
+    (81) none -> .
+
+    KEYWORD_elsif   shift and go to state 110
+    KEYWORD_else    reduce using rule 81 (none -> .)
+    KEYWORD_end     reduce using rule 81 (none -> .)
+
+    none                           shift and go to state 109
+    elsif_tail                     shift and go to state 123
+
+state 123
+
+    (13) elsif_tail -> KEYWORD_elsif expr3 opt_then top_compstmt elsif_tail .
+
+    KEYWORD_else    reduce using rule 13 (elsif_tail -> KEYWORD_elsif expr3 opt_then top_compstmt elsif_tail .)
+    KEYWORD_end     reduce using rule 13 (elsif_tail -> KEYWORD_elsif expr3 opt_then top_compstmt elsif_tail .)
+
