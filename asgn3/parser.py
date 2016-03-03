@@ -38,6 +38,13 @@ def p_top_stmt(p):
 	'''top_stmt	: stmt
 				| KEYWORD_if expr3 opt_then top_compstmt elsif_tail opt_else_stmt KEYWORD_end
 				| KEYWORD_while expr3 opt_do top_compstmt KEYWORD_end
+				| top_stmt KEYWORD_while expr3
+				| KEYWORD_begin top_compstmt KEYWORD_end KEYWORD_while expr3
+				| top_stmt KEYWORD_until expr3
+				| KEYWORD_until expr3 opt_do top_compstmt KEYWORD_end
+				| KEYWORD_begin top_compstmt KEYWORD_end KEYWORD_until expr3
+				| KEYWORD_for opt_oparen multi_var opt_cparen KEYWORD_in for_range opt_do top_compstmt KEYWORD_end
+
 	'''
     		# | KEYWORD_BEGIN BLOCK_BEGIN top_compstmt BLOCK_END
 	i = 1
@@ -69,25 +76,7 @@ def p_opt_else_stmt(p):
 		p[0].append(p[i])
 		i = i+1
 
-# def p_matched_stmt(p):
-# 	'''matched_stmt :   KEYWORD_if expr3 KEYWORD_then top_compstmt elsif_tail KEYWORD_else top_compstmt KEYWORD_end
-# 	'''
-# 	i = 1
-# 	p[0] = ['matched_stmt']
-# 	while(i < len(p)):
-# 		p[0].append(p[i])
-# 		i = i+1
-#
-# def p_if_tail(p):
-# 	'''if_tail :  KEYWORD_else top_compstmt
-# 				| KEYWORD_elsif expr3 KEYWORD_then top_compstmt if_tail
-# 	'''
-# 	i = 1
-# 	p[0] = ['if_tail']
-# 	while(i < len(p)):
-# 		p[0].append(p[i])
-# 		i = i+1
-#
+
 def p_elsif_tail(p):
 	'''elsif_tail :  none
 				| KEYWORD_elsif expr3 opt_then top_compstmt elsif_tail
@@ -100,7 +89,7 @@ def p_elsif_tail(p):
 
 def p_opt_then(p):
 	'''opt_then : KEYWORD_then
-				| none
+				| newline
 	'''
 	i=1
 	p[0] = ['opt_then']
@@ -110,34 +99,59 @@ def p_opt_then(p):
 
 def p_opt_do(p):
 	'''opt_do : KEYWORD_do
-				| none
+				| newline
 	'''
 	i=1
 	p[0] = ['opt_do']
 	while(i < len(p)):
 		p[0].append(p[i])
 		i = i+1
-#
-#
-# def p_unmatched_stmt(p):
-# 	'''unmatched_stmt :   KEYWORD_if expr3 KEYWORD_then top_compstmt elsif_tail KEYWORD_end
-# 					  | KEYWORD_if expr3 KEYWORD_then matched_stmt KEYWORD_else unmatched_stmt
-# 	'''
-# 	i = 1
-# 	p[0] = ['unmatched_stmt']
-# 	while(i < len(p)):
-# 		p[0].append(p[i])
-# 		i = i+1
+
+def p_multi_var(p):
+	'''multi_var  : VARIABLES
+				| CONSTANTS
+				| multi_var COMMA VARIABLES 
+				| multi_var COMMA CONSTANTS
+	'''
+	i=1
+	p[0] = ['multi_var']
+	while(i < len(p)):
+		p[0].append(p[i])
+		i = i+1
+
+def p_opt_oparen(p):
+	'''opt_oparen : OPEN_PAREN
+				| none
+	'''
+	i=1
+	p[0] = ['opt_oparen']
+	while(i < len(p)):
+		p[0].append(p[i])
+		i = i+1
+
+def p_opt_cparen(p):
+	'''opt_cparen : CLOSE_PAREN
+				| none
+	'''
+	i=1
+	p[0] = ['opt_cparen']
+	while(i < len(p)):
+		p[0].append(p[i])
+		i = i+1	
+
+def p_for_range(p):
+	'''for_range : INT_CONSTANTS DOUBLEDOT INT_CONSTANTS
+				| INT_CONSTANTS TRIPLEDOT INT_CONSTANTS
+				| VARIABLES
+				| CONSTANTS
+	'''
+	i=1
+	p[0] = ['for_range']
+	while(i < len(p)):
+		p[0].append(p[i])
+		i = i+1
 
 
-# def p_opt_else(p):
-# 	'''opt_else :
-# 	'''
-# 	i = 1
-# 	p[0] = ['opt_else']
-# 	while(i < len(p)):
-# 		p[0].append(p[i])
-# 		i = i+1
 
 def p_cond_while(p):
 	'''
@@ -515,7 +529,7 @@ yacc.yacc()
 # while True:
 #    try:
 # #       s = raw_input('test > ')
-s= "a=2 \n if a==2 then a=3; end \n while a>1 do a =a-1; end"
+s= "for a,b,c in d do a=a+1; end"
 # except EOFError:
 #     break
 # if not s: continue
