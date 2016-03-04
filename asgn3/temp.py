@@ -1,127 +1,34 @@
-import ply.yacc as yacc
-
-from lexer import tokens
-
-def p_program(p):
-	'''program		: top_top_compstmt
+def p_MLHS(p):
+	'''MLHS : mlhs
+			| MLHS COMMA mlhs
 	'''
-	i = 1
-	p[0] = ['program']
+	p[0] = ['MLHS']
 	while(i < len(p)):
 		p[0].append(p[i])
 		i = i+1
 
-def p_top_top_compstmt(p):
-	'''top_top_compstmt : statements opt_terms
+def p_MLHS(p):
+	'''MRHS : mrhs
+			| MRHS COMMA mrhs
 	'''
-	i = 1
-	p[0] = ['top_top_compstmt']
-	while(i < len(p)):
-		p[0].append(p[i])
-		i = i+1
-
-def p_statements(p):
-	'''statements : statement
-				| statements terms statement
-				| none
-	'''
-	i = 1
-	p[0] = ['statements']
-	while(i < len(p)):
-		p[0].append(p[i])
-		i = i+1
-
-def p_statement(p):
-	'''statement : top_compstmt
-				| func_defn
-	'''
-	i = 1
-	p[0] = ['statement']
-	while(i < len(p)):
-		p[0].append(p[i])
-		i = i+1
-
-def p_func_defn(p):
-	''' func_defn : KEYWORD_def fname opt_oparen arguments opt_cparen func_stmts opt_terms KEYWORD_end
-	'''
-	i = 1
-	p[0] = ['func_defn']
-	while(i < len(p)):
-		p[0].append(p[i])
-		i = i+1
-
-def p_fname(p):
-	'''fname : VARIABLES
-			 | CONSTANTS
-	'''
-	p[0] = ['fname']
-	while(i < len(p)):
-		p[0].append(p[i])
-		i = i+1
-
-def p_argments(p):
-	'''arguments : arguments COMMA VARIABLES
-				 | arguments COMMA CONSTANTS
-				 | arguments COMMA func_arg_expr
-				 | VARIABLES
-				 | CONSTANTS
-				 | func_arg_expr
-	'''
-	p[0] = ['arguments']
-	while(i < len(p)):
-		p[0].append(p[i])
-		i = i+1
-
-def p_func_arg_expr(p):
-	'''func_arg_expr : VARIABLES EQUAL primary
-					 | CONSTANTS EQUAL primary
-	'''
-	p[0] = ['func_arg_expr']
-	while(i < len(p)):
-		p[0].append(p[i])
-		i = i+1
-
-def p_top_compstmt(p):
-	'''top_compstmt	: top_stmts
-	'''
-	i = 1
-	p[0] = ['top_compstmt']
-	while(i < len(p)):
-		p[0].append(p[i])
-		i = i+1
-
-def p_top_stmts(p):
-	''' top_stmts : top_stmt
-	'''
-	i = 1
-	p[0] = ['top_stmts']
+	p[0] = ['MRHS']
 	while(i < len(p)):
 		p[0].append(p[i])
 		i = i+1
 
 def p_top_stmt(p):
 	'''top_stmt	: stmt
-				| KEYWORD_if expr3 opt_then gen_stmts opt_terms elsif_tail opt_else_stmt KEYWORD_end
-				| KEYWORD_while expr3 opt_do gen_stmts opt_terms KEYWORD_end
+				| KEYWORD_if expr3 opt_then gen_stmt elsif_tail opt_else_stmt KEYWORD_end
+				| KEYWORD_while expr3 opt_do gen_stmt KEYWORD_end
 				| top_stmt KEYWORD_while expr3
-				| KEYWORD_begin gen_stmts opt_terms KEYWORD_end KEYWORD_while expr3
+				| KEYWORD_begin gen_stmt KEYWORD_end KEYWORD_while expr3
 				| top_stmt KEYWORD_until expr3
-				| KEYWORD_until expr3 opt_do gen_stmts opt_terms KEYWORD_end
-				| KEYWORD_begin gen_stmts opt_terms KEYWORD_end KEYWORD_until expr3
-				| KEYWORD_for opt_oparen multi_var opt_cparen KEYWORD_in for_range opt_do gen_stmts opt_terms KEYWORD_end
+				| KEYWORD_until expr3 opt_do gen_stmt KEYWORD_end
+				| KEYWORD_begin gen_stmt KEYWORD_end KEYWORD_until expr3
+				| KEYWORD_for opt_oparen multi_var opt_cparen KEYWORD_in for_range opt_do gen_stmt KEYWORD_end
 
 	'''
-	i = 1
-	p[0] = ['top_stmt']
-	while(i < len(p)):
-		p[0].append(p[i])
-		i = i+1
-
-def p_gen_stmts(p):
-	'''gen_stmts : top_stmt
-				| gen_stmts terms top_stmt
-				| none
-	'''
+    		# | KEYWORD_BEGIN BLOCK_BEGIN gen_stmt BLOCK_END
 	i = 1
 	p[0] = ['top_stmt']
 	while(i < len(p)):
@@ -129,96 +36,20 @@ def p_gen_stmts(p):
 		i = i+1
 
 def p_stmt(p):
+	# '''stmt :   expr
+	# 	    | matched_stmt
+	# 		| unmatched_stmt
+	# '''
 	'''stmt :   expr
-			| expr1
-			| puts_stmt
-			| loop_stmt
-			| exit_stmt
-			| func_call_stmt
 	'''
-				# | func_call_stmt
 	i = 1
 	p[0] = ['stmt']
 	while(i < len(p)):
 		p[0].append(p[i])
 		i = i+1
 
-def p_func_call_stmt(p):
-	'''func_call_stmt : fname opt_oparen func_ret_arg opt_cparen
-	 				  | MLHS EQUAL fname opt_oparen func_ret_arg opt_cparen
-	'''
-	i = 1
-	p[0] = ['func_call_stmt']
-	while(i < len(p)):
-		p[0].append(p[i])
-		i = i+1
-
-def p_loop_stmt(p):
-	''' loop_stmt : KEYWORD_break
-					| KEYWORD_next
-					| KEYWORD_redo
-	'''
-	i = 1
-	p[0] = ['loop_stmt']
-	while(i < len(p)):
-		p[0].append(p[i])
-		i = i+1
-
-def p_exit_stmt(p):
-	''' exit_stmt : KEYWORD_exit
-	'''
-	i = 1
-	p[0] = ['exit_stmt']
-	while(i < len(p)):
-		p[0].append(p[i])
-		i = i+1
-
-def p_puts_stmt(p):
-	'''puts_stmt : KEYWORD_puts mrhs
-				 | KEYWORD_puts expr
-	'''
-	i = 1
-	p[0] = ['puts_stmt']
-	while(i < len(p)):
-		p[0].append(p[i])
-		i = i+1
-
-def p_func_stmts(p):
-	''' func_stmts : func_stmt
-				   | func_stmts terms func_stmt
-				   | none
-	'''
-	i=1
-	p[0] = ['func_stmts']
-	while(i < len(p)):
-		p[0].append(p[i])
-		i = i+1
-
-def p_func_stmt(p):
-	''' func_stmt : top_stmt
-				  | KEYWORD_return func_ret_arg
-	'''
-	i=1
-	p[0] = ['func_stmt']
-	while(i < len(p)):
-		p[0].append(p[i])
-		i = i+1
-
-def p_func_ret_arg(p):
-	'''func_ret_arg : func_arg_expr
-				 | primary
-				 | func_ret_arg COMMA func_arg_expr
-				 | func_ret_arg COMMA primary
-
-	'''
-	i=1
-	p[0] = ['func_ret_arg']
-	while(i < len(p)):
-		p[0].append(p[i])
-		i = i+1
-
 def p_opt_else_stmt(p):
-	'''opt_else_stmt : KEYWORD_else gen_stmts
+	'''opt_else_stmt : KEYWORD_else gen_stmt
 					 | none
 	'''
 	i = 1
@@ -230,7 +61,7 @@ def p_opt_else_stmt(p):
 
 def p_elsif_tail(p):
 	'''elsif_tail :  none
-				| KEYWORD_elsif expr3 opt_then gen_stmts elsif_tail
+				| KEYWORD_elsif expr3 opt_then gen_stmt elsif_tail
 	'''
 	i = 1
 	p[0] = ['elsif_tail']
@@ -261,7 +92,6 @@ def p_opt_do(p):
 def p_multi_var(p):
 	'''multi_var  : VARIABLES
 				| CONSTANTS
-				| array
 				| multi_var COMMA VARIABLES
 				| multi_var COMMA CONSTANTS
 	'''
@@ -295,7 +125,6 @@ def p_for_range(p):
 	'''for_range : INT_CONSTANTS DOUBLEDOT INT_CONSTANTS
 				| INT_CONSTANTS TRIPLEDOT INT_CONSTANTS
 				| VARIABLES
-				| array
 				| CONSTANTS
 	'''
 	i=1
@@ -304,8 +133,14 @@ def p_for_range(p):
 		p[0].append(p[i])
 		i = i+1
 
+
+
+def p_cond_while(p):
+	'''
+	'''
+
 def p_expr(p):
-	'''expr :   MLHS EQUAL MRHS
+	'''expr :   mlhs EQUAL mrhs
 	'''
 	i = 1
 	p[0] = ['expr']
@@ -313,30 +148,9 @@ def p_expr(p):
 		p[0].append(p[i])
 		i = i+1
 
-def p_MLHS(p):
-	'''MLHS : mlhs
-			| MLHS COMMA mlhs
-	'''
-	i=1
-	p[0] = ['MLHS']
-	while(i < len(p)):
-		p[0].append(p[i])
-		i = i+1
-
-def p_MRHS(p):
-	'''MRHS : mrhs
-			| MRHS COMMA mrhs
-	'''
-	i=1
-	p[0] = ['MRHS']
-	while(i < len(p)):
-		p[0].append(p[i])
-		i = i+1
-
 def p_mlhs(p):
 	'''mlhs : VARIABLES
 			| CONSTANTS
-			| array
 	'''
 	i = 1
 	p[0] = ['mlhs']
@@ -344,11 +158,27 @@ def p_mlhs(p):
 		p[0].append(p[i])
 		i = i+1
 
+# def p_mlhs_item(p):
+# 	'''mlhs_item    : lhs
+# 		    | OPEN_PAREN mlhs CLOSE_PAREN
+# 	'''
+# 	i = 1
+# 	p[0] = ['mlhs_item']
+# 	while(i < len(p)):
+# 		p[0].append(p[i])
+# 		i = i+1
+#
+# def lhs(p):
+# 	'''lhs  : user_variable
+# 	'''
+# 	i = 1
+# 	p[0] = ['lhs']
+# 	while(i < len(p)):
+# 		p[0].append(p[i])
+# 		i = i+1
+
 def p_mrhs(p):
 	'''mrhs :   expr1
-			| str_expr
-			| KEYWORD_gets
-			| OPEN_BRACKET func_ret_arg CLOSE_BRACKET
 	'''
 	i = 1
 	p[0] = ['mrhs']
@@ -356,15 +186,52 @@ def p_mrhs(p):
 		p[0].append(p[i])
 		i = i+1
 
-def p_str_expr(p):
-	'''str_expr : str_expr PLUS STRING_CONSTANTS
-				| STRING_CONSTANTS
-	'''
-	i = 1
-	p[0] = ['str_expr']
-	while(i < len(p)):
-		p[0].append(p[i])
-		i = i+1
+# def p_args(p):
+# 	'''args :   arg
+# 	'''
+# 	i = 1
+# 	p[0] = ['args']
+# 	while(i < len(p)):
+# 		p[0].append(p[i])
+# 		i = i+1
+#
+# def p_arg(p):
+# 	'''	arg	: LHS EQUAL arg
+# 			| LHS OP_ASGN arg
+# 			| arg DOUBLEDOT arg
+# 			| arg TRIPLEDOT arg
+# 			| arg PLUS arg
+# 			| arg MINUS arg
+# 			| arg MULTIPLY arg
+# 			| arg DIV arg
+# 			| arg MOD arg
+# 			| arg DOUBLESTAR arg
+# 			| PLUS arg
+# 			| MINUS arg
+# 			| arg PIPE arg
+# 			| arg BITXOR arg
+# 			| arg BITAND arg
+# 			| arg IFF arg
+# 			| arg GREATER arg
+# 			| arg GREATEREQUAL arg
+# 			| arg LESS arg
+# 			| arg LESSEQUAL arg
+# 			| arg DOUBLEEQUAL arg
+# 			| arg TRIPLEEQUAL arg
+# 			| arg NOTEQUAL arg
+# 			| BITNOT arg
+# 			| BITCOMP arg
+# 			| arg SHIFTL arg
+# 			| arg SHIFTR arg
+# 			| arg LOGICALAND arg
+# 			| arg LOGICALOR arg
+# 			| KEYWORD_definedQ arg
+# 			| primary '''
+# 	i = 1
+# 	p[0] = ['arg']
+# 	while(i < len(p)):
+# 		p[0].append(p[i])
+# 		i = i+1
 
 def p_primary(p):
 	'''primary  :   INT_CONSTANTS
@@ -374,7 +241,6 @@ def p_primary(p):
 		|   BOOLEAN_CONSTANTS
 		|   CONSTANTS
 		|   VARIABLES
-		|	array
 	'''
 	i = 1
 	p[0] = ['primary']
@@ -382,16 +248,59 @@ def p_primary(p):
 		p[0].append(p[i])
 		i = i+1
 
-# def user_variable(p):
-# 	'''user_variable	: VARIABLES
-# 		| CONSTANTS
-#		| array
-# 	'''
+def user_variable(p):
+	'''user_variable	: VARIABLES
+		| CONSTANTS
+	'''
+	i = 1
+	p[0] = ['user_variable']
+	while(i < len(p)):
+		p[0].append(p[i])
+		i = i+1
+
+# def p_op(p):
+#     '''op		: PIPE
+#     		| BITXOR
+#     		| BITAND
+#     		| EQUAL
+#     		| DOUBLEEQUAL
+#     		| GREATER
+#     		| GREATEREQUAL
+#     		| LESS
+#     		| LESSEQUAL
+#     		| NOTEQUAL
+#     		| SHIFTL
+#     		| SHIFTR
+#     		| PLUS
+#     		| MINUS
+#     		| MULTIPLY
+#     		| DIV
+#     		| MOD
+#     		| DOUBLESTAR
+#     		| BITNOT
+#     		| BITCOMP
+#     '''
 # 	i = 1
-# 	p[0] = ['user_variable']
+# 	p[0] = ['arg']
 # 	while(i < len(p)):
 # 		p[0].append(p[i])
 # 		i = i+1
+#
+# def p_resords(p):
+#     '''reswords	: KEYWORD__LINE__ | KEYWORD__FILE__ | KEYWORD__ENCODING__
+#     		| KEYWORD_BEGIN | KEYWORD_END
+#     		| KEYWORD_alias | KEYWORD_and | KEYWORD_begin
+#     		| KEYWORD_break | KEYWORD_case | KEYWORD_class | KEYWORD_def
+#     		| KEYWORD_definedQ | KEYWORD_do | KEYWORD_else | KEYWORD_elsif
+#     		| KEYWORD_end | KEYWORD_ensure | KEYWORD_false
+#     		| KEYWORD_for | KEYWORD_in | KEYWORD_module | KEYWORD_next
+#     		| KEYWORD_nil | KEYWORD_not | KEYWORD_or | KEYWORD_redo
+#     		| KEYWORD_rescue | KEYWORD_retry | KEYWORD_return | KEYWORD_self
+#     		| KEYWORD_super | KEYWORD_then | KEYWORD_true | KEYWORD_undef
+#     		| KEYWORD_when | KEYWORD_yield | KEYWORD_if | KEYWORD_unless
+#     		| KEYWORD_while | KEYWORD_until
+#     '''
+
 
 def p_expr1(p):
 	'''expr1 : expr3 QUESTION_MARK expr2 COLON expr2
@@ -453,7 +362,6 @@ def p_expr6(p):
 		| expr7 GREATER expr7
 		| expr7 GREATEREQUAL expr7
 		| expr7
-		| BOOLEAN_CONSTANTS
 	'''
 	i = 1
 	p[0] = ['expr6']
@@ -533,7 +441,6 @@ def p_expr13(p):
 			  |  uexpr  FLOAT_CONSTANTS
 			  |   CONSTANTS
 			  |   VARIABLES
-			  | array
 	'''
 	i = 1
 	p[0] = ['expr13']
@@ -541,20 +448,11 @@ def p_expr13(p):
 		p[0].append(p[i])
 		i = i+1
 
-def p_array(p):
-	'''array : VARIABLES OPEN_BRACKET expr7 CLOSE_BRACKET
-			 | VARIABLES OPEN_BRACKET expr7 DOUBLEDOT expr7 CLOSE_BRACKET
-			 | VARIABLES OPEN_BRACKET expr7 TRIPLEDOT expr7 CLOSE_BRACKET
-	'''
-	i = 1
-	p[0] = ['array']
-	while(i < len(p)):
-		p[0].append(p[i])
-		i = i+1
+
 def p_uexpr(p):
 	'''uexpr : none
-			  | PLUS
-			  | MINUS
+			  |  PLUS
+			  |   MINUS
 			  | BITNOT
 			  | BITCOMP
 	'''
@@ -563,6 +461,8 @@ def p_uexpr(p):
 	while(i < len(p)):
 		p[0].append(p[i])
 		i = i+1
+
+
 
 def p_opt_terms(p):
 	'''opt_terms : none
@@ -607,7 +507,13 @@ def p_none(p):
 		i = i+1
 
 yacc.yacc()
-data = "a+3+4; a[1] \n a=[1,2,2]"
 
-result = yacc.parse(data)
+# while True:
+#    try:
+# #       s = raw_input('test > ')
+s= "for a in d do a=a+1 end"
+# except EOFError:
+#     break
+# if not s: continue
+result = yacc.parse(s)
 print(result)

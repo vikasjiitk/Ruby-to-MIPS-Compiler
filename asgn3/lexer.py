@@ -6,7 +6,7 @@ keywords = [
 'KEYWORD_else','KEYWORD_elsif','KEYWORD_END','KEYWORD_end','KEYWORD_ensure','KEYWORD_false','KEYWORD_for','KEYWORD_if','KEYWORD_in','KEYWORD_module','KEYWORD_next',
 'KEYWORD_nil','KEYWORD_not','KEYWORD_or','KEYWORD_redo','KEYWORD_rescue','KEYWORD_retry','KEYWORD_return','KEYWORD_self','KEYWORD_super','KEYWORD_then',
 'KEYWORD_true','KEYWORD_undef','KEYWORD_unless','KEYWORD_until','KEYWORD_when','KEYWORD_while','KEYWORD_yield','KEYWORD___ENCODING__','KEYWORD___END__',
-'KEYWORD___FILE__','KEYWORD___LINE__'
+'KEYWORD___FILE__','KEYWORD___LINE__','KEYWORD_puts', 'KEYWORD_gets', 'KEYWORD_exit'
 ]
 
 operators = [
