@@ -178,7 +178,7 @@ def p_class_method_mlhs(p):
 						  | SIGIL_AT
 	'''
 	i=1
-	p[0] = ['class_method_stmt']
+	p[0] = ['class_method_mlhs']
 	while(i < len(p)):
 		p[0].append(p[i])
 		i = i+1
@@ -537,6 +537,7 @@ def p_mrhs(p):
 def p_str_expr(p):
 	'''str_expr : str_expr PLUS STRING_CONSTANTS
 				| STRING_CONSTANTS
+
 	'''
 	i = 1
 	p[0] = ['str_expr']
