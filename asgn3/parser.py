@@ -476,7 +476,7 @@ def p_for_range(p):
 		i = i+1
 
 def p_expr(p):
-	'''expr :   MLHS EQUAL MRHS
+	'''expr :   MLHS EQUAL MRHS			
 	'''
 	i = 1
 	p[0] = ['expr']
@@ -497,6 +497,7 @@ def p_MLHS(p):
 def p_MRHS(p):
 	'''MRHS : mrhs
 			| MRHS COMMA mrhs
+			
 	'''
 	i=1
 	p[0] = ['MRHS']
@@ -520,8 +521,13 @@ def p_mrhs(p):
 			| str_expr
 			| KEYWORD_gets
 			| OPEN_BRACKET func_ret_arg CLOSE_BRACKET
+			| CONSTANTS DOT VARIABLES OPEN_PAREN arguments CLOSE_PAREN
+			| CONSTANTS DOT VARIABLES
+			| CONSTANTS DOT KEYWORD_new OPEN_PAREN arguments CLOSE_PAREN
+			| CONSTANTS DOT KEYWORD_new 			
 			
 	'''
+	#	| CONSTANTS DOT KEYWORD_new opt_oparen arguments opt_cparen
 	i = 1
 	p[0] = ['mrhs']
 	while(i < len(p)):
