@@ -1,6 +1,37 @@
+#!/usr/bin/python
 import ply.yacc as yacc
-
+import sys
 from lexer import tokens
+import types
+body = ""
+filename = sys.argv[1]
+
+def printSentential(tree,counter):
+	global body
+	allLeaves = True
+	for i in range(1,len(tree)):
+		if(isinstance(tree[i], types.StringTypes) == True):
+			#print tree[i]
+			if "#" in tree[i]:
+				tree[i] = tree[i][:-1]
+				body = body + "<b>" + " " + tree[i] + "</b>"
+			else:
+				body = body + " " + tree[i]
+		else:
+			tree[i] = printSentential(tree[i], (allLeaves and counter))
+			allLeaves = False
+	if(allLeaves == True and counter == True):
+		tree = tree[0]+"#"												### Mark the non-terminal(tree[0]) as the one which was reduced
+	return tree
+
+def printRightDeriv(tree):
+	global body
+	while(isinstance(tree, types.StringTypes) == False):
+		tree = printSentential(tree,True)
+		print body + "<br>"
+		#print ('\n')
+		body = ""
+	print "<b>" + tree[:-1] + "</b>" + "<br>"
 
 def p_program(p):
 	'''program		: top_top_compstmt
@@ -77,7 +108,7 @@ def p_class_defn(p):
 # 		i = i+1
 
 # def p_class_method_stmt(p):
-# 	''' class_method_stmt : class_method_mlhs EQUAL class_method_mrhs 
+# 	''' class_method_stmt : class_method_mlhs EQUAL class_method_mrhs
 # 					|  class_method_mlhs
 # 				    | KEYWORD_return class_method_ret_arg
 # 	'''
@@ -99,8 +130,8 @@ def p_class_stmts(p):
 
 
 def p_class_stmt(p):
-	'''class_stmt :  class_mlhs EQUAL class_mrhs 
-					|  class_func 
+	'''class_stmt :  class_mlhs EQUAL class_mrhs
+					|  class_func
 	'''
 	i = 1
 	p[0] = ['class_stmt']
@@ -164,7 +195,7 @@ def p_class_method_stmts(p):
 		i = i+1
 
 def p_class_method_stmt(p):
-	''' class_method_stmt : class_method_mlhs EQUAL class_method_mrhs 
+	''' class_method_stmt : class_method_mlhs EQUAL class_method_mrhs
 				    | KEYWORD_return class_method_ret_arg
 	'''
 	i=1
@@ -207,8 +238,8 @@ def p_class_method_ret_arg(p):
 		i = i+1
 
 def p_class_method_arg_expr(p):
-	'''class_method_arg_expr : SIGIL_AT EQUAL literal	
-							 | SIGIL_DOUBLE_AT EQUAL literal				 
+	'''class_method_arg_expr : SIGIL_AT EQUAL literal
+							 | SIGIL_DOUBLE_AT EQUAL literal
 	'''
 	p[0] = ['class_method_arg_expr']
 	while(i < len(p)):
@@ -476,7 +507,7 @@ def p_for_range(p):
 		i = i+1
 
 def p_expr(p):
-	'''expr :   MLHS EQUAL MRHS			
+	'''expr :   MLHS EQUAL MRHS
 	'''
 	i = 1
 	p[0] = ['expr']
@@ -497,7 +528,7 @@ def p_MLHS(p):
 def p_MRHS(p):
 	'''MRHS : mrhs
 			| MRHS COMMA mrhs
-			
+
 	'''
 	i=1
 	p[0] = ['MRHS']
@@ -524,8 +555,8 @@ def p_mrhs(p):
 			| CONSTANTS DOT VARIABLES OPEN_PAREN arguments CLOSE_PAREN
 			| CONSTANTS DOT VARIABLES
 			| CONSTANTS DOT KEYWORD_new OPEN_PAREN arguments CLOSE_PAREN
-			| CONSTANTS DOT KEYWORD_new 			
-			
+			| CONSTANTS DOT KEYWORD_new
+
 	'''
 	#	| CONSTANTS DOT KEYWORD_new opt_oparen arguments opt_cparen
 	i = 1
@@ -786,7 +817,8 @@ def p_none(p):
 
 yacc.yacc()
 #data = "a+3+4; a[1] \n a=[1,2,2]"
-with open('test_ruby.rb','r') as myfile:     
+with open(filename,'r') as myfile:
 	data=myfile.read()
 result = yacc.parse(data)
-print(result)
+
+printRightDeriv(result)
