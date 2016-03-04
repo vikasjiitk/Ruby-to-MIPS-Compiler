@@ -566,15 +566,35 @@ def p_mrhs(p):
 		i = i+1
 
 def p_str_expr(p):
-	'''str_expr : str_expr PLUS STRING_CONSTANTS
+	'''str_expr : str_expr PLUS STRING_CONSTANTS 
 				| STRING_CONSTANTS
-
 	'''
 	i = 1
 	p[0] = ['str_expr']
 	while(i < len(p)):
 		p[0].append(p[i])
 		i = i+1
+
+# def p_spl_str_expr(p):
+# 	'''spl_str_expr : none
+# 					| VARIABLES PLUS spl_str_expr
+# 	'''
+# 	i = 1
+# 	p[0] = ['spl_str_expr']
+# 	while(i < len(p)):
+# 		p[0].append(p[i])
+# 		i = i+1
+
+# def p_spl_str_expr2(p):
+# 	'''spl_str_expr2 : PLUS VARIABLES spl_str_expr2
+# 					 | PLUS STRING_CONSTANTS spl_str_expr2
+# 					 | none
+# 	'''
+# 	i = 1
+# 	p[0] = ['spl_str_expr2']
+# 	while(i < len(p)):
+# 		p[0].append(p[i])
+# 		i = i+1
 
 def p_primary(p):
 	'''primary  :   INT_CONSTANTS
