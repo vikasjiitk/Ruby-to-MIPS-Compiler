@@ -34,6 +34,9 @@ def p_statements(p):
 def p_statement(p):
 	'''statement : top_compstmt
 				| func_defn
+				| class_defn
+				| CONSTANTS DOT VARIABLES opt_oparen arguments opt_cparen
+				| CONSTANTS DOT KEYWORD_new opt_oparen arguments opt_cparen
 	'''
 	i = 1
 	p[0] = ['statement']
@@ -50,11 +53,177 @@ def p_func_defn(p):
 		p[0].append(p[i])
 		i = i+1
 
+def p_class_defn(p):
+	'''class_defn : KEYWORD_class CONSTANTS newline class_stmts opt_terms KEYWORD_end
+	'''
+	i = 1
+	p[0] = ['class_defn']
+	while(i < len(p)):
+		if p[i]!= '\n':
+			p[0].append(p[i])
+		else:
+			p[0].append("NEWLINE")
+		i = i+1
+
+# def p_class_method_stmts(p):
+# 	''' class_method_stmts : class_method_stmt
+# 				   | class_method_stmts terms class_method_stmt
+# 				   | none
+# 	'''
+# 	i=1
+# 	p[0] = ['class_method_stmts']
+# 	while(i < len(p)):
+# 		p[0].append(p[i])
+# 		i = i+1
+
+# def p_class_method_stmt(p):
+# 	''' class_method_stmt : class_method_mlhs EQUAL class_method_mrhs 
+# 					|  class_method_mlhs
+# 				    | KEYWORD_return class_method_ret_arg
+# 	'''
+# 	i=1
+# 	p[0] = ['class_method_stmt']
+# 	while(i < len(p)):
+# 		p[0].append(p[i])
+# 		i = i+1
+def p_class_stmts(p):
+	'''class_stmts :  class_stmt
+					|  class_stmts terms class_stmt
+					| none
+	'''
+	i = 1
+	p[0] = ['class_stmts']
+	while(i < len(p)):
+		p[0].append(p[i])
+		i = i+1
+
+
+def p_class_stmt(p):
+	'''class_stmt :  class_mlhs EQUAL class_mrhs 
+					|  class_func 
+	'''
+	i = 1
+	p[0] = ['class_stmt']
+	while(i < len(p)):
+		p[0].append(p[i])
+		i = i+1
+
+def p_class_mrhs(p):
+	'''class_mrhs : literal
+	'''
+	i = 1
+	p[0] = ['class_mrhs']
+	while(i < len(p)):
+		p[0].append(p[i])
+		i = i+1
+
+def p_literal(p):
+	''' literal : INT_CONSTANTS
+				| FLOAT_CONSTANTS
+				| STRING_CONSTANTS
+				| BOOLEAN_CONSTANTS
+				| CHAR_CONSTANTS
+				| SIGIL_AT
+				| SIGIL_DOUBLE_AT
+	'''
+	i = 1
+	p[0] = ['literal']
+	while(i < len(p)):
+		p[0].append(p[i])
+		i = i+1
+
+def p_class_mlhs(p):
+	'''class_mlhs : class_mlhs terms SIGIL_DOUBLE_AT
+				   | SIGIL_DOUBLE_AT
+	'''
+	i = 1
+	p[0] = ['class_mlhs']
+	while(i < len(p)):
+		p[0].append(p[i])
+		i = i+1
+
+
+def p_class_func(p):
+	'''class_func : KEYWORD_def fname opt_oparen arguments opt_cparen class_method_stmts opt_terms KEYWORD_end
+	'''
+	i = 1
+	p[0] = ['class_func']
+	while(i < len(p)):
+		p[0].append(p[i])
+		i = i+1
+
+def p_class_method_stmts(p):
+	''' class_method_stmts : class_method_stmt
+				   | class_method_stmts terms class_method_stmt
+				   | none
+	'''
+	i=1
+	p[0] = ['class_method_stmts']
+	while(i < len(p)):
+		p[0].append(p[i])
+		i = i+1
+
+def p_class_method_stmt(p):
+	''' class_method_stmt : class_method_mlhs EQUAL class_method_mrhs 
+				    | KEYWORD_return class_method_ret_arg
+	'''
+	i=1
+	p[0] = ['class_method_stmt']
+	while(i < len(p)):
+		p[0].append(p[i])
+		i = i+1
+
+def p_class_method_mlhs(p):
+	'''class_method_mlhs : class_method_mlhs terms SIGIL_AT
+						  | SIGIL_AT
+	'''
+	i=1
+	p[0] = ['class_method_stmt']
+	while(i < len(p)):
+		p[0].append(p[i])
+		i = i+1
+
+def p_class_method_mrhs(p):
+	'''class_method_mrhs : literal
+						 | VARIABLES
+	'''
+	i=1
+	p[0] = ['class_method_mrhs']
+	while(i < len(p)):
+		p[0].append(p[i])
+		i = i+1
+
+def p_class_method_ret_arg(p):
+	'''class_method_ret_arg : class_method_arg_expr
+				 | literal
+				 | class_method_ret_arg COMMA class_method_arg_expr
+				 | class_method_ret_arg COMMA literal
+
+	'''
+	i=1
+	p[0] = ['class_method_ret_arg']
+	while(i < len(p)):
+		p[0].append(p[i])
+		i = i+1
+
+def p_class_method_arg_expr(p):
+	'''class_method_arg_expr : SIGIL_AT EQUAL literal	
+							 | SIGIL_DOUBLE_AT EQUAL literal				 
+	'''
+	p[0] = ['class_method_arg_expr']
+	while(i < len(p)):
+		p[0].append(p[i])
+		i = i+1
+
+
+
+
 def p_fname(p):
 	'''fname : VARIABLES
 			 | CONSTANTS
 	'''
 	p[0] = ['fname']
+	i=1
 	while(i < len(p)):
 		p[0].append(p[i])
 		i = i+1
@@ -67,6 +236,7 @@ def p_argments(p):
 				 | CONSTANTS
 				 | func_arg_expr
 	'''
+	i=1
 	p[0] = ['arguments']
 	while(i < len(p)):
 		p[0].append(p[i])
@@ -76,6 +246,7 @@ def p_func_arg_expr(p):
 	'''func_arg_expr : VARIABLES EQUAL primary
 					 | CONSTANTS EQUAL primary
 	'''
+	i=1
 	p[0] = ['func_arg_expr']
 	while(i < len(p)):
 		p[0].append(p[i])
@@ -349,6 +520,7 @@ def p_mrhs(p):
 			| str_expr
 			| KEYWORD_gets
 			| OPEN_BRACKET func_ret_arg CLOSE_BRACKET
+			
 	'''
 	i = 1
 	p[0] = ['mrhs']
@@ -607,7 +779,8 @@ def p_none(p):
 		i = i+1
 
 yacc.yacc()
-data = "a+3+4; a[1] \n a=[1,2,2]"
-
+#data = "a+3+4; a[1] \n a=[1,2,2]"
+with open('test_ruby.rb','r') as myfile:     
+	data=myfile.read()
 result = yacc.parse(data)
 print(result)
