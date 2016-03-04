@@ -1,0 +1,4 @@
+str_expr - String + Variable not handled
+Multiple Newlines (output in html)
+return x*x (not handled)
+a.times (handled only in mrhs not alone) 

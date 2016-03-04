@@ -54,7 +54,7 @@ def p_top_top_compstmt(p):
 def p_statements(p):
 	'''statements : statement
 				| statements terms statement
-				| none
+				
 	'''
 	i = 1
 	p[0] = ['statements']
@@ -66,8 +66,12 @@ def p_statement(p):
 	'''statement : top_compstmt
 				| func_defn
 				| class_defn
-				| CONSTANTS DOT VARIABLES opt_oparen arguments opt_cparen
-				| CONSTANTS DOT KEYWORD_new opt_oparen arguments opt_cparen
+				| VARIABLES DOT VARIABLES OPEN_PAREN arguments CLOSE_PAREN
+				| VARIABLES DOT VARIABLES OPEN_PAREN CLOSE_PAREN
+				| VARIABLES DOT VARIABLES arguments 
+				| CONSTANTS DOT KEYWORD_new OPEN_PAREN arguments CLOSE_PAREN
+				| CONSTANTS DOT KEYWORD_new OPEN_PAREN CLOSE_PAREN
+				| CONSTANTS DOT KEYWORD_new arguments 
 	'''
 	i = 1
 	p[0] = ['statement']
@@ -76,7 +80,9 @@ def p_statement(p):
 		i = i+1
 
 def p_func_defn(p):
-	''' func_defn : KEYWORD_def fname opt_oparen arguments opt_cparen func_stmts opt_terms KEYWORD_end
+	''' func_defn : KEYWORD_def fname OPEN_PAREN arguments CLOSE_PAREN func_stmts opt_terms KEYWORD_end
+					| KEYWORD_def fname OPEN_PAREN CLOSE_PAREN func_stmts opt_terms KEYWORD_end
+				   |  KEYWORD_def fname arguments func_stmts opt_terms KEYWORD_end
 	'''
 	i = 1
 	p[0] = ['func_defn']
@@ -175,7 +181,9 @@ def p_class_mlhs(p):
 
 
 def p_class_func(p):
-	'''class_func : KEYWORD_def fname opt_oparen arguments opt_cparen class_method_stmts opt_terms KEYWORD_end
+	'''class_func : KEYWORD_def fname OPEN_PAREN arguments CLOSE_PAREN class_method_stmts opt_terms KEYWORD_end
+				  | KEYWORD_def fname arguments class_method_stmts opt_terms KEYWORD_end
+				  | KEYWORD_def fname OPEN_PAREN CLOSE_PAREN class_method_stmts opt_terms KEYWORD_end
 	'''
 	i = 1
 	p[0] = ['class_func']
@@ -197,6 +205,7 @@ def p_class_method_stmts(p):
 def p_class_method_stmt(p):
 	''' class_method_stmt : class_method_mlhs EQUAL class_method_mrhs
 				    | KEYWORD_return class_method_ret_arg
+				    | puts_stmt
 	'''
 	i=1
 	p[0] = ['class_method_stmt']
@@ -259,18 +268,22 @@ def p_fname(p):
 		p[0].append(p[i])
 		i = i+1
 
-def p_argments(p):
+def p_arguments(p):
 	'''arguments : arguments COMMA VARIABLES
 				 | arguments COMMA CONSTANTS
 				 | arguments COMMA func_arg_expr
 				 | VARIABLES
 				 | CONSTANTS
 				 | func_arg_expr
+				 | newline
 	'''
 	i=1
 	p[0] = ['arguments']
 	while(i < len(p)):
-		p[0].append(p[i])
+		if p[i] != '\n':
+			p[0].append(p[i])
+		else:
+			p[0].append('NEWLINE')
 		i = i+1
 
 def p_func_arg_expr(p):
@@ -310,7 +323,9 @@ def p_top_stmt(p):
 				| top_stmt KEYWORD_until expr3
 				| KEYWORD_until expr3 opt_do gen_stmts opt_terms KEYWORD_end
 				| KEYWORD_begin gen_stmts opt_terms KEYWORD_end KEYWORD_until expr3
-				| KEYWORD_for opt_oparen multi_var opt_cparen KEYWORD_in for_range opt_do gen_stmts opt_terms KEYWORD_end
+				| KEYWORD_for OPEN_PAREN multi_var CLOSE_PAREN KEYWORD_in for_range opt_do gen_stmts opt_terms KEYWORD_end
+				| KEYWORD_for multi_var KEYWORD_in for_range opt_do gen_stmts opt_terms KEYWORD_end
+
 
 	'''
 	i = 1
@@ -325,7 +340,7 @@ def p_gen_stmts(p):
 				| none
 	'''
 	i = 1
-	p[0] = ['top_stmt']
+	p[0] = ['gen_stmts']
 	while(i < len(p)):
 		p[0].append(p[i])
 		i = i+1
@@ -346,8 +361,10 @@ def p_stmt(p):
 		i = i+1
 
 def p_func_call_stmt(p):
-	'''func_call_stmt : fname opt_oparen func_ret_arg opt_cparen
-	 				  | MLHS EQUAL fname opt_oparen func_ret_arg opt_cparen
+	'''func_call_stmt : fname OPEN_PAREN func_ret_arg CLOSE_PAREN
+					  | fname func_ret_arg 
+	 				  | MLHS EQUAL fname OPEN_PAREN func_ret_arg CLOSE_PAREN
+	 				  | MLHS EQUAL fname func_ret_arg
 	'''
 	i = 1
 	p[0] = ['func_call_stmt']
@@ -447,7 +464,10 @@ def p_opt_then(p):
 	i=1
 	p[0] = ['opt_then']
 	while(i < len(p)):
-		p[0].append(p[i])
+		if p[i]!= '\n':
+				p[0].append(p[i])
+		else:
+			p[0].append("NEWLINE")
 		i = i+1
 
 def p_opt_do(p):
@@ -457,7 +477,10 @@ def p_opt_do(p):
 	i=1
 	p[0] = ['opt_do']
 	while(i < len(p)):
-		p[0].append(p[i])
+		if p[i]!= '\n':
+				p[0].append(p[i])
+		else:
+			p[0].append("NEWLINE")
 		i = i+1
 
 def p_multi_var(p):
@@ -494,8 +517,10 @@ def p_opt_cparen(p):
 		i = i+1
 
 def p_for_range(p):
-	'''for_range : INT_CONSTANTS DOUBLEDOT INT_CONSTANTS
-				| INT_CONSTANTS TRIPLEDOT INT_CONSTANTS
+	'''for_range : OPEN_PAREN INT_CONSTANTS DOUBLEDOT INT_CONSTANTS CLOSE_PAREN
+				| INT_CONSTANTS DOUBLEDOT INT_CONSTANTS
+				| OPEN_PAREN INT_CONSTANTS TRIPLEDOT INT_CONSTANTS CLOSE_PAREN
+				| INT_CONSTANTS TRIPLEDOT INT_CONSTANTS 
 				| VARIABLES
 				| array
 				| CONSTANTS
@@ -552,10 +577,12 @@ def p_mrhs(p):
 			| str_expr
 			| KEYWORD_gets
 			| OPEN_BRACKET func_ret_arg CLOSE_BRACKET
-			| CONSTANTS DOT VARIABLES OPEN_PAREN arguments CLOSE_PAREN
-			| CONSTANTS DOT VARIABLES
+			| VARIABLES DOT VARIABLES OPEN_PAREN arguments CLOSE_PAREN
+			| VARIABLES DOT VARIABLES OPEN_PAREN CLOSE_PAREN
+			| VARIABLES DOT VARIABLES
 			| CONSTANTS DOT KEYWORD_new OPEN_PAREN arguments CLOSE_PAREN
 			| CONSTANTS DOT KEYWORD_new
+			| CONSTANTS DOT KEYWORD_new OPEN_PAREN CLOSE_PAREN
 
 	'''
 	#	| CONSTANTS DOT KEYWORD_new opt_oparen arguments opt_cparen

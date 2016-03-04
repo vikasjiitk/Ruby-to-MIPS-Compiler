@@ -1,30 +1,25 @@
 def sqr(x)
-    return x*x
+return x=1,3,4
 end
-
-(rand(4) + 2).times {
-    a = rand(300)
-    print a,"^2 = ", sqr(a), "\n"
-}
-print "\n"
-
-def boom
-    print "Boom!\n"
+a = rand(300)
+puts a
+puts "^2 = "
+puts "\n"
+def boom()
+a = a+1
 end
 boom
 boom
-
-print "\n"
+puts "\n"
 def line(cnt, ender = "+", fill = "-")
-    print ender, fill * cnt, ender, "\n"
+b=b+1
 end
 line(8)
-line(5,'*')
+line(5)
 line(11,'+','=')
-
 def incr(n)
     n = n + 1
 end
 a = 5
 incr(a)
-print a,"\n"
+puts a
