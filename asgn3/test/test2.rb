@@ -4,4 +4,4 @@ printf("%d %d\n", a, b);
 
 b = "A string"
 c = 'Another String'
-print b + " and " + c + "\n"
+puts " and " + "\n"

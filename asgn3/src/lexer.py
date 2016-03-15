@@ -90,10 +90,10 @@ t_DOLLAR=r'\$'
 t_BACK_SLASH=r'\\'
 t_COLON=r':'
 t_DOUBLE_COLON = r'::'
-t_newline = r'\n+'
-
+t_newline = r'[\n]+'
+    
 #keywords
-
+    
 reserved_map = { }
 for r in keywords:
     reserved_map[ r[8:] ] = r
