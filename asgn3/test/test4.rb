@@ -1,19 +1,17 @@
 for i in (1..4)
-    print i," "
+    puts i
+    puts " "
 end
-print "\n"
-
+puts "\n"
 for i in (1...4)
-    print i," "
+    puts i
 end
-print "\n"
-
+puts "\n"
 items = [ 'Mark', 12, 'goobers', 18.45 ]
 for it in items
-    print it, " "
+    puts it
 end
-print "\n"
-
-for i in (0...items.length)
-    print items[0..i].join(" "), "\n"
+puts "\n"
+for i in 0...4
+    puts items
 end

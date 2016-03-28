@@ -1,16 +1,13 @@
 def shuffle(arr)
-    for n in 0...arr.size
-	targ = n + rand(arr.size - n)
-	arr[n], arr[targ] = arr[targ], arr[n] if n != targ
-    end
+    for n in 0...4
+	targ = rand(n)
+	end
 end
-
 def pairs(a, b)
-    a << 'Insane'
+    a << b
     shuffle(b)
-    b.each { |x| shuffle(a); a.each { |y| print y, " ", x, ".\n" } }
 end
 first = ['Strange', 'Fresh', 'Alarming']
-pairs(first, ['lemonade', 'procedure', 'sounds', 'throughway'])
-print "\n", first.join(" "), "\n"
+pairs = ['lemonade', 'procedure', 'sounds', 'throughway']
+puts "\n"
 

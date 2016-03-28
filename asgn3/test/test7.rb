@@ -1,13 +1,13 @@
-class Sample
+a+1
+ class Sample
+   @@val =1
+   @@num = 0
    def hello
       puts "Hello Ruby!"
    end
+   def bye
+   puts "Bye Ruby"
+   end 
 end
-
-object = Sample. new
-object.hello
-
+ object = Sample.new
 ary = [1,2,3,4,5]
-ary.each do |i|
-   puts i
-end
