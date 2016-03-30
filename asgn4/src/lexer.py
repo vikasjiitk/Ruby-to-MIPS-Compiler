@@ -91,9 +91,9 @@ t_BACK_SLASH=r'\\'
 t_COLON=r':'
 t_DOUBLE_COLON = r'::'
 t_newline = r'[\n]+'
-    
+
 #keywords
-    
+
 reserved_map = { }
 for r in keywords:
     reserved_map[ r[8:] ] = r
@@ -161,9 +161,9 @@ def t_error(t):
     t.lexer.skip(1)
 
 # Build the lexer
-lexer = lex.lex()
+Lexer = lex.lex()
 
-# # Test it out
+# Test it out
 # filename = sys.argv[1]
 # f = open(filename,'r')
 # inputArray = f.readlines()
@@ -172,7 +172,7 @@ lexer = lex.lex()
 # for i in range(0,len(inputArray)):
 # 	data = data + inputArray[i]
 # # Give the lexer some input
-# lexer.input(data)
+#
 # # Tokenize
 # output = []
 # i = -1

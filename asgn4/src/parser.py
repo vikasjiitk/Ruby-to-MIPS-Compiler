@@ -1,9 +1,11 @@
 #!/usr/bin/python
 import ply.yacc as yacc
 import sys
+import lexer
 from lexer import tokens
-import types
 import symtable as st
+import types
+import TAC as tac
 body = ""
 filename = sys.argv[1]
 
@@ -494,6 +496,7 @@ def p_for_range(p):
 def p_expr(p):
 	'''expr :   MLHS EQUAL MRHS
 	'''
+
 	i = 1
 	p[0] = ['expr']
 	while(i < len(p)):
@@ -790,16 +793,36 @@ def p_none(p):
 		p[0].append(p[i])
 		i = i+1
 
-yacc.yacc()
-
-data = ""
-with open(filename,'r') as myfile:
-	for line in myfile.readlines():
-		if line!='\n':
-			data = data + line
-
 ST = st.Symtable()
 
-result = yacc.parse(data)
+myfile = open(filename,'r')
+inputArray = myfile.readlines()
+myfile.close()
+ldata = ""
+for i in range(0,len(inputArray)):
+	ldata = ldata + inputArray[i]
+
+lexer.Lexer.input(ldata)
+
+while True:
+	found = 0
+	tok = lexer.Lexer.token()
+	if not tok:
+		break
+	# print tok.value
+	if tok.type == 'VARIABLES':
+		if not(tok.value in ST.vardict.keys()):
+			ST.vardict[tok.value]= {}
+
+# print ST.vardict
+yacc.yacc()
+pdata = ""
+myfile = open(filename,'r')
+for line in myfile.readlines():
+	if line!='\n':
+		pdata = pdata + line
+
+TAC = tac.TAC()
+result = yacc.parse(pdata)
 
 printRightDeriv(result)
