@@ -26,6 +26,7 @@ class Symtable:
 
     def newtemp(self, dic):
         self.temp_no += 1
+        dic["declare"] = True
         temp_name = "temp"+str(self.temp_no)
         self.varinsert(temp_name, dic)
         return temp_name

@@ -19,6 +19,8 @@ class TAC:
             self.code.append('return,'+str(lis[0]))
         if instrType == 'scan':  # lis = [src]
             self.code.append('scan,'+str(lis[0]))
+        if instrType == 'exit':
+            self.code.append('exit')
 
     def printTAC(self):
         for instr in self.code:

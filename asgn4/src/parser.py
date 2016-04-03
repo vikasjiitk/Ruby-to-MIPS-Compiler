@@ -321,11 +321,11 @@ def p_top_stmt(p):
 
 
 	'''
-	i = 1
-	p[0] = ['top_stmt']
-	while(i < len(p)):
-		p[0].append(p[i])
-		i = i+1
+	# i = 1
+	# p[0] = ['top_stmt']
+	# while(i < len(p)):
+	# 	p[0].append(p[i])
+	# 	i = i+1
 
 def p_gen_stmts(p):
 	'''gen_stmts : top_stmt
@@ -347,17 +347,17 @@ def p_stmt(p):
 			| func_call_stmt
 	'''
 
-	i = 1
-	p[0] = ['stmt']
-	while(i < len(p)):
-		p[0].append(p[i])
-		i = i+1
+	# i = 1
+	# p[0] = ['stmt']
+	# while(i < len(p)):
+	# 	p[0].append(p[i])
+	# 	i = i+1
 
 def p_func_call_stmt(p):
 	'''func_call_stmt : fname OPEN_PAREN func_ret_arg CLOSE_PAREN
 					  | fname func_ret_arg
-	 				  | MLHS EQUAL fname OPEN_PAREN func_ret_arg CLOSE_PAREN
-	 				  | MLHS EQUAL fname func_ret_arg
+	 				  | mlhs EQUAL fname OPEN_PAREN func_ret_arg CLOSE_PAREN
+	 				  | mlhs EQUAL fname func_ret_arg
 	'''
 	i = 1
 	p[0] = ['func_call_stmt']
@@ -370,30 +370,33 @@ def p_loop_stmt(p):
 					| KEYWORD_next
 					| KEYWORD_redo
 	'''
-	i = 1
-	p[0] = ['loop_stmt']
-	while(i < len(p)):
-		p[0].append(p[i])
-		i = i+1
+	# i = 1
+	# p[0] = ['loop_stmt']
+	# while(i < len(p)):
+	# 	p[0].append(p[i])
+	# 	i = i+1
 
 def p_exit_stmt(p):
-	''' exit_stmt : KEYWORD_exit
-	'''
-	i = 1
-	p[0] = ['exit_stmt']
-	while(i < len(p)):
-		p[0].append(p[i])
-		i = i+1
+    ''' exit_stmt : KEYWORD_exit'''
+    TAC.emit("exit")
+# p[0] = TODO
+# i = 1
+# p[0] = ['exit_stmt']
+# while(i < len(p)):
+# 	p[0].append(p[i])
+# 	i = i+1
 
 def p_puts_stmt(p):
-	'''puts_stmt : KEYWORD_puts mrhs
+    '''puts_stmt : KEYWORD_puts mrhs
 				 | KEYWORD_puts expr
-	'''
-	i = 1
-	p[0] = ['puts_stmt']
-	while(i < len(p)):
-		p[0].append(p[i])
-		i = i+1
+    '''
+    TAC.emit("print", p[2]["place"])
+    # p[0] = TODO
+	# i = 1
+	# p[0] = ['puts_stmt']
+	# while(i < len(p)):
+	# 	p[0].append(p[i])
+	# 	i = i+1
 
 def p_func_stmts(p):
 	''' func_stmts : func_stmt
@@ -505,46 +508,56 @@ def p_for_range(p):
 		i = i+1
 
 def p_expr(p):
-	'''expr :   MLHS EQUAL MRHS
-	'''
+    '''expr :   mlhs EQUAL mrhs
+    '''
+    #type-check
+    ST.update(p[1]["place"], "type", p[3]["type"])
+    TAC.emit('Assignment', [p[1]["place"], p[3]["place"]])
+    p[0] = p[1]
+	# i = 1
+	# p[0] = ['expr']
+	# while(i < len(p)):
+	# 	p[0].append(p[i])
+	# 	i = i+1
 
-	i = 1
-	p[0] = ['expr']
-	while(i < len(p)):
-		p[0].append(p[i])
-		i = i+1
-
-def p_MLHS(p):
-	'''MLHS : mlhs
-			| MLHS COMMA mlhs
-	'''
-	i=1
-	p[0] = ['MLHS']
-	while(i < len(p)):
-		p[0].append(p[i])
-		i = i+1
-
-def p_MRHS(p):
-	'''MRHS : mrhs
-			| MRHS COMMA mrhs
-
-	'''
-	i=1
-	p[0] = ['MRHS']
-	while(i < len(p)):
-		p[0].append(p[i])
-		i = i+1
+# def p_MLHS(p):
+# 	'''MLHS : mlhs
+# 			| MLHS COMMA mlhs
+# 	'''
+# 	i=1
+# 	p[0] = ['MLHS']
+# 	while(i < len(p)):
+# 		p[0].append(p[i])
+# 		i = i+1
+#
+# def p_MRHS(p):
+# 	'''MRHS : mrhs
+# 			| MRHS COMMA mrhs
+#
+# 	'''
+# 	i=1
+# 	p[0] = ['MRHS']
+# 	while(i < len(p)):
+# 		p[0].append(p[i])
+# 		i = i+1
 
 def p_mlhs(p):
-	'''mlhs : VARIABLES
-			| CONSTANTS
-			| array
-	'''
-	i = 1
-	p[0] = ['mlhs']
-	while(i < len(p)):
-		p[0].append(p[i])
-		i = i+1
+    '''mlhs : VARIABLES
+    		| CONSTANTS
+    		| array
+    '''
+    if(isinstance(p[1],dict)):
+        p[0] = p[1]
+    else:
+        ST.update(p[1],"declare", True)
+        var_dict = ST.varlookup(p[1])
+        p[0] = {"place":p[1], "type": var_dict["type"]}
+
+	# i = 1
+	# p[0] = ['mlhs']
+	# while(i < len(p)):
+	# 	p[0].append(p[i])
+	# 	i = i+1
 
 def p_mrhs(p):
 	'''mrhs :   expr1
@@ -567,9 +580,9 @@ def p_mrhs(p):
 		else:
 		    p[0] = p[1]
 	elif (len(p) == 3):
-		temp_name = ST.newtemp({"type" : "none"})
+		temp_name = ST.newtemp({"type" : "array"})
 		TAC.emit('Assignment', [temp_name, "[]"])
-		p[0] = {"place": temp_name, "type": none}
+		p[0] = {"place": temp_name, "type": "array"}
 	# i = 1
 	# p[0] = ['mrhs']
 	# while(i < len(p)):
@@ -602,13 +615,13 @@ def p_primary(p):
 	if (isinstance(p[1],dict)):
 		TAC.emit('Assignment',[temp_name, p[1]["place"]])
 		p[0] = p[1]
-	elif p[1] == TRUE:
+	elif p[1] == 'TRUE':
 		temp_name = ST.newtemp({"type" : "bool"})
 		TAC.emit('Assignment', [temp_name, '1'])
 		p[0] = {"place": temp_name, "type": "bool"}
-	elif p[1] == FALSE:
+	elif p[1] == 'FALSE':
 		temp_name = ST.newtemp({"type" : "bool"})
-		TAC.emit('Assignment', [temp_name], '0')
+		TAC.emit('Assignment', [temp_name, '0'])
 		p[0] = {"place": temp_name, "type": "bool"}
 	else:
 		TAC.emit('Assignment',[temp_name, p[1]])
@@ -870,38 +883,39 @@ def p_expr11(p):
 
 
 def p_expr13(p):
-	'''expr13 : OPEN_PAREN expr1 CLOSE_PAREN
-			  | uexpr INT_CONSTANTS
-			  | uexpr  FLOAT_CONSTANTS
-			  | CONSTANTS
-			  | VARIABLES
-			  | array
-	'''
-	if(len(p)==2):
-
-		if (isinstance(p[1],dict)):   ## ARRAY
-			TAC.emit('Assignment', [temp_name, p[1]["place"]])
-            		p[0] = p[1]
-		else:                        ## CONSTANTS, VARIABLES
-            		temp_name = ST.newtemp({})
-			TAC.emit('Assignment', [temp_name, p[1]])
-			var_dict = ST.varlookup(p[1])
-			p[0] = {"place": temp_name, "type": var_dict["type"]}
-            		ST.update(temp_name, "type", var_dict["type"])
-			# if(p[0]["type"]=="none"):
-			# 	print ("ERROR")
-	elif (len(p)==3):
-		print (p[1],p[2])
-		temp_name = ST.newtemp({})
-		TAC.emit('Assignment', [temp_name, p[1]+p[2]])
-		if (strType(p[2])=="int"):
-			ST.update(temp_name,"type","integer")
-			p[0] = {"place": temp_name, "type": "integer"}
-		if (strType(p[2])=="float"):
-			ST.update(temp_name,"type","float")
-			p[0] = {"place": temp_name, "type": "float"}
-	elif (len(p)==4):
-		p[0] = {"place": p[2]["place"], "type": p[2]["type"]}
+    '''expr13 : OPEN_PAREN expr1 CLOSE_PAREN
+    		  | uexpr INT_CONSTANTS
+    		  | uexpr  FLOAT_CONSTANTS
+    		  | CONSTANTS
+    		  | VARIABLES
+    		  | array
+    '''
+    if(len(p)==2):
+        if (isinstance(p[1],dict)):   ## ARRAY
+            TAC.emit('Assignment', [temp_name, p[1]["place"]])
+            p[0] = p[1]
+        else:              ## constants, variables
+            temp_name = ST.newtemp({})
+            TAC.emit('Assignment', [temp_name, p[1]])
+            var_dict = ST.varlookup(p[1])
+            if (var_dict["declare"] == False):
+                print("declaration error: variable", p[1], 'not declared.')
+            p[0] = {"place": temp_name, "type": var_dict["type"]}
+            ST.update(temp_name, "type", var_dict["type"])
+    		# if(p[0]["type"]=="none"):
+    		# 	print ("ERROR")
+    elif (len(p)==3):
+    	print (p[1],p[2])
+    	temp_name = ST.newtemp({})
+    	TAC.emit('Assignment', [temp_name, p[1]+p[2]])
+    	if (strType(p[2])=="int"):
+    		ST.update(temp_name,"type","integer")
+    		p[0] = {"place": temp_name, "type": "integer"}
+    	if (strType(p[2])=="float"):
+    		ST.update(temp_name,"type","float")
+    		p[0] = {"place": temp_name, "type": "float"}
+    elif (len(p)==4):
+    	p[0] = {"place": p[2]["place"], "type": p[2]["type"]}
 	# i = 1
 	# p[0] = ['expr13']
 	# while(i < len(p)):
@@ -909,11 +923,16 @@ def p_expr13(p):
 	# 	i = i+1
 
 def p_array(p):
-	'''array : VARIABLES OPEN_BRACKET expr7 CLOSE_BRACKET
-	'''
-	temp_name = ST.newtemp({"type" : "none"})
-	TAC.emit('Assignment', [temp_name, p[1]+p[2]+p[3]["place"]+p[4]])
-	p[0] = {"place": temp_name, "type": "none"}
+    '''array : VARIABLES OPEN_BRACKET expr7 CLOSE_BRACKET
+    '''
+    var_dict = ST.varlookup(p[1])
+    if(var_dict["declare"]==False):
+        print("declaration error: variable", p[1], 'not declared.')
+    elif(var_dict["type"] != "array"):
+        print(p[1], 'is not array type.')
+    temp_name = ST.newtemp({"type" : "none"})
+    TAC.emit('Assignment', [temp_name, p[1]+p[2]+p[3]["place"]+p[4]])
+    p[0] = {"place": temp_name, "type": "none"}
 # 	i = 1
 # 	p[0] = ['array']
 # 	while(i < len(p)):
@@ -999,7 +1018,7 @@ while True:
 	# print tok.value
 	if tok.type == 'VARIABLES':
 		if not(tok.value in ST.vardict.keys()):
-			ST.vardict[tok.value]= {"type":"none"}
+			ST.vardict[tok.value]= {"type":"none", "declare" : False}
 
 # print ST.vardict
 yacc.yacc()
