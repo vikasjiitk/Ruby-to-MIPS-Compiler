@@ -551,7 +551,6 @@ def p_mrhs(p):
 			| str_expr
 			| KEYWORD_gets
 			| OPEN_BRACKET CLOSE_BRACKET
-			| OPEN_BRACKET func_ret_arg CLOSE_BRACKET
 			| VARIABLES DOT VARIABLES OPEN_PAREN arguments CLOSE_PAREN
 			| VARIABLES DOT VARIABLES OPEN_PAREN CLOSE_PAREN
 			| VARIABLES DOT VARIABLES
@@ -560,21 +559,34 @@ def p_mrhs(p):
 			| CONSTANTS DOT KEYWORD_new OPEN_PAREN CLOSE_PAREN
 
 	'''
-	i = 1
-	p[0] = ['mrhs']
-	while(i < len(p)):
-		p[0].append(p[i])
-		i = i+1
+	if (len(p)==2):
+		if p[1] == 'gets':
+		    temp_name = ST.newtemp({"type":"none"})
+		    TAC.emit('Assignment', [temp_name, "scan"])
+		    p[0] = {"place": temp_name, "type": "none"}
+		else:
+		    p[0] = p[1]
+	elif (len(p) == 3):
+		temp_name = ST.newtemp({"type" : "none"})
+		TAC.emit('Assignment', [temp_name, "[]"])
+		p[0] = {"place": temp_name, "type": none}
+	# i = 1
+	# p[0] = ['mrhs']
+	# while(i < len(p)):
+	# 	p[0].append(p[i])
+	# 	i = i+1
 
 def p_str_expr(p):
-	'''str_expr : str_expr PLUS STRING_CONSTANTS
-				| STRING_CONSTANTS
+	'''str_expr : STRING_CONSTANTS
 	'''
-	i = 1
-	p[0] = ['str_expr']
-	while(i < len(p)):
-		p[0].append(p[i])
-		i = i+1
+	temp_name = ST.newtemp({"type" : "string"})
+	TAC.emit('Assignment', [temp_name, p[1]])
+	p[0] = {"place": temp_name, "type": "string"}
+	# i = 1
+	# p[0] = ['str_expr']
+	# while(i < len(p)):
+	# 	p[0].append(p[i])
+	# 	i = i+1
 
 def p_primary(p):
 	'''primary  :   INT_CONSTANTS
@@ -586,11 +598,38 @@ def p_primary(p):
 		|   VARIABLES
 		|	array
 	'''
-	i = 1
-	p[0] = ['primary']
-	while(i < len(p)):
-		p[0].append(p[i])
-		i = i+1
+
+	if (isinstance(p[1],dict)):
+		TAC.emit('Assignment',[temp_name, p[1]["place"]])
+		p[0] = p[1]
+	elif p[1] == TRUE:
+		temp_name = ST.newtemp({"type" : "bool"})
+		TAC.emit('Assignment', [temp_name, '1'])
+		p[0] = {"place": temp_name, "type": "bool"}
+	elif p[1] == FALSE:
+		temp_name = ST.newtemp({"type" : "bool"})
+		TAC.emit('Assignment', [temp_name], '0')
+		p[0] = {"place": temp_name, "type": "bool"}
+	else:
+		TAC.emit('Assignment',[temp_name, p[1]])
+		if (strType(p[1])=='int'):
+		    temp_name = ST.newtemp({"type" : "int"})
+		    p[0] = {"place": temp_name, "type": "int"}
+
+		elif (strType(p[1])=='float'):
+		    temp_name = ST.newtemp({"type" : "float"})
+		    p[0] = {"place": temp_name, "type": "float"}
+
+		elif (strType(p[1])=='str'):
+		    temp_name = ST.newtemp({"type" : "string"})
+		    p[0] = {"place": temp_name, "type": "string"}
+
+
+	# i = 1
+	# p[0] = ['primary']
+	# while(i < len(p)):
+	# 	p[0].append(p[i])
+	# 	i = i+1
 
 def p_expr1(p):
 	'''expr1 : expr3
@@ -620,7 +659,7 @@ def p_expr3(p):
 	if (len(p)==2):
 		p[0] = {"place": p[1]["place"], "type": p[1]["type"]}
 	else:
-		temp_name = ST.newtemp({})
+		temp_name = ST.newtemp({"type" : "bool"})
 		label_name = ST.newlabel()
 		label_name2 = ST.newlabel()
 		TAC.emit('logical', ['|',temp_name, p[1]["place"], p[2]["place"]])
@@ -631,6 +670,7 @@ def p_expr3(p):
 		TAC.emit('Assignment', [temp_name, '1'])
 		TAC.emit('label', [label_name2])
 		p[0] = {"place": temp_name, "type": "bool"}
+
 	# i = 1
 	# p[0] = ['expr3']
 	# while(i < len(p)):
@@ -644,7 +684,7 @@ def p_expr4(p):
 	if (len(p)==2):
 		p[0] = {"place": p[1]["place"], "type": p[1]["type"]}
 	else:
-		temp_name = ST.newtemp({})
+		temp_name = ST.newtemp({"type" : "bool"})
 		label_name = ST.newlabel()
 		label_name2 = ST.newlabel()
 		TAC.emit('logical', ['&',temp_name, p[1]["place"], p[2]["place"]])
@@ -669,7 +709,7 @@ def p_expr5(p):
 	if (len(p)==2):
 		p[0] = {"place": p[1]["place"], "type": p[1]["type"]}
 	else:
-		temp_name = ST.newtemp({})
+		temp_name = ST.newtemp({"type" : "bool"})
 		label_name = ST.newlabel()
 		label_name2 = ST.newlabel()
 		if (p[2] == '=='):
@@ -698,17 +738,17 @@ def p_expr6(p):
 	'''
 	if (len(p)==2):
 		if(p[1]=="TRUE"):
-			temp_name = ST.newtemp({})
+			temp_name = ST.newtemp({"type" : "bool"})
 			TAC.emit('Assignment',[temp_name, '1'])
 			p[0] = {"place": temp_name, "type": "bool"}
 		elif(p[1]=="FALSE"):
-			temp_name = ST.newtemp({})
+			temp_name = ST.newtemp({"type" : "bool"})
 			TAC.emit('Assignment',[temp_name, '0'])
 			p[0] = {"place": temp_name, "type": "bool"}
 		else:
 			p[0] = {"place": p[1]["place"], "type": p[1]["type"]}
 	else:
-		temp_name = ST.newtemp({})
+		temp_name = ST.newtemp({"type" : "bool"})
 		label_name = ST.newlabel()
 		label_name2 = ST.newlabel()
 		if (p[2]=="<="):
@@ -739,7 +779,7 @@ def p_expr7(p):
 	if (len(p)==2):
 		p[0] = {"place": p[1]["place"], "type": p[1]["type"]}
 	else:
-		temp_name = ST.newtemp({})
+		temp_name = ST.newtemp({"type" : "int"})
 		TAC.emit('logical',[p[2],temp_name,p[1]["place"],p[3]["place"]])
 		p[0] = {"place": temp_name, "type": p[1]["type"]}
 	# i = 1
@@ -755,7 +795,7 @@ def p_expr8(p):
 	if (len(p)==2):
 		p[0] = {"place": p[1]["place"], "type": p[1]["type"]}
 	else:
-		temp_name = ST.newtemp({})
+		temp_name = ST.newtemp({"type" : "int"})
 		TAC.emit('logical',[p[2],temp_name,p[1]["place"],p[3]["place"]])
 		p[0] = {"place": temp_name, "type": p[1]["type"]}
 	# i = 1
@@ -772,7 +812,7 @@ def p_expr9(p):
 	if (len(p)==2):
 		p[0] = {"place": p[1]["place"], "type": p[1]["type"]}
 	else:
-		temp_name = ST.newtemp({})
+		temp_name = ST.newtemp({"type" : "int"})
 		TAC.emit('logical',[p[2],temp_name,p[1]["place"],p[3]["place"]])
 		p[0] = {"place": temp_name, "type": p[1]["type"]}
 	# i = 1
@@ -789,7 +829,7 @@ def p_expr10(p):
 	if (len(p)==2):
 		p[0] = {"place": p[1]["place"], "type": p[1]["type"]}
 	else:
-		temp_name = ST.newtemp({})
+		temp_name = ST.newtemp({"type" : "int"})
 		TAC.emit('Arithmetic',[p[2],temp_name,p[1]["place"],p[3]["place"]])
 		p[0] = {"place": temp_name, "type": p[1]["type"]}
 	# i = 1
@@ -807,7 +847,7 @@ def p_expr11(p):
 	if (len(p)==2):
 		p[0] = {"place": p[1]["place"], "type": p[1]["type"]}
 	else:
-		temp_name = ST.newtemp({})
+		temp_name = ST.newtemp({"type" : "int"})
 		TAC.emit('Arithmetic',[p[2],temp_name,p[1]["place"],p[3]["place"]])
 		p[0] = {"place": temp_name, "type": p[1]["type"]}
 	# i = 1
@@ -838,13 +878,16 @@ def p_expr13(p):
 			  | array
 	'''
 	if(len(p)==2):
-		temp_name = ST.newtemp({})
+
 		if (isinstance(p[1],dict)):   ## ARRAY
 			TAC.emit('Assignment', [temp_name, p[1]["place"]])
+            		p[0] = p[1]
 		else:                        ## CONSTANTS, VARIABLES
+            		temp_name = ST.newtemp({})
 			TAC.emit('Assignment', [temp_name, p[1]])
 			var_dict = ST.varlookup(p[1])
 			p[0] = {"place": temp_name, "type": var_dict["type"]}
+            		ST.update(temp_name, "type", var_dict["type"])
 			# if(p[0]["type"]=="none"):
 			# 	print ("ERROR")
 	elif (len(p)==3):
@@ -868,7 +911,7 @@ def p_expr13(p):
 def p_array(p):
 	'''array : VARIABLES OPEN_BRACKET expr7 CLOSE_BRACKET
 	'''
-	temp_name = ST.newtemp({})
+	temp_name = ST.newtemp({"type" : "none"})
 	TAC.emit('Assignment', [temp_name, p[1]+p[2]+p[3]["place"]+p[4]])
 	p[0] = {"place": temp_name, "type": "none"}
 # 	i = 1
