@@ -21,6 +21,15 @@ class TAC:
             self.code.append('scan,'+str(lis[0]))
         if instrType == 'exit':
             self.code.append('exit')
+        if instrType == 'func_arg':   # lis = [src, special_registor_number]
+            self.code.append('funcarg,'+str(lis[0])+','+str(lis[1]))
+        if instrType == 'param':     # lis = [src]
+            self.code.append('param,'+str(lis[0]))
+        if instrType == 'call': # lis = [fname, return value]
+            if (lis[1]==''):
+                self.code.append('call,'+str(lis[0]))
+            else:
+                self.code.append('call,'+str(lis[0])+','+str(lis[1]))
 
     def printTAC(self):
         for instr in self.code:

@@ -1,10 +1,15 @@
+label_num = 0
 class Symtable:
 
-    def __init__(self):
+    def __init__(self, scope):
         self.vardict = {}
         self.funcdict = {}
         self.temp_no = 0
         self.label_no = 0
+        if(scope == "local"):
+            self.label_prefix = 'l_'
+        else:
+            self.label_prefix = ''
 
     def varlookup(self, var):
         if var in self.vardict.keys():
@@ -14,15 +19,15 @@ class Symtable:
 
     def funclookup(self, func):
         if func in self.funcdict.keys():
-            return self.vardict[func]
+            return self.funcdict[func]
         else:
              return False
 
     def varinsert(self, var, dic):
         self.vardict[var] = dic
 
-    def funcinsert(self, var, dic):
-        self.vardict[func] = dic
+    def funcinsert(self, func, dic):
+        self.funcdict[func] = dic
 
     def newtemp(self, dic):
         self.temp_no += 1
@@ -36,5 +41,7 @@ class Symtable:
 
     def newlabel(self):
         self.label_no += 1
-        label_name = "label"+str(self.label_no)
+        global label_num
+        label_num += 1
+        label_name = self.label_prefix + "label" + str(label_num)
         return label_name
