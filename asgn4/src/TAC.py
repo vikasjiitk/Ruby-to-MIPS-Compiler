@@ -1,6 +1,7 @@
 class TAC:
     def __init__(self):
         self.code = []
+        self.error = False
 
     def emit(self, instrType, lis):
         if instrType == 'Assignment':   # lis = [des, src]
