@@ -6,6 +6,13 @@ from lexer import tokens
 import symtable as st
 import types
 import TAC as tac
+import warnings
+def fxn():
+    warnings.warn("deprecated", DeprecationWarning)
+
+with warnings.catch_warnings():
+    warnings.simplefilter("ignore")
+    fxn()
 body = ""
 filename = sys.argv[1]
 

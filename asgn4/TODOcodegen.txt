@@ -1,0 +1,8 @@
+
+1) Add 'goto' statements
+2) remove line numbers from ifgoto
+3) TAC for label (handled only for functions, check for normal label statements)
+4) eXit
+5) func call arguments
+6) func definition arguments
+7) param
