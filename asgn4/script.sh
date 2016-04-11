@@ -1,0 +1,1 @@
+bin/irgen $1

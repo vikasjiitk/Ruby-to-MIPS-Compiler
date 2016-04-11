@@ -21,3 +21,13 @@ After execution, run the command
 ```
 make clean
 ```
+
+Features 
+--------- 
+* if else tail  
+* for  
+* while  
+* functions and arguments passing  
+* array  
+* recursion  
+* data types - integers and strings (only printing for string, no operations on strings)

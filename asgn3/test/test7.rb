@@ -7,7 +7,7 @@ a+1
    end
    def bye
    puts "Bye Ruby"
-   end 
+   end
 end
  object = Sample.new
 ary = [1,2,3,4,5]

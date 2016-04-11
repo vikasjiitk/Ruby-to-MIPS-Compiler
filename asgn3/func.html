@@ -1,0 +1,74 @@
+
+<HTML>
+<BODY> 
+<b>program</b><br>
+<b> top_top_compstmt</b><br>
+ statements<b> opt_terms</b><br>
+ statements<b> terms</b><br>
+ statements terms<b> term</b><br>
+ statements<b> terms</b> NEWLINE<br>
+ statements<b> term</b> NEWLINE<br>
+<b> statements</b> ; NEWLINE<br>
+ statements terms<b> statement</b> ; NEWLINE<br>
+ statements terms<b> top_compstmt</b> ; NEWLINE<br>
+ statements terms<b> top_stmts</b> ; NEWLINE<br>
+ statements terms<b> top_stmt</b> ; NEWLINE<br>
+ statements terms<b> stmt</b> ; NEWLINE<br>
+ statements terms<b> func_call_stmt</b> ; NEWLINE<br>
+ statements terms MLHS = fname (<b> func_ret_arg</b> ) ; NEWLINE<br>
+ statements terms MLHS = fname (<b> primary</b> ) ; NEWLINE<br>
+ statements terms MLHS =<b> fname</b> ( i ) ; NEWLINE<br>
+ statements terms<b> MLHS</b> = foo ( i ) ; NEWLINE<br>
+ statements terms<b> mlhs</b> = foo ( i ) ; NEWLINE<br>
+ statements<b> terms</b> i = foo ( i ) ; NEWLINE<br>
+ statements<b> term</b> i = foo ( i ) ; NEWLINE<br>
+<b> statements</b> NEWLINE i = foo ( i ) ; NEWLINE<br>
+<b> statement</b> NEWLINE i = foo ( i ) ; NEWLINE<br>
+<b> func_defn</b> NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts<b> opt_terms</b> end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts<b> terms</b> end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts terms<b> term</b> end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts<b> terms</b> NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts<b> term</b> NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( )<b> func_stmts</b> ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts terms<b> func_stmt</b> ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts terms return<b> func_ret_arg</b> ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts terms return<b> primary</b> ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts<b> terms</b> return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts terms<b> term</b> return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts<b> terms</b> NEWLINE return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts<b> term</b> NEWLINE return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( )<b> func_stmts</b> ; NEWLINE return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts terms<b> func_stmt</b> ; NEWLINE return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts terms<b> top_stmt</b> ; NEWLINE return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts terms<b> stmt</b> ; NEWLINE return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts terms<b> expr</b> ; NEWLINE return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts terms MLHS =<b> MRHS</b> ; NEWLINE return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts terms MLHS =<b> mrhs</b> ; NEWLINE return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts terms MLHS =<b> expr1</b> ; NEWLINE return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts terms MLHS =<b> expr2</b> ; NEWLINE return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts terms MLHS =<b> expr3</b> ; NEWLINE return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts terms MLHS =<b> expr4</b> ; NEWLINE return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts terms MLHS =<b> expr5</b> ; NEWLINE return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts terms MLHS =<b> expr6</b> ; NEWLINE return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts terms MLHS =<b> expr7</b> ; NEWLINE return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts terms MLHS =<b> expr8</b> ; NEWLINE return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts terms MLHS =<b> expr9</b> ; NEWLINE return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts terms MLHS =<b> expr10</b> ; NEWLINE return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts terms MLHS =<b> expr11</b> ; NEWLINE return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts terms MLHS =<b> expr12</b> ; NEWLINE return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts terms MLHS =<b> expr13</b> ; NEWLINE return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts terms MLHS =<b> uexpr</b> 1 ; NEWLINE return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts terms MLHS =<b> none</b> 1 ; NEWLINE return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts terms<b> MLHS</b> = 1 ; NEWLINE return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts terms<b> mlhs</b> = 1 ; NEWLINE return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts<b> terms</b> i = 1 ; NEWLINE return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( ) func_stmts<b> term</b> i = 1 ; NEWLINE return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( )<b> func_stmts</b> NEWLINE i = 1 ; NEWLINE return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def fname ( )<b> none</b> NEWLINE i = 1 ; NEWLINE return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def<b> fname</b> ( ) NEWLINE i = 1 ; NEWLINE return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+ def foo ( ) NEWLINE i = 1 ; NEWLINE return 0 ; NEWLINE end NEWLINE i = foo ( i ) ; NEWLINE<br>
+
+</BODY>
+</HTML>
+
