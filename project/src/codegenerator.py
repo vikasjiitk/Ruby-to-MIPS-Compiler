@@ -14,6 +14,7 @@ leaders = [0]
 Instr=0
 Infinite = 10000000000
 variables =[]
+arrays=[]
 strings = {}
 exit = False
 
@@ -35,6 +36,8 @@ def initializeReg():
     RegConstant =[]
     RegDescriptor = {}
     for i in variables:
+        AddDescriptor[i] = ['memory']
+    for i in arrays:
         AddDescriptor[i] = ['memory']
 
 def dumpReg():
@@ -190,6 +193,13 @@ def code_gen(initial, final):
             MIPScode.append('syscall')
             freeReg(Instr, symTableNo)
 
+        elif Instr3AC[Instr].instrType == 'prints':
+            MIPScode.append('li $v0, 4')
+            reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
+            MIPScode.append('move $a0, '+ reg1)
+            MIPScode.append('syscall')
+            freeReg(Instr, symTableNo)
+
         elif Instr3AC[Instr].instrType == 'scan':
             reg1 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
             MIPScode.append('li $v0,5')
@@ -236,7 +246,13 @@ def code_gen(initial, final):
             freeReg(Instr, symTableNo)
 
         elif Instr3AC[Instr].operator == '=':
-            if (is_int(Instr3AC[Instr].input1) == True):
+            if(Instr3AC[Instr].input1=='[]'):
+                reg1 = getreg(Instr, Instr3AC[Instr].output, symTableNo) 
+                MIPScode.append('la '+reg1+','+Instr3AC[Instr].output)
+            elif (Instr3AC[Instr].input1[0] == '"' or Instr3AC[Instr].input1[0] == "'"):  #handling string constants
+                reg1 = getreg(Instr, Instr3AC[Instr].output, symTableNo) 
+                MIPScode.append('la '+reg1+','+strings[Instr3AC[Instr].input1[1:-2]])
+            elif (is_int(Instr3AC[Instr].input1) == True):
                 reg1 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
                 MIPScode.append('addi '+reg1+',$0,'+Instr3AC[Instr].input1)
             else:

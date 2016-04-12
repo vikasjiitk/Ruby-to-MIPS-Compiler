@@ -1,0 +1,13 @@
+0,label,main
+1,call,myfunc
+2,label,myfunc
+3,=,g.0,g
+4,ifgoto,beq,g.0,0,6
+5,ifgoto,ble,1,2,7
+6,ret
+7,=,g.1,g
+8,print,g.1
+9,=,g.2,g
+10,-,g.3,g.2,1
+11,=,g,g.3
+12,call,myfunc

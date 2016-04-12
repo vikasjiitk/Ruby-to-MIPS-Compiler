@@ -1,0 +1,54 @@
+[0, 2, 5, 6, 7, 13]
+.data
+g.31: .word 0
+g.21: .word 0
+g.01: .word 0
+g1: .word 0
+g.11: .word 0
+.text
+main: 
+L1: 
+jal myfunc
+addi $s7,$0,1
+move $s7,$v1
+myfunc: 
+L3: 
+lw $s7,g1
+move $s6,$s7
+sw $s7,g1
+L4: 
+sw $s6,g.01
+lw $s6,g.01
+addi $s7,$0,0
+beq $s6,$s7,L6
+sw $s6,g.01
+L5: 
+addi $s7,$0,1
+addi $s6,$0,2
+ble $s7,$s6,L7
+L6: 
+li $v0, 10
+syscall
+L7: 
+lw $s7,g1
+move $s6,$s7
+L8: 
+li $v0, 1
+move $a0, $s6
+syscall
+sw $s6,g.11
+L9: 
+move $s6,$s7
+sw $s7,g1
+L10: 
+addi $s7,$0,1
+sub $s5,$s6,$s7
+sw $s6,g.21
+L11: 
+move $s6,$s5
+sw $s5,g.31
+sw $s6,g1
+L12: 
+jal myfunc
+addi $s6,$0,1
+move $s6,$v1

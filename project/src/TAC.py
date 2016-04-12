@@ -63,6 +63,11 @@ def Print(i,words):
     cg.Instr3AC[i].instrType  = "print"
     cg.Instr3AC[i].input1 = words[1]
 
+def Prints(i,words):
+    cg.Instr3AC[i].instrType  = "prints"
+    cg.Instr3AC[i].input1 = words[1]
+
+
 def Scan(i,words):
     cg.Instr3AC[i].instrType = "scan"
     cg.Instr3AC[i].output = words[1]
@@ -78,18 +83,21 @@ def getVariables(NumInstr):
     cg.variables = []
     stringNo = 0;
     for i in range(NumInstr):
-        if (cg.is_int(cg.Instr3AC[i].input1) == False and cg.Instr3AC[i].input1!= ""):
-            if not(cg.Instr3AC[i].input1[0] == '"' or cg.Instr3AC[i].input1[0] == "'"):  #handling string constants
-                cg.variables.append(cg.Instr3AC[i].input1)
-            else:
-                cg.strings["cg.Instr3AC[i].input1[0]"] = 'string'+str(stringNo)
-                stringNo += 1
-        if (cg.is_int(cg.Instr3AC[i].input2) == False and cg.Instr3AC[i].input2!= ""):
-            if not(cg.Instr3AC[i].input2[0] == '"' or cg.Instr3AC[i].input2[0] == "'"):
-                cg.variables.append(cg.Instr3AC[i].input2)
-        if (cg.is_int(cg.Instr3AC[i].output) == False and cg.Instr3AC[i].output!= ""):
-            if not(cg.Instr3AC[i].output[0] == '"' or cg.Instr3AC[i].output[0] == "'"):
-                cg.variables.append(cg.Instr3AC[i].output)
+        if(cg.Instr3AC[i].input1=='[]'): #a=[] handling arrays
+            cg.arrays.append(cg.Instr3AC[i].output)
+        else:    #handling int variables and strings
+            if (cg.is_int(cg.Instr3AC[i].input1) == False and cg.Instr3AC[i].input1!= ""):
+                if not(cg.Instr3AC[i].input1[0] == '"' or cg.Instr3AC[i].input1[0] == "'"):  
+                    cg.variables.append(cg.Instr3AC[i].input1)
+                else:   #handling string constants
+                    cg.strings[cg.Instr3AC[i].input1[1:-2]] = 'str'+str(stringNo)
+                    stringNo += 1
+            if (cg.is_int(cg.Instr3AC[i].input2) == False and cg.Instr3AC[i].input2!= ""):
+                if not(cg.Instr3AC[i].input2[0] == '"' or cg.Instr3AC[i].input2[0] == "'"):
+                    cg.variables.append(cg.Instr3AC[i].input2)
+            if (cg.is_int(cg.Instr3AC[i].output) == False and cg.Instr3AC[i].output!= ""):
+                if not(cg.Instr3AC[i].output[0] == '"' or cg.Instr3AC[i].output[0] == "'"):
+                    cg.variables.append(cg.Instr3AC[i].output)
     cg.variables = set(cg.variables)
     return cg.variables
 
@@ -133,8 +141,11 @@ def getInstrSet(f):
             Goto(cg.Instr,words)
         elif words[0] == 'exit':
             Exit(cg.Instr,words)
+        elif words[0] == 'prints':
+            Prints(cg.Instr,words)
 
-        if(cg.is_int(cg.Instr3AC[cg.Instr].input1) == False and cg.is_int(cg.Instr3AC[cg.Instr].input1) != "" ):
+        
+        if((not cg.Instr3AC[cg.Instr].input1=='[]') and cg.is_int(cg.Instr3AC[cg.Instr].input1) == False and cg.is_int(cg.Instr3AC[cg.Instr].input1) != "" ):
             cg.Instr3AC[cg.Instr].input1 += '1'
         if(cg.is_int(cg.Instr3AC[cg.Instr].input2) == False and cg.is_int(cg.Instr3AC[cg.Instr].input2) != "" ):
             cg.Instr3AC[cg.Instr].input2 += '1'
