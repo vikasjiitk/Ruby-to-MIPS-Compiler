@@ -67,13 +67,23 @@ def Scan(i,words):
     cg.Instr3AC[i].instrType = "scan"
     cg.Instr3AC[i].output = words[1]
 
-def getVariables(NumInstr):
+def Goto(i,words):
+    cg.Instr3AC[i].instrType = "goto"
+    cg.Instr3AC[i].label = words[1]
 
+def Exit(i,words):
+    cg.Instr3AC[i].instrType = "exit"
+
+def getVariables(NumInstr):
     cg.variables = []
+    stringNo = 0;
     for i in range(NumInstr):
         if (cg.is_int(cg.Instr3AC[i].input1) == False and cg.Instr3AC[i].input1!= ""):
             if not(cg.Instr3AC[i].input1[0] == '"' or cg.Instr3AC[i].input1[0] == "'"):  #handling string constants
                 cg.variables.append(cg.Instr3AC[i].input1)
+            else:
+                cg.strings["cg.Instr3AC[i].input1[0]"] = 'string'+str(stringNo)
+                stringNo += 1
         if (cg.is_int(cg.Instr3AC[i].input2) == False and cg.Instr3AC[i].input2!= ""):
             if not(cg.Instr3AC[i].input2[0] == '"' or cg.Instr3AC[i].input2[0] == "'"):
                 cg.variables.append(cg.Instr3AC[i].input2)
@@ -105,7 +115,7 @@ def getInstrSet(f):
             Logical(cg.Instr,words)
         elif words[0] == 'ifgoto':
             cg.leaders.append(cg.Instr3AC[cg.Instr].lineNo + 1)
-            cg.leaders.append(int(words[-1]))
+            # cg.leaders.append(int(words[-1]))
             Ifgoto(cg.Instr,words)
         elif words[0] == 'call':
             cg.leaders.append(cg.Instr3AC[cg.Instr].lineNo + 1)
@@ -119,6 +129,10 @@ def getInstrSet(f):
             Print(cg.Instr,words)
         elif words[0] == 'scan':
             Scan(cg.Instr,words)
+        elif words[0] == 'goto':
+            Goto(cg.Instr,words)
+        elif words[0] == 'exit':
+            Exit(cg.Instr,words)
 
         if(cg.is_int(cg.Instr3AC[cg.Instr].input1) == False and cg.is_int(cg.Instr3AC[cg.Instr].input1) != "" ):
             cg.Instr3AC[cg.Instr].input1 += '1'

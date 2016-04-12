@@ -14,6 +14,7 @@ leaders = [0]
 Instr=0
 Infinite = 10000000000
 variables =[]
+strings = {}
 exit = False
 
 def is_int(s):
@@ -131,17 +132,17 @@ def code_gen(initial, final):
     global Instr3AC
     global exit
     for Instr in range(initial,final+1):
-        if Instr3AC[Instr].instrType != 'label':
-            MIPScode.append('L'+str(Instr3AC[Instr].lineNo)+': ')
+        # if Instr3AC[Instr].instrType != 'label':
+        #     MIPScode.append('L'+str(Instr3AC[Instr].lineNo)+': ')
         symTableNo = Instr - initial +1
         if Instr3AC[Instr].instrType == 'ifgoto':
             dumpReg()
             reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
             if Instr3AC[Instr].operator in ["ble","blt","bge","bgt","beq","bne"]:
                 reg2 = getreg(Instr, Instr3AC[Instr].input2, symTableNo)
-                MIPScode.append(Instr3AC[Instr].operator + ' '+ reg1+','+reg2 + ',' +'L' + str(Instr3AC[Instr].target))
+                MIPScode.append(Instr3AC[Instr].operator + ' '+ reg1+','+reg2 + ','+ str(Instr3AC[Instr].target))
             else :
-                MIPScode.append('bgtz ' + reg1 + ','+'L' + str(Instr3AC[Instr].target))
+                MIPScode.append('bgtz ' + reg1 + ','+ str(Instr3AC[Instr].target)) #useless
             freeReg(Instr, symTableNo)
 
         elif Instr3AC[Instr].instrType == 'FunctionCall':
@@ -157,6 +158,16 @@ def code_gen(initial, final):
             if Instr3AC[Instr].label == "main":
                 exit = True
             freeReg(Instr, symTableNo)
+
+        elif Instr3AC[Instr].instrType == 'goto':
+            MIPScode.append("j "+ Instr3AC[Instr].label)
+            # if Instr3AC[Instr].label == "main":
+            #     exit = True
+            freeReg(Instr, symTableNo)
+
+        elif Instr3AC[Instr].instrType == 'exit':
+            MIPScode.append('li $v0, 10')
+            MIPScode.append('syscall')
 
         elif Instr3AC[Instr].instrType == 'return':
         	if exit == True:
