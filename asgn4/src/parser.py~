@@ -298,7 +298,7 @@ def p_puts_stmt(p):
         temp_name = ST.newtemp({"type" : "string"})
     	TAC.emit('Assignment', [temp_name, p[2]["place"]])
         TAC.emit("prints", [temp_name])
-    elif(p[2]["type"] == "string"):
+    else if(p[2]["type"] == "string"):
         TAC.emit("prints", [p[2]["place"]])
     else:
         TAC.emit("print", [p[2]["place"]])
@@ -815,21 +815,18 @@ def p_expr13(p):
             TAC.emit('Assignment', [temp_name, p[1]["place"]])
             p[0] = {"type":p[1]["type"], "place":temp_name}
         else:              ## constants, variables
+            temp_name = ST.newtemp({})
+            TAC.emit('Assignment', [temp_name, p[1]])
             var_dict = ST.varlookup(p[1])
             if (var_dict == False):
                 var_dict = globalST.varlookup(p[1])
                 if (var_dict == False):
                     print("DECLARATION ERROR: variable", p[1], 'not declared.')
                     TAC.error = True
-            # if(var_dict["type"] != "int"):
-            #     print("TYPE ERROR: variable", p[1], 'not matching type.')
-            if(var_dict["type"] != "string"):
-                temp_name = ST.newtemp({})
-                TAC.emit('Assignment', [temp_name, p[1]])
-                p[0] = {"place": temp_name, "type": var_dict["type"]}
-                ST.update(temp_name, "type", var_dict["type"])
-            else:
-                p[0] = {"place":p[1], "type":"string"}
+            if(var_dict["type"] != "int"):
+                print("TYPE ERROR: variable", p[1], 'not matching type.')
+            p[0] = {"place": temp_name, "type": var_dict["type"]}
+            ST.update(temp_name, "type", var_dict["type"])
     elif (len(p)==3):
     	temp_name = ST.newtemp({})
     	TAC.emit('Assignment', [temp_name, p[1]+p[2]])

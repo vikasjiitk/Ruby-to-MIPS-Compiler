@@ -1,5 +1,12 @@
-def foo()
-i = 1;
-return 0;
+def bar(j)
+s = j*j
+return s
 end
-i = foo();
+def foo(i,a)
+sq = bar(i)
+t = sq + a
+return t;
+end
+f = 6
+i = foo(3,f);
+puts i;

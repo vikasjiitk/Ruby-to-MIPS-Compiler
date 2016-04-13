@@ -37,7 +37,7 @@ constants = [
 symbols = [ # ?, \, $ , :, ::
 	'QUESTION_MARK','BACK_SLASH','DOLLAR','COLON', 'DOUBLE_COLON'
 ]
-tokens = keywords + operators + delimiters + identifiers + constants +symbols
+tokens = keywords + operators + delimiters + constants + identifiers +symbols
 
 # Operators
 t_PLUS=r'\+'
@@ -98,6 +98,14 @@ reserved_map = { }
 for r in keywords:
     reserved_map[ r[8:] ] = r
 
+#constants
+
+t_INT_CONSTANTS = r'[0-9]+'
+t_FLOAT_CONSTANTS = r'[0-9]+\.[0-9]+'
+t_STRING_CONSTANTS = r'"([^\\\"]+|\\.)*"| \'([^\\\']+|\\.)*\''
+t_CHAR_CONSTANTS = r"'.'"
+t_BOOLEAN_CONSTANTS = r'TRUE|FALSE'
+
 #identifiers
 
 def t_CONSTANTS(t):
@@ -124,14 +132,6 @@ def t_SIGIL_DOLLAR(t):
     r'$[A-Za-z_][\w_]*'
     t.type = reserved_map.get(t.value,"SIGIL_DOLLAR")
     return t
-
-#constants
-
-t_INT_CONSTANTS = r'[0-9]+'
-t_FLOAT_CONSTANTS = r'[0-9]+\.[0-9]+'
-t_STRING_CONSTANTS = r'"([^\\\"]+|\\.)*"| \'([^\\\']+|\\.)*\''
-t_CHAR_CONSTANTS = r"'.'"
-t_BOOLEAN_CONSTANTS = r'TRUE|FALSE'
 
 #delimeters
 t_OPEN_BRACKET         = r'\['

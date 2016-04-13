@@ -11,7 +11,7 @@ def fillDataSection(variables):
         cg.MIPSDatacode.append(var+': .word 0')
     for key in cg.strings.keys():
         cg.MIPSDatacode.append(cg.strings[key]+' : .asciiz "' + key + '"')
-    for var in cg.arrays:
+    for var in cg.arrays.keys():
         cg.MIPSDatacode.append(var+': .space 400')
     cg.MIPSDatacode.append('.text')
     cg.MIPSDatacode.append('main:')
@@ -47,4 +47,3 @@ for i in range(0,len(cg.MIPSDatacode)):
 
 for i in range(0,len(cg.MIPScode)):
     print cg.MIPScode[i]
-

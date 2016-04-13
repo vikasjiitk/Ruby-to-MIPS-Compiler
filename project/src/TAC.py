@@ -47,16 +47,20 @@ def Ifgoto(i,words):
 def Function(i,words):
     cg.Instr3AC[i].instrType = "FunctionCall"
     cg.Instr3AC[i].label = words[1]
-    if len(words) == 4:
+    if len(words) == 3:
         cg.Instr3AC[i].output = words[2]
 
 def Return(i,words):
     cg.Instr3AC[i].instrType = "return"
-    if len(words) == 3:
+    if len(words) == 2:
         cg.Instr3AC[i].input1 = words[1]
 
 def Label(i,words):
     cg.Instr3AC[i].instrType = "label"
+    cg.Instr3AC[i].label = words[1]
+
+def fLabel(i,words):
+    cg.Instr3AC[i].instrType = "flabel"
     cg.Instr3AC[i].label = words[1]
 
 def Print(i,words):
@@ -79,23 +83,33 @@ def Goto(i,words):
 def Exit(i,words):
     cg.Instr3AC[i].instrType = "exit"
 
+def param(i, words):
+    cg.Instr3AC[i].instrType = "param"
+    cg.Instr3AC[i].input1 = words[1]
+
+def funcarg(i, words):
+    cg.Instr3AC[i].instrType = "funcarg"
+    cg.Instr3AC[i].input1 = words[1]
+    cg.Instr3AC[i].input2 = words[2]
+
 def getVariables(NumInstr):
     cg.variables = []
     stringNo = 0;
     for i in range(NumInstr):
         if(cg.Instr3AC[i].input1=='[]'): #a=[] handling arrays
-            cg.arrays.append(cg.Instr3AC[i].output)
+            cg.arrays[cg.Instr3AC[i].output] = "array";
         else:    #handling int variables and strings
-            if (cg.is_int(cg.Instr3AC[i].input1) == False and cg.Instr3AC[i].input1!= ""):
-                if not(cg.Instr3AC[i].input1[0] == '"' or cg.Instr3AC[i].input1[0] == "'"):  
-                    cg.variables.append(cg.Instr3AC[i].input1)
+            if (cg.is_int(cg.Instr3AC[i].input1) == False and cg.Instr3AC[i].input1!= "" and (not cg.Instr3AC[i].input1[-1] == ']') ):
+                if not(cg.Instr3AC[i].input1[0] == '"' or cg.Instr3AC[i].input1[0] == "'"):
+                    if(cg.Instr3AC[i].input1 not in cg.arrays.keys()):
+                        cg.variables.append(cg.Instr3AC[i].input1)
                 else:   #handling string constants
                     cg.strings[cg.Instr3AC[i].input1[1:-2]] = 'str'+str(stringNo)
                     stringNo += 1
-            if (cg.is_int(cg.Instr3AC[i].input2) == False and cg.Instr3AC[i].input2!= ""):
+            if (cg.is_int(cg.Instr3AC[i].input2) == False and cg.Instr3AC[i].input2!= "" and (not cg.Instr3AC[i].input2[-1] == ']')):
                 if not(cg.Instr3AC[i].input2[0] == '"' or cg.Instr3AC[i].input2[0] == "'"):
                     cg.variables.append(cg.Instr3AC[i].input2)
-            if (cg.is_int(cg.Instr3AC[i].output) == False and cg.Instr3AC[i].output!= ""):
+            if ((cg.is_int(cg.Instr3AC[i].output) == False and cg.Instr3AC[i].output!= "" )and (not cg.Instr3AC[i].output[-1] == ']')):
                 if not(cg.Instr3AC[i].output[0] == '"' or cg.Instr3AC[i].output[0] == "'"):
                     cg.variables.append(cg.Instr3AC[i].output)
     cg.variables = set(cg.variables)
@@ -131,7 +145,10 @@ def getInstrSet(f):
         elif words[0] == 'label':
             cg.leaders.append(cg.Instr3AC[cg.Instr].lineNo)
             Label(cg.Instr,words)
-        elif words[0] == 'ret':
+        elif words[0] == 'flabel':
+            cg.leaders.append(cg.Instr3AC[cg.Instr].lineNo)
+            fLabel(cg.Instr,words)
+        elif words[0] == 'return':
             Return(cg.Instr,words)
         elif words[0] == 'print':
             Print(cg.Instr,words)
@@ -143,13 +160,16 @@ def getInstrSet(f):
             Exit(cg.Instr,words)
         elif words[0] == 'prints':
             Prints(cg.Instr,words)
+        elif words[0] == 'param':
+            param(cg.Instr, words)
+        elif words[0] == 'funcarg':
+            funcarg(cg.Instr, words)
 
-        
-        if((not cg.Instr3AC[cg.Instr].input1=='[]') and cg.is_int(cg.Instr3AC[cg.Instr].input1) == False and cg.is_int(cg.Instr3AC[cg.Instr].input1) != "" ):
+        if((not cg.Instr3AC[cg.Instr].input1=='[]') and cg.is_int(cg.Instr3AC[cg.Instr].input1) == False and (cg.Instr3AC[cg.Instr].input1) != ""  and (not cg.Instr3AC[cg.Instr].input1[-1] == ']')):
             cg.Instr3AC[cg.Instr].input1 += '1'
-        if(cg.is_int(cg.Instr3AC[cg.Instr].input2) == False and cg.is_int(cg.Instr3AC[cg.Instr].input2) != "" ):
+        if((cg.is_int(cg.Instr3AC[cg.Instr].input2) == False and (cg.Instr3AC[cg.Instr].input2) != "") and (not cg.Instr3AC[cg.Instr].input2[-1] == ']')):
             cg.Instr3AC[cg.Instr].input2 += '1'
-        if(cg.is_int(cg.Instr3AC[cg.Instr].output) == False and cg.is_int(cg.Instr3AC[cg.Instr].output) != "" ):
+        if(cg.is_int(cg.Instr3AC[cg.Instr].output) == False and (cg.Instr3AC[cg.Instr].output) != "" and (not cg.Instr3AC[cg.Instr].output[-1] == ']')):
             cg.Instr3AC[cg.Instr].output += '1'
         cg.Instr = cg.Instr+1
     cg.leaders.append(cg.Instr)

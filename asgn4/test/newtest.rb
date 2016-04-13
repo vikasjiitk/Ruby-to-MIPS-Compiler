@@ -1,4 +1,5 @@
 a = 4;
 c = "t";
-d = a+c;
-
+b = c;e
+puts c;
+puts "hello";

@@ -10,12 +10,16 @@ class TAC:
             self.code.append(str(lis[0])+','+str(lis[1])+','+str(lis[2])+','+str(lis[3]))
         if instrType == 'print':  # lis = [src]
             self.code.append('print,'+str(lis[0]))
+        if instrType == 'prints':  # lis = [src]
+            self.code.append('prints,'+str(lis[0]))
         if instrType == 'goto': # lis = [label]
             self.code.append('goto,'+str(lis[0]))
         if instrType == 'ifgoto': # lis = [rel, src1,src2, lablel]
             self.code.append('ifgoto,'+str(lis[0])+ ',' + str(lis[1])+','+str(lis[2])+','+str(lis[3]))
         if instrType == 'label': # lis = [label]
             self.code.append('label,'+str(lis[0]))
+        if instrType == 'flabel': # lis = [label]
+            self.code.append('flabel,'+str(lis[0]))
         if instrType == 'return': # lis = [src]
             self.code.append('return,'+str(lis[0]))
         if instrType == 'scan':  # lis = [src]

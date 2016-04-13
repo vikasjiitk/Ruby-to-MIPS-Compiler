@@ -14,9 +14,10 @@ leaders = [0]
 Instr=0
 Infinite = 10000000000
 variables =[]
-arrays=[]
+arrays={}
 strings = {}
 exit = False
+paramReg = 0
 
 def is_int(s):
     try:
@@ -37,8 +38,8 @@ def initializeReg():
     RegDescriptor = {}
     for i in variables:
         AddDescriptor[i] = ['memory']
-    for i in arrays:
-        AddDescriptor[i] = ['memory']
+    # for i in arrays:
+    #     AddDescriptor[i] = ['memory']
 
 def dumpReg():
     global MIPScode
@@ -102,6 +103,8 @@ def getreg(Instr, var, symTableNo):
             if(not(Instr3AC[Instr].output == var and Instr3AC[Instr].input1 != var and Instr3AC[Instr].input2 != var)):
                 MIPScode.append('lw '+reg+','+str(var))
             RegDescriptor[var] = reg
+            print var
+            print AddDescriptor
             AddDescriptor[var].append('register')
         else:
             MIPScode.append('addi '+reg+',$0,'+var)
@@ -150,16 +153,34 @@ def code_gen(initial, final):
 
         elif Instr3AC[Instr].instrType == 'FunctionCall':
             dumpReg()
+            global paramReg
             MIPScode.append('jal '+ Instr3AC[Instr].label)
             if Instr3AC[Instr].output != "":
                 reg1 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
                 MIPScode.append('move '+ reg1 + ',$v1')
             freeReg(Instr, symTableNo)
+            paramReg = 0
+
+        elif Instr3AC[Instr].instrType == 'param':
+            global paramReg
+            reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
+            MIPScode.append('move ' + '$a'+str(paramReg)+','+reg1)
+            paramReg += 1
+
+        elif Instr3AC[Instr].instrType == "funcarg":
+            reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
+            MIPScode.append('move '+ reg1 + ',$a'+Instr3AC[Instr].input2)
 
         elif Instr3AC[Instr].instrType == 'label':
             MIPScode.append(Instr3AC[Instr].label + ": ")
             if Instr3AC[Instr].label == "main":
                 exit = True
+            freeReg(Instr, symTableNo)
+
+        elif Instr3AC[Instr].instrType == 'flabel':
+            MIPScode.append(Instr3AC[Instr].label + ": ")
+            MIPScode.append('addi $sp,$sp,-4')
+            MIPScode.append('sw $ra,0($sp)')
             freeReg(Instr, symTableNo)
 
         elif Instr3AC[Instr].instrType == 'goto':
@@ -173,18 +194,22 @@ def code_gen(initial, final):
             MIPScode.append('syscall')
 
         elif Instr3AC[Instr].instrType == 'return':
-        	if exit == True:
+            if exit == True:
         		MIPScode.append('li $v0, 10')
         		MIPScode.append('syscall')
         		exit = False
-        	else:
-	            if Instr3AC[Instr].input1 != "":
-	                reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
-	                MIPScode.append('move $v1, '+ reg1)
-	                MIPScode.append('jr $ra')
-	            else:
-	                MIPScode.append('jr $ra')
-	            freeReg(Instr, symTableNo)
+            else:
+                if Instr3AC[Instr].input1 != "":
+                    reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
+                    MIPScode.append('move $v1, '+ reg1)
+                    MIPScode.append('lw $ra,0($sp)')
+                    MIPScode.append('addi $sp,$sp,4')
+                    MIPScode.append('jr $ra')
+                else:
+                    MIPScode.append('lw $ra,0($sp)')
+                    MIPScode.append('addi $sp,$sp,4')
+                    MIPScode.append('jr $ra')
+                freeReg(Instr, symTableNo)
 
         elif Instr3AC[Instr].instrType == 'print':
             MIPScode.append('li $v0, 1')
@@ -246,11 +271,56 @@ def code_gen(initial, final):
             freeReg(Instr, symTableNo)
 
         elif Instr3AC[Instr].operator == '=':
-            if(Instr3AC[Instr].input1=='[]'):
-                reg1 = getreg(Instr, Instr3AC[Instr].output, symTableNo) 
-                MIPScode.append('la '+reg1+','+Instr3AC[Instr].output)
+            if(Instr3AC[Instr].input1 in arrays.keys()):
+                arrays[Instr3AC[Instr].output] = "pointer"
+                reg1 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
+                MIPScode.append('la ' + reg1 + ',' + Instr3AC[Instr].input1)
+            elif(Instr3AC[Instr].input1=='[]'):
+                print 'helloworld'
+                # nothing has to be done
+                # reg1 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
+                # MIPScode.append('la '+reg1+','+Instr3AC[Instr].output)
+            elif(Instr3AC[Instr].output[-1] == ']'):
+                ind = Instr3AC[Instr].output.find('[')
+                index = Instr3AC[Instr].output[ind+1:-1]
+                if(is_int(index) == False):
+                    index += '1'
+                myarray = Instr3AC[Instr].output[0:ind]
+                myarray += '1'
+                reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
+                reg2 = getreg(Instr, index, symTableNo)
+                reg3 = getreg(Instr, '4', symTableNo)
+                MIPScode.append('mult '+reg2+','+reg3)
+                MIPScode.append('mflo '+reg2)
+                if(arrays[myarray] == 'array'):
+                    MIPScode.append('sw ' + reg1 + ',' + myarray + '('+reg2+')')
+                else:
+                    reg4 = getreg(Instr, myarray, symTableNo)
+                    reg5 = getreg(Instr, '0', symTableNo)
+                    MIPScode.append('add '+ reg5+','+reg4+','+reg2)
+                    MIPScode.append('sw ' + reg1 + ',' + '0('+ reg5 +')')
+            elif (Instr3AC[Instr].input1[-1] == ']'):
+                ind = Instr3AC[Instr].input1.find('[')
+                index = Instr3AC[Instr].input1[ind+1:-1]
+                if(is_int(index) == False):
+                    index += '1'
+                myarray = Instr3AC[Instr].input1[0:ind]
+                myarray += '1'
+                print 'myarray'+myarray
+                reg1 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
+                reg2 = getreg(Instr, index, symTableNo)
+                reg3 = getreg(Instr, '4', symTableNo)
+                MIPScode.append('mult '+reg2+','+reg3)
+                MIPScode.append('mflo '+reg2)
+                if(arrays[myarray] == 'array'):
+                    MIPScode.append('lw ' + reg1 + ',' + myarray + '('+reg2+')')
+                else:
+                    reg4 = getreg(Instr, myarray, symTableNo)
+                    reg5 = getreg(Instr, '0', symTableNo)
+                    MIPScode.append('add '+ reg5+','+reg4+','+reg2)
+                    MIPScode.append('lw ' + reg1 + ',' + '0('+ reg5 +')')
             elif (Instr3AC[Instr].input1[0] == '"' or Instr3AC[Instr].input1[0] == "'"):  #handling string constants
-                reg1 = getreg(Instr, Instr3AC[Instr].output, symTableNo) 
+                reg1 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
                 MIPScode.append('la '+reg1+','+strings[Instr3AC[Instr].input1[1:-2]])
             elif (is_int(Instr3AC[Instr].input1) == True):
                 reg1 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
