@@ -36,7 +36,7 @@ def Logical(i, words):
 
 def Ifgoto(i,words):
     cg.Instr3AC[i].instrType = "ifgoto"
-    if words[1] in ["ble","blt","bge","bgt","beq","bne"]:
+    if words[1] in ["ble","blt","bge","bgt","beq","bne","bg","bl"]:
         cg.Instr3AC[i].operator = words[1]
         cg.Instr3AC[i].input1 = words[2]
         cg.Instr3AC[i].input2 = words[3]

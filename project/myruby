@@ -1,0 +1,4 @@
+#!/bin/bash
+python src/parser/parser.py $1 > code.ir
+python src/codegen/main.py code.ir > code.s
+spim -f code.s

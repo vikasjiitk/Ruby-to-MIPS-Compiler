@@ -9,10 +9,10 @@ def fillDataSection(variables):
     cg.MIPSDatacode.append('.data')
     for var in variables:
         cg.MIPSDatacode.append(var+': .word 0')
-    for key in cg.strings.keys():
-        cg.MIPSDatacode.append(cg.strings[key]+' : .asciiz "' + key + '"')
     for var in cg.arrays.keys():
         cg.MIPSDatacode.append(var+': .space 400')
+    for key in cg.strings.keys():
+        cg.MIPSDatacode.append(cg.strings[key]+' : .asciiz "' + key + '"')
     cg.MIPSDatacode.append('.text')
     cg.MIPSDatacode.append('main:')
 

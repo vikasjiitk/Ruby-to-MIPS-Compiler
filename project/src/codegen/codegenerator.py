@@ -103,8 +103,8 @@ def getreg(Instr, var, symTableNo):
             if(not(Instr3AC[Instr].output == var and Instr3AC[Instr].input1 != var and Instr3AC[Instr].input2 != var)):
                 MIPScode.append('lw '+reg+','+str(var))
             RegDescriptor[var] = reg
-            print var
-            print AddDescriptor
+            # print var
+            # print AddDescriptor
             AddDescriptor[var].append('register')
         else:
             MIPScode.append('addi '+reg+',$0,'+var)
@@ -135,6 +135,7 @@ def getreg(Instr, var, symTableNo):
 
 def code_gen(initial, final):
     global MIPScode
+    global paramReg
     global Instr3AC
     global exit
     for Instr in range(initial,final+1):
@@ -147,13 +148,19 @@ def code_gen(initial, final):
             if Instr3AC[Instr].operator in ["ble","blt","bge","bgt","beq","bne"]:
                 reg2 = getreg(Instr, Instr3AC[Instr].input2, symTableNo)
                 MIPScode.append(Instr3AC[Instr].operator + ' '+ reg1+','+reg2 + ','+ str(Instr3AC[Instr].target))
-            else :
-                MIPScode.append('bgtz ' + reg1 + ','+ str(Instr3AC[Instr].target)) #useless
+            else:
+                reg2 = getreg(Instr, Instr3AC[Instr].input2, symTableNo)
+                reg3 = getreg(Instr, '0', symTableNo)
+                if(Instr3AC[Instr].operator == "bg"):
+                    MIPScode.append('sub '+reg3+','+reg1+','+reg2)
+                    MIPScode.append('bgtz ' + reg3 + ','+ str(Instr3AC[Instr].target)) #useless
+                elif(Instr3AC[Instr].operator == "bl"):
+                    MIPScode.append('sub '+reg3+','+reg2+','+reg1)
+                    MIPScode.append('bgtz ' + reg3 + ','+ str(Instr3AC[Instr].target)) #useless
             freeReg(Instr, symTableNo)
 
         elif Instr3AC[Instr].instrType == 'FunctionCall':
             dumpReg()
-            global paramReg
             MIPScode.append('jal '+ Instr3AC[Instr].label)
             if Instr3AC[Instr].output != "":
                 reg1 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
@@ -162,7 +169,6 @@ def code_gen(initial, final):
             paramReg = 0
 
         elif Instr3AC[Instr].instrType == 'param':
-            global paramReg
             reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
             MIPScode.append('move ' + '$a'+str(paramReg)+','+reg1)
             paramReg += 1
@@ -275,8 +281,8 @@ def code_gen(initial, final):
                 arrays[Instr3AC[Instr].output] = "pointer"
                 reg1 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
                 MIPScode.append('la ' + reg1 + ',' + Instr3AC[Instr].input1)
-            elif(Instr3AC[Instr].input1=='[]'):
-                print 'helloworld'
+            elif (Instr3AC[Instr].input1 == '[]'):
+                paramReg = paramReg
                 # nothing has to be done
                 # reg1 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
                 # MIPScode.append('la '+reg1+','+Instr3AC[Instr].output)
@@ -306,7 +312,7 @@ def code_gen(initial, final):
                     index += '1'
                 myarray = Instr3AC[Instr].input1[0:ind]
                 myarray += '1'
-                print 'myarray'+myarray
+                # print 'myarray'+myarray
                 reg1 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
                 reg2 = getreg(Instr, index, symTableNo)
                 reg3 = getreg(Instr, '4', symTableNo)

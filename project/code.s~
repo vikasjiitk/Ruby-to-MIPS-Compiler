@@ -1,0 +1,102 @@
+.data
+temp41: .word 0
+temp71: .word 0
+temp61: .word 0
+i1: .word 0
+temp101: .word 0
+temp91: .word 0
+temp21: .word 0
+temp81: .word 0
+temp51: .word 0
+a1: .word 0
+temp31: .word 0
+str0 : .asciiz "printing squares:"
+temp11: .space 400
+.text
+main:
+la $s7,temp11
+sw $s7,a1
+addi $s7,$0,0
+sw $s7,temp21
+label1: 
+lw $s7,temp21
+addi $s6,$0,10
+addi $s5,$0,0
+sub $s5,$s7,$s6
+bgtz $s5,label2
+sw $s7,temp21
+lw $s7,temp21
+move $s6,$s7
+move $s5,$s6
+sw $s5,temp31
+move $s5,$s6
+move $s4,$s6
+sw $s6,i1
+mult $s5,$s4
+mflo $s6
+sw $s5,temp41
+sw $s4,temp51
+lw $s4,temp31
+addi $s5,$0,4
+mult $s4,$s5
+mflo $s4
+lw $s3,a1
+addi $s2,$0,0
+add $s2,$s3,$s4
+sw $s6,0($s2)
+sw $s6,temp61
+addi $s6,$0,1
+add $s7,$s7,$s6
+sw $s7,temp21
+j label1
+sw $s4,temp31
+sw $s3,a1
+label2: 
+lw $s7,temp21
+move $s6,$s7
+sw $s7,temp21
+sw $s6,i1
+la $s6,str0
+li $v0, 4
+move $a0, $s6
+syscall
+sw $s6,temp71
+addi $s6,$0,0
+sw $s6,temp81
+label3: 
+lw $s7,temp81
+addi $s6,$0,10
+addi $s5,$0,0
+sub $s5,$s7,$s6
+bgtz $s5,label4
+sw $s7,temp81
+lw $s7,temp81
+move $s6,$s7
+move $s5,$s6
+sw $s6,i1
+sw $s5,temp91
+lw $s6,temp91
+addi $s4,$0,4
+mult $s6,$s4
+mflo $s6
+lw $s3,a1
+addi $s2,$0,0
+add $s2,$s3,$s6
+lw $s5,0($s2)
+li $v0, 1
+move $a0, $s5
+syscall
+sw $s5,temp101
+addi $s5,$0,1
+add $s7,$s7,$s5
+sw $s7,temp81
+j label3
+sw $s3,a1
+sw $s6,temp91
+label4: 
+lw $s7,temp81
+move $s6,$s7
+sw $s7,temp81
+sw $s6,i1
+li $v0,10
+syscall
