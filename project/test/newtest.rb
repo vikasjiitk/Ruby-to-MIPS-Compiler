@@ -1,5 +1,5 @@
 a = 4;
 c = "t";
-b = c;e
+b = c;
 puts c;
 puts "hello";

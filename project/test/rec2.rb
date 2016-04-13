@@ -9,17 +9,8 @@ fact(t3)
 return 0
 end
 
-def ret(n)
-if (n==1)
-return 1
-end
-t1 = n-1
-t = ret(t1)
-puts t
-t2 = t1+1
-return t2
-end
-
-#res = fact(4)
-res = ret(10)
+puts "Enter value of n to compute n! : "
+i = gets
+fact(i)
+puts res
 

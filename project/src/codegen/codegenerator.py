@@ -239,10 +239,13 @@ def code_gen(initial, final):
             freeReg(Instr, symTableNo)
 
         elif Instr3AC[Instr].operator == '+':
+            if(Instr3AC[Instr].input1 in arrays.keys() or Instr3AC[Instr].input2 in arrays.keys()):
+                arrays[Instr3AC[Instr].output] = "pointer"
             reg1 = getreg(Instr, Instr3AC[Instr].input1, symTableNo)
             reg2 = getreg(Instr, Instr3AC[Instr].input2, symTableNo)
             reg3 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
             MIPScode.append('add '+reg3+','+reg1+','+reg2)
+            dumpReg()
             freeReg(Instr, symTableNo)
 
         elif Instr3AC[Instr].operator == '-':
@@ -278,9 +281,18 @@ def code_gen(initial, final):
 
         elif Instr3AC[Instr].operator == '=':
             if(Instr3AC[Instr].input1 in arrays.keys()):
-                arrays[Instr3AC[Instr].output] = "pointer"
-                reg1 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
-                MIPScode.append('la ' + reg1 + ',' + Instr3AC[Instr].input1)
+                # print arrays
+                if(arrays[Instr3AC[Instr].input1] == "array"):
+                    arrays[Instr3AC[Instr].output] = "pointer"
+                    reg1 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
+                    MIPScode.append('la ' + reg1 + ',' + Instr3AC[Instr].input1)
+                    dumpReg()
+                else:
+                    arrays[Instr3AC[Instr].output] = "pointer"
+                    reg1 = getreg(Instr, Instr3AC[Instr].output, symTableNo)
+                    # print ('lw ' + reg1 + ',' + Instr3AC[Instr].input1)
+                    MIPScode.append('lw ' + reg1 + ',' + Instr3AC[Instr].input1)
+                    dumpReg()
             elif (Instr3AC[Instr].input1 == '[]'):
                 paramReg = paramReg
                 # nothing has to be done

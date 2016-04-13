@@ -21,3 +21,15 @@ After execution, run the command
 ```
 make clean
 ```
+
+Features Implemented
+--------- 
+* if else tail  
+* for(with break)  
+* while(with break)  
+* functions and arguments passing with integer return value  
+* Arrays of integers  
+* Recursion  
+* Array Pointers  
+* Data types - Integers, arrays, strings (only printing for string, no operations on strings)
+* I/O - integer input, string and integer output

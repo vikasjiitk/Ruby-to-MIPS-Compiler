@@ -1,5 +1,5 @@
 i = -5
-a = -15
+a = -10
 d = i+a
 if (d<0) then
 if(a>0) then

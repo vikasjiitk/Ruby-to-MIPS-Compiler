@@ -3,7 +3,7 @@ array = []
 def foo(a)
 a = a-1
 if a>=0 then
-array[a] = a*a
+array[a] = a*a*a
 foo(a)
 end
 end

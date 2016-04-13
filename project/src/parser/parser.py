@@ -542,9 +542,9 @@ def p_for_range_variables(p):
     '''
     if(strType(p[1]) != "int"):
         var_dict = ST.varlookup(p[1])
-        if (var_dict["declare"] == False):
+        if (var_dict == False):
             var_dict = globalST.varlookup(p[1])
-            if (var_dict["declare"] == False):
+            if (var_dict == False):
                 sys.exit("DECLARATION ERROR: variable "+str(p[1])+' not declared.')
                 TAC.error = True
         if (var_dict["type"] != "int"):
@@ -788,11 +788,18 @@ def p_expr10(p):
 		p[0] = {"place": p[1]["place"], "type": p[1]["type"]}
 	else:
 		if(p[1]["type"] != "int" or p[3]["type"] != "int"):
-			sys.exit("TYPE ERROR: variable "+str(p[1])+' and '+str(p[3])+' not matching type.')
-			TAC.error = True
-		temp_name = ST.newtemp({"type" : "int"})
-		TAC.emit('Arithmetic',[p[2],temp_name,p[1]["place"],p[3]["place"]])
-		p[0] = {"place": temp_name, "type": p[1]["type"]}
+			if not((p[1]["type"] == "array" and p[3]["type"] == "int") or (p[3]["type"] == "array" and p[1]["type"] == "int")):
+				sys.exit("TYPE ERROR: variable "+str(p[1])+' and '+str(p[3])+' not matching type.')
+				TAC.error = True
+		if(p[1]["type"] == "array" or p[3]["type"] == "array"):
+			print 'hello'
+			temp_name = ST.newtemp({"type" : "array"})
+			TAC.emit('Arithmetic',[p[2],temp_name,p[1]["place"],p[3]["place"]])
+			p[0] = {"place": temp_name, "type": "array"}
+		else:
+			temp_name = ST.newtemp({"type" : "int"})
+			TAC.emit('Arithmetic',[p[2],temp_name,p[1]["place"],p[3]["place"]])
+			p[0] = {"place": temp_name, "type": p[1]["type"]}
 
 def p_expr11(p):
 	'''expr11 : expr11 MULTIPLY expr13

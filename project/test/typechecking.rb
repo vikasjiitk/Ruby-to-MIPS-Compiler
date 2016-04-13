@@ -1,3 +1,4 @@
 a = 5
 b = "hello"
-c = a+d
+c = b
+puts c

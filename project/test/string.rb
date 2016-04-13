@@ -1,1 +1,2 @@
 a = "vikas";
+puts a
