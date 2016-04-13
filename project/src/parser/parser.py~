@@ -80,7 +80,7 @@ def p_statement(p):
             '''
     if(isinstance(p[1],dict)):
         if("loop" in p[1].keys()):
-            sys.exit("ERROR: break statement out of loop")
+            print("ERROR: break statement out of loop")
             TAC.error = True
 
 def p_class_defn(p):
@@ -253,10 +253,10 @@ def p_M_17(p):
     '''M_17 : '''
     funcdict = globalST.funclookup(p[-4])
     if(funcdict==False):
-        sys.exit('ERROR: '+str(p[-4])+' not defined')
+        print ('ERROR:',p[-4], 'not defined')
         TAC.error = True
     elif(funcdict["num"]!=p[-2]):
-        sys.exit('ERROR'+' Number of arguments passed mismatch in '+str(p[-4]))
+        print ('ERROR', 'Number of arguments passed mismatch in',p[-4])
         TAC.error = True
 
 def p_fname2(p):
@@ -316,8 +316,9 @@ def p_func_stmt(p):
               '''
     if(isinstance(p[1],dict)):
         if("loop" in p[1].keys()):
-            sys.exit("ERROR: break statement out of loop")
+            print("ERROR: break statement out of loop")
             TAC.error = True
+            sys.exit(0)
     # i = 1
     # p[0] = ['statement']
     # while(i < len(p)):
@@ -365,8 +366,9 @@ def p_primary(p):
             if (vardict == False):
                 vardict = globalST.varlookup(p[1])
                 if (vardict == False):
-                    sys.exit('ERROR: '+str(p[1])+' not declared')
+                    print ('ERROR: ',p[1],'not declared')
                     TAC.error = True
+                    sys.exit(0)
             p[0] = {"place": p[1], "type": vardict["type"]}
 
 def p_top_stmt(p):
@@ -447,12 +449,12 @@ def p_gen_stmts(p):
     if(len(p)==2):
         if(isinstance(p[1],dict)):
             if ("loop" in p[1].keys()):
-                sys.exit('ERROR: break statement out of loop')
+                print ('ERROR: break statement out of loop')
                 TAC.error = True
     if(len(p)==4):
         if(isinstance(p[3],dict)):
             if ("loop" in p[3].keys()):
-                sys.exit('ERROR: break statement out of loop')
+                print ('ERROR: break statement out of loop')
                 TAC.error = True
 
 def p_gen_stmts2(p):
@@ -545,7 +547,7 @@ def p_for_range_variables(p):
         if (var_dict["declare"] == False):
             var_dict = globalST.varlookup(p[1])
             if (var_dict["declare"] == False):
-                sys.exit("DECLARATION ERROR: variable "+str(p[1])+' not declared.')
+                print("DECLARATION ERROR: variable", p[1], 'not declared.')
                 TAC.error = True
         if (var_dict["type"] != "int"):
             print(p[1], 'not int type.')
@@ -555,10 +557,10 @@ def p_expr(p):
     '''expr :   mlhs EQUAL mrhs
     '''
     if (p[3]["type"] == "string"):
-        sys.exit("TYPE ERROR: variable "+str(p[3])+' string cannot be equated to variable.')
+        print("TYPE ERROR: variable",p[3], 'string cannot be equated to variable.')
         TAC.error = True
     if(p[1]["type"] == "int" and p[3]["type"] != "int"):
-        print("TYPE ERROR: variable "+str(p[1])+' and '+str(p[3])+' not matching type.')
+        print("TYPE ERROR: variable", p[1],'and',p[3], 'not matching type.')
         TAC.error = True
     vardict = ST.varlookup(p[1]["place"])
     if (vardict == False):
@@ -679,7 +681,7 @@ def p_expr5(p):
 		p[0] = {"place": p[1]["place"], "type": p[1]["type"]}
 	else:
 		if(p[1]["type"] != p[3]["type"]):
-			sys.exit("TYPE ERROR: variable "+str(p[1])+' and '+str(p[3])+' not matching type.')
+			print("TYPE ERROR: variable", p[1],'and',p[3], 'not matching type.')
 			TAC.error = True
 		temp_name = ST.newtemp({"type" : "bool"})
 		label_name = ST.newlabel()
@@ -744,7 +746,7 @@ def p_expr7(p):
 		p[0] = {"place": p[1]["place"], "type": p[1]["type"]}
 	else:
 		if(p[1]["type"] != "int" or p[3]["type"] != "int"):
-			sys.exit("TYPE ERROR: variable "+str(p[1])+' and '+str(p[3])+' not matching type.')
+			print("TYPE ERROR: variable", p[1],'and',p[3], 'not matching type.')
 			TAC.error = True
 		temp_name = ST.newtemp({"type" : "int"})
 		TAC.emit('logical',[p[2],temp_name,p[1]["place"],p[3]["place"]])
@@ -758,7 +760,7 @@ def p_expr8(p):
 		p[0] = {"place": p[1]["place"], "type": p[1]["type"]}
 	else:
 		if(p[1]["type"] != "int" or p[3]["type"] != "int"):
-			sys.exit("TYPE ERROR: variable "+str(p[1])+' and '+str(p[3])+' not matching type.')
+			print("TYPE ERROR: variable", p[1],'and',p[3], 'not matching type.')
 			TAC.error = True
 		temp_name = ST.newtemp({"type" : "int"})
 		TAC.emit('logical',[p[2],temp_name,p[1]["place"],p[3]["place"]])
@@ -773,7 +775,7 @@ def p_expr9(p):
 		p[0] = {"place": p[1]["place"], "type": p[1]["type"]}
 	else:
 		if(p[1]["type"] != "int" or p[3]["type"] != "int"):
-			sys.exit("TYPE ERROR: variable "+str(p[1])+' and '+str(p[3])+' not matching type.')
+			print("TYPE ERROR: variable", p[1],'and',p[3], 'not matching type.')
 			TAC.error = True
 		temp_name = ST.newtemp({"type" : "int"})
 		TAC.emit('logical',[p[2],temp_name,p[1]["place"],p[3]["place"]])
@@ -788,7 +790,7 @@ def p_expr10(p):
 		p[0] = {"place": p[1]["place"], "type": p[1]["type"]}
 	else:
 		if(p[1]["type"] != "int" or p[3]["type"] != "int"):
-			sys.exit("TYPE ERROR: variable "+str(p[1])+' and '+str(p[3])+' not matching type.')
+			print("TYPE ERROR: variable", p[1],'and',p[3], 'not matching type.')
 			TAC.error = True
 		temp_name = ST.newtemp({"type" : "int"})
 		TAC.emit('Arithmetic',[p[2],temp_name,p[1]["place"],p[3]["place"]])
@@ -804,7 +806,7 @@ def p_expr11(p):
 		p[0] = {"place": p[1]["place"], "type": p[1]["type"]}
 	else:
 		if(p[1]["type"] != "int" or p[3]["type"] != "int"):
-			sys.exit("TYPE ERROR: variable "+str(p[1])+' and '+str(p[3])+' not matching type.')
+			print("TYPE ERROR: variable", p[1],'and',p[3], 'not matching type.')
 			TAC.error = True
 		temp_name = ST.newtemp({"type" : "int"})
 		TAC.emit('Arithmetic',[p[2],temp_name,p[1]["place"],p[3]["place"]])
@@ -827,7 +829,7 @@ def p_expr13(p):
             if (var_dict == False):
                 var_dict = globalST.varlookup(p[1])
                 if (var_dict == False):
-                    sys.exit("DECLARATION ERROR: variable "+str(p[1])+' not declared.')
+                    print("DECLARATION ERROR: variable", p[1], 'not declared.')
                     TAC.error = True
             # if(var_dict["type"] != "int"):
             #     print("TYPE ERROR: variable", p[1], 'not matching type.')
@@ -857,7 +859,7 @@ def p_array(p):
     if(var_dict == False):
         var_dict = globalST.varlookup(p[1])
         if (var_dict == False):
-            sys.exit("DECLARATION ERROR: variable "+str(p[1])+ ' not declared.')
+            print("DECLARATION ERROR: variable", p[1], 'not declared.')
             TAC.error = True
         elif(var_dict["type"] != "array"):
             print(p[1], 'is not array type.')

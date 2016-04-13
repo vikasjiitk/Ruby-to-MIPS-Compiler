@@ -8,10 +8,8 @@ sq = square(i)
 t = sq+a
 return t;
 end
-puts "Adding and Squaring\n"
-puts "Enter no. to be squared: "
-i = gets
-puts "Enter no. to be added "
-a = gets
+
+i = 5
+a = 1
 t = add2square(i,a);
 puts t;
