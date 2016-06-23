@@ -12,5 +12,6 @@ end
 
 i = 5
 a = 1
+puts sq
 t = add2square(i,a);
 puts t;

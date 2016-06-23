@@ -792,7 +792,7 @@ def p_expr10(p):
 				sys.exit("TYPE ERROR: variable "+str(p[1])+' and '+str(p[3])+' not matching type.')
 				TAC.error = True
 		if(p[1]["type"] == "array" or p[3]["type"] == "array"):
-			print 'hello'
+			# print 'hello'
 			temp_name = ST.newtemp({"type" : "array"})
 			TAC.emit('Arithmetic',[p[2],temp_name,p[1]["place"],p[3]["place"]])
 			p[0] = {"place": temp_name, "type": "array"}
